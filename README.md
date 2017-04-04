@@ -5,7 +5,7 @@
 3. `source venv/bin/activate`
 4. `sudo pip install -r venv-requirements.txt`
 5. `export SECRET_KEY="$(openssl passwd -1 <your password here>)"`
-6. `python3 CanaryCMS/manage.py migrate`
+6. `python CanaryCMS/manage.py migrate`
 
 ## Run
-`python3 CanaryCMS/manage.py runserver 0.0.0.0:8000`
+`python CanaryCMS/manage.py runserver 0.0.0.0:8080`
