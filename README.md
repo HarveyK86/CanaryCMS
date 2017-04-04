@@ -8,4 +8,4 @@
 6. `python3 CanaryCMS/manage.py migrate`
 
 ## Run
-`python3 CanaryCMS/manage.py migrate`
+`python3 CanaryCMS/manage.py runserver 0.0.0.0:8000`
