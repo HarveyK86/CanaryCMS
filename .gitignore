@@ -1,2 +1,3 @@
 venv
-CanaryCMS/CanaryCMS/local-settings.py
+CanaryCMS/CanaryCMS/local_settings.py
+CanaryCMS/db.sqlite3
