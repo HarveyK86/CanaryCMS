@@ -24,13 +24,13 @@ class Page(models.Model):
 
 class Template(models.Model):
     name = models.CharField(max_length=200)
-    template = models.CharField(max_length=200)
+    file = models.CharField(max_length=200)
     def __str__(self):
         return self.name
 
 class Controller(models.Model):
     name = models.CharField(max_length=200)
-    controller = models.CharField(max_length=200)
+    file = models.CharField(max_length=200)
     def __str__(self):
         return self.name
 
