@@ -12,7 +12,7 @@ define([], function() {
             model_arrays: {
                 "pages": "page"
             },
-            interval_tick: 10,
+            interval_tick: 0,
         }
     };
     return $.extend(self, {
