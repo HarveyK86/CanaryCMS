@@ -15,6 +15,11 @@ define([], function() {
             self._log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_templates();
+            var onhashchange = window.onhashchange;
+            window.onhashchange = function() {
+                if (onhashchange) onhashchange();
+                self._init_pages();
+            };
             self._init_pages();
         },
         _init_templates: function() {
@@ -38,9 +43,11 @@ define([], function() {
             }
             $pages.empty();
             self.__init_params.pages.forEach(function(page_config) {
+                var slug = s.slugify(page_config.name);
                 var html = self.page({
                     page: $.extend(page_config, {
-                        slug: s.slugify(page_config.name),
+                        active: window.location.hash === "#" + slug,
+                        slug: slug,
                     }),
                 });
                 var $html = $(html);

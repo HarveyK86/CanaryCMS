@@ -85,4 +85,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 ## Custom
-CONFIG_PK = 3
+CONFIG_PK = 4

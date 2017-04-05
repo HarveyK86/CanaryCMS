@@ -26,7 +26,7 @@ requirejs(["util/parser"], function(parser) {
                 selector = "#page";
                 var $page = $(selector);
                 if ($page.length) {
-                    var onhashchange = function() {
+                    var init_page = function() {
                         $page.empty();
                         if (window.location.hash) {
                             config.header.pages.forEach(function(page_config) {
@@ -45,10 +45,12 @@ requirejs(["util/parser"], function(parser) {
                             });
                         }
                     };
+                    var onhashchange = window.onhashchange;
                     window.onhashchange = function() {
-                        onhashchange();
+                        if (onhashchange) onhashchange();
+                        init_page();
                     };
-                    onhashchange();
+                    init_page();
                 } else {
                     console.error("Could not locate " + selector);
                 }
