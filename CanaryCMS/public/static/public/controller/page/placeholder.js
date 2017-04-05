@@ -1,13 +1,13 @@
-/* global $, _, s */
+/* global $, _ */
 define([], function() {
     var self = {
         config: {
             debug: false,
             templates: [{
-                selector: "#page-template",
-                attribute: "page",
+                selector: "#name-template",
+                attribute: "name",
             }],
-            pages_selector: "#pages",
+            name_selector: "#name",
         }
     };
     return $.extend(self, {
@@ -15,7 +15,7 @@ define([], function() {
             self._log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_templates();
-            self._init_pages();
+            self._init_name();
         },
         _init_templates: function() {
             self._log("_init_templates");
@@ -29,23 +29,19 @@ define([], function() {
                 self[template_config.attribute] = _.template(html);
             });
         },
-        _init_pages: function() {
-            self._log("_init_pages");
-            var $pages = $(self.config.pages_selector);
-            if (!$pages.length) {
-                console.error("Could not locate " + self.config.pages_selector);
+        _init_name: function() {
+            self._log("_init_name");
+            var $name = $(self.config.name_selector);
+            if (!$name.length) {
+                console.error("Could not locate " + self.config.name_selector);
                 return;
             }
-            $pages.empty();
-            self.__init_params.pages.forEach(function(page_config) {
-                var html = self.page({
-                    page: $.extend(page_config, {
-                        slug: s.slugify(page_config.name),
-                    }),
-                });
-                var $html = $(html);
-                $pages.append($html);
+            $name.empty();
+            var html = self.name({
+                name: self.__init_params.name
             });
+            var $html = $(html);
+            $name.append($html);
         },
         _log: function(message, args) {
             if (self.config.debug) {

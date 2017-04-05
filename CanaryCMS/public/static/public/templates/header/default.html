@@ -1,1 +1,16 @@
-<p>Default Header Loaded</p>
+<link rel="stylesheet" type="text/css" href="/static/public/templates/header/default.css">
+<div class="default-header">
+    <table>
+        <thead>
+            <tr>
+                <th><a href="#">Home</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="pages"></tr>
+        </tbody>
+    </table>
+</div>
+<script type="text/template" id="page-template">
+    <td><a href="#<%- page.slug %>"><%- page.name %></a></td>
+</script>
