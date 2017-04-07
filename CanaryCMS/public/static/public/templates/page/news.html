@@ -1,0 +1,12 @@
+<link rel="stylesheet" type="text/css" href="/static/public/templates/page/news.css">
+<div class="news-page" id="posts"></div>
+<script type="text/template" id="post-template">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <h3><%- post.title %></h3>
+            <h5><small><%- post.author %> - <%- post.created_date %></small></h5>
+            <hr>
+            <p><%- post.content %></p>
+        </div>
+    </div>
+</script>

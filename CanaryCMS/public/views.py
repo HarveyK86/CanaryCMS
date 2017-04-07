@@ -36,3 +36,8 @@ def footer(request, pk):
     footer = models.Footer.objects.get(pk=pk)
     json = serializers.serialize('json', [footer])
     return HttpResponse(json, content_type='application/json')
+
+def post(request):
+    posts = models.Post.objects.all()
+    json = serializers.serialize('json', posts)
+    return HttpResponse(json, content_type='application/json')

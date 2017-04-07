@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^template/(?P<pk>[0-9])$', views.template, name='template'),
     url(r'^controller/(?P<pk>[0-9])$', views.controller, name='controller'),
     url(r'^footer/(?P<pk>[0-9])$', views.footer, name='footer'),
+    url(r'^post$', views.post, name='post'),
 ]
