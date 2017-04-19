@@ -1,3 +1,7 @@
+.default-footer {
+    background: white;
+}
+
 .default-footer p {
-    color: blue;
+    color: black;
 }

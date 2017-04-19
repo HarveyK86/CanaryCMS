@@ -5,6 +5,7 @@ requirejs(["util/parser"], function(parser) {
         success: function(response_array) {
             parser.parse_response_array(response_array, function(parsed_array) {
                 var config = parsed_array[0];
+                if (false) console.error(config);
                 var selector = "#header";
                 var $header = $(selector);
                 var template_prefix = "/static/public/";
@@ -25,7 +26,10 @@ requirejs(["util/parser"], function(parser) {
                 }
                 selector = "#page";
                 var $page = $(selector);
+                var maxWidth;
                 if ($page.length) {
+                    var data = $page.data();
+                    maxWidth = data.maxWidth;
                     var init_page = function() {
                         $page.empty();
                         if (window.location.hash) {
@@ -40,7 +44,7 @@ requirejs(["util/parser"], function(parser) {
                                                 page.init(page_config);
                                             });
                                         }
-                                    })
+                                    });
                                 }
                             });
                         }
@@ -53,6 +57,38 @@ requirejs(["util/parser"], function(parser) {
                     init_page();
                 } else {
                     console.error("Could not locate " + selector);
+                }
+                ["left", "right"].forEach(function(side) {
+                    selector = "#" + side + "-sidebar";
+                    var $sidebar = $(selector);
+                    if ($sidebar.length) {
+                        if (config[side + "_sidebar"]) {
+                            var data = $sidebar.data();
+                            var width = data.width;
+                            $sidebar.addClass("col-xs-" + width);
+                            if (maxWidth) maxWidth -= width;
+                            $.get({
+                                url: template_prefix + config[side + "_sidebar"].template.file,
+                                success: function(response) {
+                                    var $template = $(response);
+                                    $sidebar.empty();
+                                    $sidebar.append($template);
+                                    requirejs([config[side + "_sidebar"].controller.file], function(sidebar) {
+                                        sidebar.init($.extend(config[side + "_sidebar"], {
+                                            side: side,
+                                        }));
+                                    });
+                                }
+                            });
+                        } else {
+                            $sidebar.remove();
+                        }
+                    } else {
+                        console.error("Could not locate " + selector);
+                    }
+                });
+                if (maxWidth) {
+                    $page.addClass("col-xs-" + maxWidth);
                 }
                 selector = "#footer";
                 var $footer = $(selector);

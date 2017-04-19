@@ -1,7 +1,7 @@
-.default-header {
+.default-sidebar {
     background: white;
 }
 
-.default-header a {
+.default-sidebar p {
     color: black;
 }

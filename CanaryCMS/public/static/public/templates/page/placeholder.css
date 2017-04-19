@@ -1,3 +1,7 @@
+.placeholder-page {
+    background: white;
+}
+
 .placeholder-page p {
-    color: green;
+    color: black;
 }

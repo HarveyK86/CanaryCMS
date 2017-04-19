@@ -3,13 +3,22 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
         <title>Hello, World!</title>
     </head>
     <body>
         <div class="container">
-            <div id="header"></div>
-            <div id="page"></div>
-            <div id="footer"></div>
+            <div class="row">
+                <div class="col-xs-12" id="header"></div>
+            </div>
+            <div class="row">
+                <div data-width="2" id="left-sidebar"></div>
+                <div data-max-width="12" id="page"></div>
+                <div data-width="2" id="right-sidebar"></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" id="footer"></div>
+            </div>
         </div>
         <!-- JQuery -->
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

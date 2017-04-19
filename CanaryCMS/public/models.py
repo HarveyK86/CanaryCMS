@@ -4,6 +4,8 @@ from django.utils import timezone
 class Config(models.Model):
     name = models.CharField(max_length=200)
     header = models.ForeignKey('public.Header')
+    left_sidebar = models.ForeignKey('public.Sidebar', related_name="left_sidebar", null=True, blank=True)
+    right_sidebar = models.ForeignKey('public.Sidebar', related_name="right_sidebar", null=True, blank=True)
     footer = models.ForeignKey('public.Footer')
     def __str__(self):
         return "Config: " + self.name
@@ -15,6 +17,13 @@ class Header(models.Model):
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
         return "Header: " + self.name
+
+class Sidebar(models.Model):
+    name = models.CharField(max_length=200)
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return "Sidebar: " + self.name
 
 class Page(models.Model):
     name = models.CharField(max_length=200)

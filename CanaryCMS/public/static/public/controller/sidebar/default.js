@@ -4,10 +4,10 @@ define([], function() {
         config: {
             debug: false,
             templates: [{
-                selector: "#page-name-template",
-                attribute: "page_name",
+                selector: "#sidebar-name-template",
+                attribute: "sidebar_name",
             }],
-            page_name_selector: "#page-name",
+            sidebar_name_selector: "#sidebar-name",
         }
     };
     return $.extend(self, {
@@ -15,7 +15,7 @@ define([], function() {
             self._log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_templates();
-            self._init_page_name();
+            self._init_sidebar_name();
         },
         _init_templates: function() {
             self._log("_init_templates");
@@ -29,19 +29,19 @@ define([], function() {
                 self[template_config.attribute] = _.template(html);
             });
         },
-        _init_page_name: function() {
-            self._log("_init_page_name");
-            var $page_name = $(self.config.page_name_selector);
-            if (!$page_name.length) {
-                console.error("Could not locate " + self.config.page_name_selector);
+        _init_sidebar_name: function() {
+            self._log("_init_sidebar_name");
+            var $sidebar_name = $(self.config.sidebar_name_selector);
+            if (!$sidebar_name.length) {
+                console.error("Could not locate " + self.config.sidebar_name_selector);
                 return;
             }
-            $page_name.empty();
-            var html = self.page_name({
-                page_name: self.__init_params.name
+            $sidebar_name.empty();
+            var html = self.sidebar_name({
+                sidebar_name: self.__init_params.name
             });
             var $html = $(html);
-            $page_name.append($html);
+            $sidebar_name.append($html);
         },
         _log: function(message, args) {
             if (self.config.debug) {

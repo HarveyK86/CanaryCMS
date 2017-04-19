@@ -6,9 +6,11 @@ define([], function() {
             models: [
                 "user",
                 "header",
+                "left_sidebar",
+                "right_sidebar",
+                "footer",
                 "template",
                 "controller",
-                "footer",
             ],
             model_arrays: {
                 "pages": "page"
@@ -76,15 +78,19 @@ define([], function() {
         },
         _parse_field_item: function(field, field_item, callback) {
             self._log("_parse_field_item[field, field_item, callback]", [field, field_item, callback]);
-            $.get({
-                url: field + "/" + field_item,
-                success: function(response_array) {
-                    self.parse_response_array(response_array, function(parsed_array) {
-                        self._log("_parse_field_item returning", parsed_array[0]);
-                        callback(field, parsed_array[0]);
-                    });
-                }
-            });
+            if (field_item) {
+                $.get({
+                    url: field + "/" + field_item,
+                    success: function(response_array) {
+                        self.parse_response_array(response_array, function(parsed_array) {
+                            self._log("_parse_field_item returning", parsed_array[0]);
+                            callback(field, parsed_array[0]);
+                        });
+                    }
+                });
+            } else {
+                callback(field);
+            }
         },
         _parse_field_array: function(field, field_array, callback) {
             self._log("_parse_field_array[field, field_array, callback]", [field, field_array, callback]);

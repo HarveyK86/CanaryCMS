@@ -28,36 +28,6 @@ def user(request, pk):
     }])
     return HttpResponse(json_obj, content_type='application/json')
 
-def header(request, pk):
-    header = models.Header.objects.get(pk=pk)
-    json_obj = serializers.serialize('json', [header])
-    return HttpResponse(json_obj, content_type='application/json')
-
-def page(request, pk):
-    page = models.Page.objects.get(pk=pk)
-    json_obj = serializers.serialize('json', [page])
-    return HttpResponse(json_obj, content_type='application/json')
-
-def template(request, pk):
-    template = models.Template.objects.get(pk=pk)
-    json_obj = serializers.serialize('json', [template])
-    return HttpResponse(json_obj, content_type='application/json')
-
-def controller(request, pk):
-    controller = models.Controller.objects.get(pk=pk)
-    json_obj = serializers.serialize('json', [controller])
-    return HttpResponse(json_obj, content_type='application/json')
-
-def footer(request, pk):
-    footer = models.Footer.objects.get(pk=pk)
-    json_obj = serializers.serialize('json', [footer])
-    return HttpResponse(json_obj, content_type='application/json')
-
-def post(request):
-    posts = models.Post.objects.all()
-    json_obj = serializers.serialize('json', posts)
-    return HttpResponse(json_obj, content_type='application/json')
-
 def datetime_func(request, timestamp):
     datetime_obj = parse_datetime(timestamp)
     epoch = datetime.datetime(1970, 1, 1, 0, 0, 0, 0, tzinfo=datetime.timezone.utc)
@@ -71,4 +41,39 @@ def datetime_func(request, timestamp):
             "epoch_time": epoch_time,
         },
     }])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def header(request, pk):
+    header = models.Header.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [header])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def sidebar(request, pk):
+    sidebar = models.Sidebar.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [sidebar])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def page(request, pk):
+    page = models.Page.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [page])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def post(request):
+    posts = models.Post.objects.all()
+    json_obj = serializers.serialize('json', posts)
+    return HttpResponse(json_obj, content_type='application/json')
+
+def footer(request, pk):
+    footer = models.Footer.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [footer])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def template(request, pk):
+    template = models.Template.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [template])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def controller(request, pk):
+    controller = models.Controller.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [controller])
     return HttpResponse(json_obj, content_type='application/json')
