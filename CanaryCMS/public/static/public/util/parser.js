@@ -4,6 +4,7 @@ define([], function() {
         config: {
             debug: false,
             models: [
+                "user",
                 "header",
                 "template",
                 "controller",
@@ -12,6 +13,7 @@ define([], function() {
             model_arrays: {
                 "pages": "page"
             },
+            date_suffix: "datetime",
             interval_tick: 0,
         }
     };
@@ -52,6 +54,12 @@ define([], function() {
                     out++;
                     self._parse_field_array(field, response_item.fields[field], function(parsed_field, parsed_field_array) {
                         parsed_item[parsed_field] = parsed_field_array;
+                        out--;
+                    });
+                } else if (field.endsWith(self.config.date_suffix)) {
+                    out++;
+                    self._parse_field_date(field, response_item.fields[field], function(parsed_field, parsed_field_date) {
+                        parsed_item[parsed_field] = parsed_field_date;
                         out--;
                     });
                 } else {
@@ -106,6 +114,18 @@ define([], function() {
                     self.parse_response_array(response_array, function(parsed_array) {
                         self._log("_parse_field_array_item returning", parsed_array[0]);
                         callback(index, parsed_array[0]);
+                    });
+                }
+            });
+        },
+        _parse_field_date: function(field, field_date, callback) {
+            self._log("_parse_field_date[field, field_item, callback]", [field, field_date, callback]);
+            $.get({
+                url: self.config.date_suffix + "/" + encodeURIComponent(field_date),
+                success: function(response_array) {
+                    self.parse_response_array(response_array, function(parsed_array) {
+                        self._log("_parse_field_date returning", parsed_array[0]);
+                        callback(field, parsed_array[0]);
                     });
                 }
             });
