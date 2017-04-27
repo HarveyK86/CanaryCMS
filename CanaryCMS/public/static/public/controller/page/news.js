@@ -1,5 +1,5 @@
 /* global requirejs, $ */
-define(["util/logger", "util/parser", "util/templater"], function(logger, parser, templater) {
+define(["util/logger", "util/templater", "service/post"], function(logger, templater, post) {
     var self = {
         config: {
             name: "page/news",
@@ -23,23 +23,18 @@ define(["util/logger", "util/parser", "util/templater"], function(logger, parser
                 return;
             }
             $posts.empty();
-            $.get({
-                url: "post",
-                success: function(response_array) {
-                    parser.parse_response_array(response_array, function(parsed_array) {
-                        parsed_array.forEach(function(post_config) {
-                            self.__templater.http_get(post_config.template.file, function($template) {
-                                $template.attr("id", "post-" + post_config.id);
-                                $posts.append($template);
-                                requirejs([post_config.controller.file], function(post) {
-                                    post.init($.extend(post_config, {
-                                        selector_prefix: "#post-" + post_config.id + " ",
-                                    }));
-                                });
-                            });
+            post.api_get(function(post_configs) {
+                post_configs.forEach(function(post_config) {
+                    self.__templater.http_get(post_config.template.file, function($template) {
+                        $template.attr("id", "post-" + post_config.id);
+                        $posts.append($template);
+                        requirejs([post_config.controller.file], function(post) {
+                            post.init($.extend(post_config, {
+                                selector_prefix: "#post-" + post_config.id + " ",
+                            }));
                         });
                     });
-                }
+                });
             });
         },
     });

@@ -1,5 +1,5 @@
 /* global requirejs, $, s */
-requirejs(["util/logger", "util/parser", "util/templater", "util/listener"], function(logger, parser, templater, listener) {
+requirejs(["util/logger", "util/templater", "util/listener", "service/config"], function(logger, templater, listener, config) {
     var self = {
         config: {
             name: "index",
@@ -9,19 +9,14 @@ requirejs(["util/logger", "util/parser", "util/templater", "util/listener"], fun
     var inst = $.extend(self, {
         init: function() {
             self.__logger = logger.get_logger(self);
-            $.get({
-                url: "config",
-                success: function(response_array) {
-                    parser.parse_response_array(response_array, function(parsed_array) {
-                        self.__init_params = parsed_array[0];
-                        self.__logger.log("init", self.__init_params);
-                        self.__templater = templater.get_templater(self);
-                        self._init_header();
-                        self._init_page();
-                        self._init_sidebars();
-                        self._init_footer();
-                    });
-                },
+            config.api_get(function(init_params) {
+                self.__init_params = init_params;
+                self.__logger.log("init", self.__init_params);
+                self.__templater = templater.get_templater(self);
+                self._init_header();
+                self._init_page();
+                self._init_sidebars();
+                self._init_footer();
             });
         },
         _init_header: function() {
