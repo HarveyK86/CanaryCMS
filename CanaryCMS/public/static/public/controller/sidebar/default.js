@@ -1,19 +1,21 @@
-/* global requirejs, $, _ */
-define([], function() {
+/* global requirejs, $ */
+define(["util/logger"], function(logger) {
     var self = {
         config: {
+            name: "sidebar/default",
             debug: false,
             widgets_selector: "#widgets",
         }
     };
     return $.extend(self, {
         init: function(init_params) {
-            self._log("init[init_params]", init_params);
+            self.__logger = logger.get_logger(self);
+            self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_widgets();
         },
         _init_widgets: function() {
-            self._log("_init_widgets");
+            self.__logger.log("_init_widgets");
             var $widgets = $(self.config.widgets_selector);
             if (!$widgets.length) {
                 console.error("Could not locate " + self.config.widgets_selector);
@@ -36,14 +38,5 @@ define([], function() {
                 });
             });
         },
-        _log: function(message, args) {
-            if (self.config.debug) {
-                if (args) {
-                    console.info(message, args);
-                } else {
-                    console.info(message);
-                }
-            }
-        }
     });
 });

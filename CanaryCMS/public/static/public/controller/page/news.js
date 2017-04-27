@@ -1,19 +1,21 @@
 /* global requirejs, $ */
-define(["util/parser"], function(parser) {
+define(["util/logger", "util/parser"], function(logger, parser) {
     var self = {
         config: {
+            name: "page/news",
             debug: false,
             posts_selector: "#posts",
         }
     };
     return $.extend(self, {
         init: function(init_params) {
-            self._log("init[init_params]", init_params);
+            self.__logger = logger.get_logger(self);
+            self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_posts();
         },
         _init_posts: function() {
-            self._log("_init_posts");
+            self.__logger.log("_init_posts");
             var $posts = $(self.config.posts_selector);
             if (!$posts.length) {
                 console.error("Could not locate " + self.config.posts_selector);
@@ -43,14 +45,5 @@ define(["util/parser"], function(parser) {
                 }
             });
         },
-        _log: function(message, args) {
-            if (self.config.debug) {
-                if (args) {
-                    console.info(message, args);
-                } else {
-                    console.info(message);
-                }
-            }
-        }
     });
 });

@@ -1,7 +1,8 @@
 /* global $, _ */
-define([], function() {
+define(["util/logger"], function(logger) {
     var self = {
         config: {
+            name: "post/default",
             debug: false,
             templates: [{
                 selector: "[name='post-template']",
@@ -12,13 +13,14 @@ define([], function() {
     };
     return $.extend(self, {
         init: function(init_params) {
-            self._log("init[init_params]", init_params);
+            self.__logger = logger.get_logger(self);
+            self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_templates();
             self._init_post_container();
         },
         _init_templates: function() {
-            self._log("_init_templates");
+            self.__logger.log("_init_templates");
             self.config.templates.forEach(function(template_config) {
                 var selector = self.__init_params.selector_prefix + template_config.selector;
                 var $template = $(selector);
@@ -34,7 +36,7 @@ define([], function() {
             });
         },
         _init_post_container: function() {
-            self._log("_init_post_container");
+            self.__logger.log("_init_post_container");
             var selector = self.__init_params.selector_prefix + self.config.post_container_selector;
             var $post_container = $(selector);
             if (!$post_container.length) {
@@ -50,14 +52,5 @@ define([], function() {
             var $html = $(html);
             $post_container.append($html);
         },
-        _log: function(message, args) {
-            if (self.config.debug) {
-                if (args) {
-                    console.info(message, args);
-                } else {
-                    console.info(message);
-                }
-            }
-        }
     });
 });

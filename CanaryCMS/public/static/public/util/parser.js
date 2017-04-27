@@ -1,7 +1,8 @@
 /* global $, _ */
-define([], function() {
+define(["util/logger"], function(logger) {
     var self = {
         config: {
+            name: "parser",
             debug: false,
             models: [
                 "user",
@@ -18,11 +19,15 @@ define([], function() {
             },
             date_suffix: "datetime",
             interval_tick: 0,
-        }
+        },
     };
-    return $.extend(self, {
+    var inst = $.extend(self, {
+        init: function() {
+            self.__logger = logger.get_logger(self);
+            self.__logger.log("init");
+        },
         parse_response_array: function(response_array, callback) {
-            self._log("parse_response_array[response_array, callback]", [response_array, callback]);
+            self.__logger.log("parse_response_array[response_array, callback]", [response_array, callback]);
             var out = 0;
             var parsed_array = [];
             var interval;
@@ -36,13 +41,13 @@ define([], function() {
             interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
-                    self._log("parse_response_array returning", parsed_array);
+                    self.__logger.log("parse_response_array returning", parsed_array);
                     callback(parsed_array);
                 }
             }, self.config.interval_tick);
         },
         _parse_response_item: function(index, response_item, callback) {
-            self._log("_parse_response_item[index, response_item, callback]", [index, response_item, callback]);
+            self.__logger.log("_parse_response_item[index, response_item, callback]", [index, response_item, callback]);
             var out = 0;
             var parsed_item = {
                 id: response_item.pk,
@@ -74,19 +79,19 @@ define([], function() {
             interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
-                    self._log("_parse_response_item returning", parsed_item);
+                    self.__logger.log("_parse_response_item returning", parsed_item);
                     callback(index, parsed_item);
                 }
             }, self.config.interval_tick);
         },
         _parse_field_item: function(field, field_item, callback) {
-            self._log("_parse_field_item[field, field_item, callback]", [field, field_item, callback]);
+            self.__logger.log("_parse_field_item[field, field_item, callback]", [field, field_item, callback]);
             if (field_item) {
                 $.get({
                     url: field + "/" + field_item,
                     success: function(response_array) {
                         self.parse_response_array(response_array, function(parsed_array) {
-                            self._log("_parse_field_item returning", parsed_array[0]);
+                            self.__logger.log("_parse_field_item returning", parsed_array[0]);
                             callback(field, parsed_array[0]);
                         });
                     }
@@ -96,7 +101,7 @@ define([], function() {
             }
         },
         _parse_field_array: function(field, field_array, callback) {
-            self._log("_parse_field_array[field, field_array, callback]", [field, field_array, callback]);
+            self.__logger.log("_parse_field_array[field, field_array, callback]", [field, field_array, callback]);
             var out = 0;
             var parsed_array = [];
             var interval;
@@ -110,43 +115,36 @@ define([], function() {
             interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
-                    self._log("_parse_field_array returning", parsed_array);
+                    self.__logger.log("_parse_field_array returning", parsed_array);
                     callback(field, parsed_array);
                 }
             }, self.config.interval_tick);
         },
         _parse_field_array_item: function(index, model, field_array_item, callback) {
-            self._log("_parse_field_array_item[index, model, field_array_item, callback]", [index, model, field_array_item, callback]);
+            self.__logger.log("_parse_field_array_item[index, model, field_array_item, callback]", [index, model, field_array_item, callback]);
             $.get({
                 url: model + "/" + field_array_item,
                 success: function(response_array) {
                     self.parse_response_array(response_array, function(parsed_array) {
-                        self._log("_parse_field_array_item returning", parsed_array[0]);
+                        self.__logger.log("_parse_field_array_item returning", parsed_array[0]);
                         callback(index, parsed_array[0]);
                     });
                 }
             });
         },
         _parse_field_date: function(field, field_date, callback) {
-            self._log("_parse_field_date[field, field_item, callback]", [field, field_date, callback]);
+            self.__logger.log("_parse_field_date[field, field_item, callback]", [field, field_date, callback]);
             $.get({
                 url: self.config.date_suffix + "/" + encodeURIComponent(field_date),
                 success: function(response_array) {
                     self.parse_response_array(response_array, function(parsed_array) {
-                        self._log("_parse_field_date returning", parsed_array[0]);
+                        self.__logger.log("_parse_field_date returning", parsed_array[0]);
                         callback(field, parsed_array[0]);
                     });
                 }
             });
         },
-        _log: function(message, args) {
-            if (self.config.debug) {
-                if (args) {
-                    console.info(message, args);
-                } else {
-                    console.info(message);
-                }
-            }
-        }
     });
+    inst.init();
+    return inst;
 });

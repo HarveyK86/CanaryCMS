@@ -1,19 +1,21 @@
 /* global requirejs, $, s */
-requirejs(["util/parser"], function(parser) {
+requirejs(["util/logger", "util/parser"], function(logger, parser) {
     var self = {
         config: {
+            name: "index",
             debug: false,
             template_prefix: "/static/public/",
         }
     };
     var inst = $.extend(self, {
         init: function() {
+            self.__logger = logger.get_logger(self);
             $.get({
                 url: "config",
                 success: function(response_array) {
                     parser.parse_response_array(response_array, function(parsed_array) {
                         self.__init_params = parsed_array[0];
-                        self._log("init", self.__init_params);
+                        self.__logger.log("init", self.__init_params);
                         self._init_header();
                         self._init_page();
                         self._init_sidebars();
@@ -23,7 +25,7 @@ requirejs(["util/parser"], function(parser) {
             });
         },
         _init_header: function() {
-            self._log("_init_header");
+            self.__logger.log("_init_header");
             var selector = "#header";
             var $header = $(selector);
             if ($header.length) {
@@ -43,7 +45,7 @@ requirejs(["util/parser"], function(parser) {
             }
         },
         _init_page: function() {
-            self._log("_init_page");
+            self.__logger.log("_init_page");
             var selector = "#page";
             var $page = $(selector);
             if ($page.length) {
@@ -83,7 +85,7 @@ requirejs(["util/parser"], function(parser) {
         },
         _init_sidebars: function() {
             ["left", "right"].forEach(function(side) {
-                self._log("_init_sidebars", side);
+                self.__logger.log("_init_sidebars", side);
                 var selector = "#" + side + "-sidebar";
                 var $sidebar = $(selector);
                 if ($sidebar.length) {
@@ -124,7 +126,7 @@ requirejs(["util/parser"], function(parser) {
             }
         },
         _init_footer: function() {
-            self._log("_init_footer");
+            self.__logger.log("_init_footer");
             var selector = "#footer";
             var $footer = $(selector);
             if ($footer.length) {
@@ -143,15 +145,6 @@ requirejs(["util/parser"], function(parser) {
                 console.error("Could not locate " + selector);
             }
         },
-        _log: function(message, args) {
-            if (self.config.debug) {
-                if (args) {
-                    console.info(message, args);
-                } else {
-                    console.info(message);
-                }
-            }
-        }
     });
     inst.init();
 });

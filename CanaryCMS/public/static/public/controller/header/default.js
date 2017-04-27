@@ -1,7 +1,8 @@
 /* global $, _, s */
-define([], function() {
+define(["util/logger"], function(logger) {
     var self = {
         config: {
+            name: "header/default",
             debug: false,
             templates: [{
                 selector: "#page-template",
@@ -12,7 +13,8 @@ define([], function() {
     };
     return $.extend(self, {
         init: function(init_params) {
-            self._log("init[init_params]", init_params);
+            self.__logger = logger.get_logger(self);
+            self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
             self._init_templates();
             var onhashchange = window.onhashchange;
@@ -23,7 +25,7 @@ define([], function() {
             self._init_pages();
         },
         _init_templates: function() {
-            self._log("_init_templates");
+            self.__logger.log("_init_templates");
             self.config.templates.forEach(function(template_config) {
                 var $template = $(template_config.selector);
                 if (!$template.length) {
@@ -35,7 +37,7 @@ define([], function() {
             });
         },
         _init_pages: function() {
-            self._log("_init_pages");
+            self.__logger.log("_init_pages");
             var $pages = $(self.config.pages_selector);
             if (!$pages.length) {
                 console.error("Could not locate " + self.config.pages_selector);
@@ -54,14 +56,5 @@ define([], function() {
                 $pages.append($html);
             });
         },
-        _log: function(message, args) {
-            if (self.config.debug) {
-                if (args) {
-                    console.info(message, args);
-                } else {
-                    console.info(message);
-                }
-            }
-        }
     });
 });
