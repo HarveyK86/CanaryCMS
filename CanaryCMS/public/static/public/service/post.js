@@ -3,7 +3,7 @@ define(["util/logger", "util/parser"], function(logger, parser) {
     var self = {
         config: {
             name: "service/post",
-            debug: true,
+            debug: false,
             api_url: "post",
         }
     };

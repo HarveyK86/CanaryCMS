@@ -5,6 +5,7 @@ define([], function() {
             name: "logger",
             debug: false,
             debug_override: false,
+            args_override: false,
         }
     };
     var inst = $.extend(self, {
@@ -23,7 +24,7 @@ define([], function() {
         },
         _log: function(obj, message, args) {
             if (self.config.debug_override || obj.config.debug) {
-                if (args) {
+                if (!self.config.args_override && args) {
                     console.info(obj.config.name, message, args);
                 } else {
                     console.info(obj.config.name, message);
