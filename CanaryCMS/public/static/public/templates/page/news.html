@@ -1,12 +1,4 @@
 <link rel="stylesheet" type="text/css" href="/static/public/templates/page/news.css">
-<div class="news-page" id="posts"></div>
-<script type="text/template" id="post-template">
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h3><%- post.title %></h3>
-            <h5><small><%- post.user.username %> - <%- new Date(post.created_datetime.epoch_time) %></small></h5>
-            <hr>
-            <p><%- post.content %></p>
-        </div>
-    </div>
-</script>
+<div class="news-page">
+    <div id="posts"></div>
+</div>

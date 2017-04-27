@@ -13,7 +13,8 @@ define([], function() {
                 "controller",
             ],
             model_arrays: {
-                "pages": "page"
+                "widgets": "widget",
+                "pages": "page",
             },
             date_suffix: "datetime",
             interval_tick: 0,
@@ -43,7 +44,9 @@ define([], function() {
         _parse_response_item: function(index, response_item, callback) {
             self._log("_parse_response_item[index, response_item, callback]", [index, response_item, callback]);
             var out = 0;
-            var parsed_item = {};
+            var parsed_item = {
+                id: response_item.pk,
+            };
             var interval;
             for (var field in response_item.fields) {
                 if (_.contains(self.config.models, field)) {

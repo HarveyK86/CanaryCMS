@@ -1,12 +1,8 @@
-/* global $, _ */
+/* global requirejs, $ */
 define(["util/parser"], function(parser) {
     var self = {
         config: {
             debug: false,
-            templates: [{
-                selector: "#post-template",
-                attribute: "post",
-            }],
             posts_selector: "#posts",
         }
     };
@@ -14,20 +10,7 @@ define(["util/parser"], function(parser) {
         init: function(init_params) {
             self._log("init[init_params]", init_params);
             self.__init_params = init_params;
-            self._init_templates();
             self._init_posts();
-        },
-        _init_templates: function() {
-            self._log("_init_templates");
-            self.config.templates.forEach(function(template_config) {
-                var $template = $(template_config.selector);
-                if (!$template.length) {
-                    console.error("Could not locate " + template_config.selector);
-                    return;
-                }
-                var html = $template.html();
-                self[template_config.attribute] = _.template(html);
-            });
         },
         _init_posts: function() {
             self._log("_init_posts");
@@ -41,12 +24,20 @@ define(["util/parser"], function(parser) {
                 url: "post",
                 success: function(response_array) {
                     parser.parse_response_array(response_array, function(parsed_array) {
-                        parsed_array.forEach(function(post) {
-                            var html = self.post({
-                                post: post
+                        parsed_array.forEach(function(post_config) {
+                            $.get({
+                                url: self.__init_params.template_prefix + post_config.template.file,
+                                success: function(response) {
+                                    var $template = $(response);
+                                    $template.attr("id", "post-" + post_config.id);
+                                    $posts.append($template);
+                                    requirejs([post_config.controller.file], function(post) {
+                                        post.init($.extend(post_config, {
+                                            selector_prefix: "#post-" + post_config.id + " ",
+                                        }));
+                                    });
+                                },
                             });
-                            var $html = $(html);
-                            $posts.append($html);
                         });
                     });
                 }

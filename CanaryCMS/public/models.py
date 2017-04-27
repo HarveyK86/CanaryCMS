@@ -8,7 +8,7 @@ class Config(models.Model):
     right_sidebar = models.ForeignKey('public.Sidebar', related_name="right_sidebar", null=True, blank=True)
     footer = models.ForeignKey('public.Footer')
     def __str__(self):
-        return "Config: " + self.name
+        return self.name
 
 class Header(models.Model):
     name = models.CharField(max_length=200)
@@ -16,45 +16,56 @@ class Header(models.Model):
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
-        return "Header: " + self.name
+        return self.name
 
 class Sidebar(models.Model):
     name = models.CharField(max_length=200)
+    widgets = models.ManyToManyField('public.Widget')
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
-        return "Sidebar: " + self.name
+        return self.name
+
+class Widget(models.Model):
+    name = models.CharField(max_length=200)
+    content = models.TextField()
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return self.name
 
 class Page(models.Model):
     name = models.CharField(max_length=200)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
-        return "Page: " + self.name
+        return self.name
+
+class Post(models.Model):
+    user = models.ForeignKey('auth.User')
+    title = models.CharField(max_length=200)
+    created_datetime = models.DateTimeField(default=timezone.now)
+    content = models.TextField()
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return self.title
 
 class Template(models.Model):
     name = models.CharField(max_length=200)
     file = models.CharField(max_length=200)
     def __str__(self):
-        return "Template: " + self.name
+        return self.name
 
 class Controller(models.Model):
     name = models.CharField(max_length=200)
     file = models.CharField(max_length=200)
     def __str__(self):
-        return "Controller: " + self.name
+        return self.name
 
 class Footer(models.Model):
     name = models.CharField(max_length=200)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
-        return "Footer: " + self.name
-
-class Post(models.Model):
-    user = models.ForeignKey('auth.User')
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    created_datetime = models.DateTimeField(default=timezone.now)
-    def __str__(self):
-        return "Post: " + self.title
+        return self.name

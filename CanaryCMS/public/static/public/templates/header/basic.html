@@ -1,0 +1,16 @@
+<link rel="stylesheet" type="text/css" href="/static/public/templates/header/basic.css">
+<div class="basic-header">
+    <table>
+        <thead>
+            <tr>
+                <th><a href="#">Home</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr id="pages"></tr>
+        </tbody>
+    </table>
+    <script type="text/template" id="page-template">
+        <td><a href="#<%- page.slug %>"><%- page.name %></a></td>
+    </script>
+</div>

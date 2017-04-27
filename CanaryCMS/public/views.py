@@ -53,6 +53,11 @@ def sidebar(request, pk):
     json_obj = serializers.serialize('json', [sidebar])
     return HttpResponse(json_obj, content_type='application/json')
 
+def widget(request, pk):
+    widget = models.Widget.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [widget])
+    return HttpResponse(json_obj, content_type='application/json')
+
 def page(request, pk):
     page = models.Page.objects.get(pk=pk)
     json_obj = serializers.serialize('json', [page])

@@ -1,7 +1,4 @@
 .placeholder-page {
-    background: white;
-}
-
-.placeholder-page p {
-    color: black;
+    background: #EEFFEE;
+    padding: 10px;
 }

@@ -1,0 +1,9 @@
+.basic-widget {
+    background: #DDFFDD;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.basic-widget img {
+    max-width: 220px;
+}

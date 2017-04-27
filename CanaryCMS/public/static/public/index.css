@@ -1,3 +1,7 @@
 body {
     background: url("/static/public/images/stripe.png");
 }
+
+.thumbnail {
+    margin-bottom: 0px;
+}

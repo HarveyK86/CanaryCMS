@@ -1,114 +1,157 @@
 /* global requirejs, $, s */
 requirejs(["util/parser"], function(parser) {
-    $.get({
-        url: "config",
-        success: function(response_array) {
-            parser.parse_response_array(response_array, function(parsed_array) {
-                var config = parsed_array[0];
-                if (false) console.error(config);
-                var selector = "#header";
-                var $header = $(selector);
-                var template_prefix = "/static/public/";
-                if ($header.length) {
-                    $.get({
-                        url: template_prefix + config.header.template.file,
-                        success: function(response) {
-                            var $template = $(response);
-                            $header.empty();
-                            $header.append($template);
-                            requirejs([config.header.controller.file], function(header) {
-                                header.init(config.header);
-                            });
-                        }
+    var self = {
+        config: {
+            debug: false,
+            template_prefix: "/static/public/",
+        }
+    };
+    var inst = $.extend(self, {
+        init: function() {
+            $.get({
+                url: "config",
+                success: function(response_array) {
+                    parser.parse_response_array(response_array, function(parsed_array) {
+                        self.__init_params = parsed_array[0];
+                        self._log("init", self.__init_params);
+                        self._init_header();
+                        self._init_page();
+                        self._init_sidebars();
+                        self._init_footer();
                     });
-                } else {
-                    console.error("Could not locate " + selector);
-                }
-                selector = "#page";
-                var $page = $(selector);
-                var maxWidth;
-                if ($page.length) {
-                    var data = $page.data();
-                    maxWidth = data.maxWidth;
-                    var init_page = function() {
-                        $page.empty();
-                        if (window.location.hash) {
-                            config.header.pages.forEach(function(page_config) {
-                                if (window.location.hash === "#" + s.slugify(page_config.name)) {
-                                    $.get({
-                                        url: template_prefix + page_config.template.file,
-                                        success: function(response) {
-                                            var $template = $(response);
-                                            $page.append($template);
-                                            requirejs([page_config.controller.file], function(page) {
-                                                page.init(page_config);
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    };
-                    var onhashchange = window.onhashchange;
-                    window.onhashchange = function() {
-                        if (onhashchange) onhashchange();
-                        init_page();
-                    };
-                    init_page();
-                } else {
-                    console.error("Could not locate " + selector);
-                }
-                ["left", "right"].forEach(function(side) {
-                    selector = "#" + side + "-sidebar";
-                    var $sidebar = $(selector);
-                    if ($sidebar.length) {
-                        if (config[side + "_sidebar"]) {
-                            var data = $sidebar.data();
-                            var width = data.width;
-                            $sidebar.addClass("col-xs-" + width);
-                            if (maxWidth) maxWidth -= width;
-                            $.get({
-                                url: template_prefix + config[side + "_sidebar"].template.file,
-                                success: function(response) {
-                                    var $template = $(response);
-                                    $sidebar.empty();
-                                    $sidebar.append($template);
-                                    requirejs([config[side + "_sidebar"].controller.file], function(sidebar) {
-                                        sidebar.init($.extend(config[side + "_sidebar"], {
-                                            side: side,
-                                        }));
-                                    });
-                                }
-                            });
-                        } else {
-                            $sidebar.remove();
-                        }
-                    } else {
-                        console.error("Could not locate " + selector);
-                    }
-                });
-                if (maxWidth) {
-                    $page.addClass("col-xs-" + maxWidth);
-                }
-                selector = "#footer";
-                var $footer = $(selector);
-                if ($footer.length) {
-                    $.get({
-                        url: template_prefix + config.footer.template.file,
-                        success: function(response) {
-                            var $template = $(response);
-                            $footer.empty();
-                            $footer.append($template);
-                            requirejs([config.footer.controller.file], function(footer) {
-                                footer.init(config.footer);
-                            });
-                        }
-                    });
-                } else {
-                    console.error("Could not locate " + selector);
-                }
-    
+                },
             });
+        },
+        _init_header: function() {
+            self._log("_init_header");
+            var selector = "#header";
+            var $header = $(selector);
+            if ($header.length) {
+                $.get({
+                    url: self.config.template_prefix + self.__init_params.header.template.file,
+                    success: function(response) {
+                        var $template = $(response);
+                        $header.empty();
+                        $header.append($template);
+                        requirejs([self.__init_params.header.controller.file], function(header) {
+                            header.init(self.__init_params.header);
+                        });
+                    },
+                });
+            } else {
+                console.error("Could not locate " + selector);
+            }
+        },
+        _init_page: function() {
+            self._log("_init_page");
+            var selector = "#page";
+            var $page = $(selector);
+            if ($page.length) {
+                var data = $page.data();
+                self.__col = data.col;
+                self.__max_width = data.maxWidth;
+                var init_page = function() {
+                    $page.empty();
+                    if (window.location.hash) {
+                        self.__init_params.header.pages.forEach(function(page_config) {
+                            if (window.location.hash === "#" + s.slugify(page_config.name)) {
+                                $.get({
+                                    url: self.config.template_prefix + page_config.template.file,
+                                    success: function(response) {
+                                        var $template = $(response);
+                                        $page.append($template);
+                                        requirejs([page_config.controller.file], function(page) {
+                                            page.init($.extend(page_config, {
+                                                template_prefix: self.config.template_prefix,
+                                            }));
+                                        });
+                                    },
+                                });
+                            }
+                        });
+                    }
+                };
+                var onhashchange = window.onhashchange;
+                window.onhashchange = function() {
+                    if (onhashchange) onhashchange();
+                    init_page();
+                };
+                init_page();
+            } else {
+                console.error("Could not locate " + selector);
+            }
+        },
+        _init_sidebars: function() {
+            ["left", "right"].forEach(function(side) {
+                self._log("_init_sidebars", side);
+                var selector = "#" + side + "-sidebar";
+                var $sidebar = $(selector);
+                if ($sidebar.length) {
+                    if (self.__init_params[side + "_sidebar"]) {
+                        var data = $sidebar.data();
+                        var width = data.width;
+                        $sidebar.addClass(data.col + "-" + width);
+                        if (self.__max_width) self.__max_width -= width;
+                        $.get({
+                            url: self.config.template_prefix + self.__init_params[side + "_sidebar"].template.file,
+                            success: function(response) {
+                                var $template = $(response);
+                                $sidebar.empty();
+                                $sidebar.append($template);
+                                requirejs([self.__init_params[side + "_sidebar"].controller.file], function(sidebar) {
+                                    sidebar.init($.extend(self.__init_params[side + "_sidebar"], {
+                                        template_prefix: self.config.template_prefix,
+                                        side: side,
+                                    }));
+                                });
+                            },
+                        });
+                    } else {
+                        $sidebar.remove();
+                    }
+                } else {
+                    console.error("Could not locate " + selector);
+                }
+            });
+            if (self.__max_width) {
+                var selector = "#page";
+                var $page = $(selector);
+                if ($page.length) {
+                    $page.addClass(self.__col + "-" + self.__max_width);
+                } else {
+                    console.error("Could not locate " + selector);
+                }
+            }
+        },
+        _init_footer: function() {
+            self._log("_init_footer");
+            var selector = "#footer";
+            var $footer = $(selector);
+            if ($footer.length) {
+                $.get({
+                    url: self.config.template_prefix + self.__init_params.footer.template.file,
+                    success: function(response) {
+                        var $template = $(response);
+                        $footer.empty();
+                        $footer.append($template);
+                        requirejs([self.__init_params.footer.controller.file], function(footer) {
+                            footer.init(self.__init_params.footer);
+                        });
+                    },
+                });
+            } else {
+                console.error("Could not locate " + selector);
+            }
+        },
+        _log: function(message, args) {
+            if (self.config.debug) {
+                if (args) {
+                    console.info(message, args);
+                } else {
+                    console.info(message);
+                }
+            }
         }
     });
+    inst.init();
 });

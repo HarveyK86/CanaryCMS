@@ -9,6 +9,11 @@
 7. `python CanaryCMS/manage.py createsuperuser`
 9. `python CanaryCMS/manage.py runserver 0.0.0.0:8080`
 
+## Run
+1. `source venv/bin/activate`
+2. `export SECRET_KEY="$(openssl passwd -1 <your password here>)"`
+3. `python CanaryCMS/manage.py runserver 0.0.0.0:8080`
+
 ## Useful Commands
 1. `pip freeze > venv-requirements.txt`
 2. `python CanaryCMS/manage.py makemigrations public`
