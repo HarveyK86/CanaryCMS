@@ -4,6 +4,7 @@ define(["util/logger"], function(logger) {
         config: {
             name: "templater",
             debug: false,
+            url_prefix: "/static/public/",
         }
     };
     var inst = $.extend(self, {
@@ -19,6 +20,9 @@ define(["util/logger"], function(logger) {
                 },
                 render: function(template_config, selector_prefix) {
                     return self._render(other, template_config, selector_prefix);
+                },
+                http_get: function(template_file, callback) {
+                    return self._http_get(other, template_file, callback);
                 },
             };
             self.__logger.log("get_templater returning", templater);
@@ -51,6 +55,17 @@ define(["util/logger"], function(logger) {
             var $html = $(html);
             self.__logger.log("_render returning", $html);
             return $html;
+        },
+        _http_get: function(other, template_file, callback) {
+            self.__logger.log("_http_get[other, template_file, callback]", [other, template_file, callback]);
+            $.get({
+                url: self.config.url_prefix + template_file,
+                success: function(response) {
+                    var $template = $(response);
+                    self.__logger.log("_http_get returning", $template);
+                    callback($template);
+                },
+            });
         },
     });
     inst.init();

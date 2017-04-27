@@ -1,10 +1,9 @@
 /* global requirejs, $, s */
-requirejs(["util/logger", "util/parser", "util/listener"], function(logger, parser, listener) {
+requirejs(["util/logger", "util/parser", "util/templater", "util/listener"], function(logger, parser, templater, listener) {
     var self = {
         config: {
             name: "index",
             debug: false,
-            template_prefix: "/static/public/",
         }
     };
     var inst = $.extend(self, {
@@ -16,6 +15,7 @@ requirejs(["util/logger", "util/parser", "util/listener"], function(logger, pars
                     parser.parse_response_array(response_array, function(parsed_array) {
                         self.__init_params = parsed_array[0];
                         self.__logger.log("init", self.__init_params);
+                        self.__templater = templater.get_templater(self);
                         self._init_header();
                         self._init_page();
                         self._init_sidebars();
@@ -28,118 +28,101 @@ requirejs(["util/logger", "util/parser", "util/listener"], function(logger, pars
             self.__logger.log("_init_header");
             var selector = "#header";
             var $header = $(selector);
-            if ($header.length) {
-                $.get({
-                    url: self.config.template_prefix + self.__init_params.header.template.file,
-                    success: function(response) {
-                        var $template = $(response);
-                        $header.empty();
-                        $header.append($template);
-                        requirejs([self.__init_params.header.controller.file], function(header) {
-                            header.init(self.__init_params.header);
-                        });
-                    },
-                });
-            } else {
+            if (!$header.length) {
                 console.error("Could not locate " + selector);
+                return;
             }
+            $header.empty();
+            self.__templater.http_get(self.__init_params.header.template.file, function($template) {
+                $header.append($template);
+                requirejs([self.__init_params.header.controller.file], function(header) {
+                    header.init(self.__init_params.header);
+                });
+            });
         },
         _init_page: function() {
             self.__logger.log("_init_page");
             var selector = "#page";
             var $page = $(selector);
-            if ($page.length) {
-                var data = $page.data();
-                self.__col = data.col;
-                self.__max_width = data.maxWidth;
-                var init_page = function() {
-                    $page.empty();
-                    if (window.location.hash) {
-                        self.__init_params.header.pages.forEach(function(page_config) {
-                            if (window.location.hash === "#" + s.slugify(page_config.name)) {
-                                $.get({
-                                    url: self.config.template_prefix + page_config.template.file,
-                                    success: function(response) {
-                                        var $template = $(response);
-                                        $page.append($template);
-                                        requirejs([page_config.controller.file], function(page) {
-                                            page.init($.extend(page_config, {
-                                                template_prefix: self.config.template_prefix,
-                                            }));
-                                        });
-                                    },
-                                });
-                            }
-                        });
-                    }
-                };
-                listener.add_onhashchange(init_page);
-                init_page();
-            } else {
+            if (!$page.length) {
                 console.error("Could not locate " + selector);
+                return;
             }
+            var init_page = function() {
+                $page.empty();
+                if (window.location.hash) {
+                    self.__init_params.header.pages.forEach(function(page_config) {
+                        if (window.location.hash === "#" + s.slugify(page_config.name)) {
+                            self.__templater.http_get(page_config.template.file, function($template) {
+                                $page.append($template);
+                                requirejs([page_config.controller.file], function(page) {
+                                    page.init(page_config);
+                                });
+                            });
+                        }
+                    });
+                }
+            };
+            listener.add_onhashchange(init_page);
+            init_page();
+            var data = $page.data();
+            self.__col = data.col;
+            self.__max_width = data.maxWidth;
         },
         _init_sidebars: function() {
+            self.__logger.log("_init_sidebars");
             ["left", "right"].forEach(function(side) {
-                self.__logger.log("_init_sidebars", side);
-                var selector = "#" + side + "-sidebar";
-                var $sidebar = $(selector);
-                if ($sidebar.length) {
-                    if (self.__init_params[side + "_sidebar"]) {
-                        var data = $sidebar.data();
-                        var width = data.width;
-                        $sidebar.addClass(data.col + "-" + width);
-                        if (self.__max_width) self.__max_width -= width;
-                        $.get({
-                            url: self.config.template_prefix + self.__init_params[side + "_sidebar"].template.file,
-                            success: function(response) {
-                                var $template = $(response);
-                                $sidebar.empty();
-                                $sidebar.append($template);
-                                requirejs([self.__init_params[side + "_sidebar"].controller.file], function(sidebar) {
-                                    sidebar.init($.extend(self.__init_params[side + "_sidebar"], {
-                                        template_prefix: self.config.template_prefix,
-                                        side: side,
-                                    }));
-                                });
-                            },
-                        });
-                    } else {
-                        $sidebar.remove();
-                    }
-                } else {
-                    console.error("Could not locate " + selector);
-                }
+                self._init_sidebar(side, self.__init_params[side + "_sidebar"]);
             });
             if (self.__max_width) {
                 var selector = "#page";
                 var $page = $(selector);
-                if ($page.length) {
-                    $page.addClass(self.__col + "-" + self.__max_width);
-                } else {
+                if (!$page.length) {
                     console.error("Could not locate " + selector);
+                    return;
                 }
+                $page.addClass(self.__col + "-" + self.__max_width);
+            }
+        },
+        _init_sidebar: function(side, sidebar_config) {
+            self.__logger.log("_init_sidebar[side, sidebar_config]", [side, sidebar_config]);
+            var selector = "#" + side + "-sidebar";
+            var $sidebar = $(selector);
+            if (!$sidebar.length) {
+                console.error("Could not locate " + selector);
+                return;
+            }
+            $sidebar.empty();
+            if (sidebar_config) {
+                var data = $sidebar.data();
+                var width = data.width;
+                $sidebar.addClass(data.col + "-" + width);
+                if (self.__max_width) self.__max_width -= width;
+                self.__templater.http_get(sidebar_config.template.file, function($template) {
+                    $sidebar.append($template);
+                    requirejs([sidebar_config.controller.file], function(sidebar) {
+                        sidebar.init(sidebar_config);
+                    });
+                });
+            } else {
+                $sidebar.remove();
             }
         },
         _init_footer: function() {
             self.__logger.log("_init_footer");
             var selector = "#footer";
             var $footer = $(selector);
-            if ($footer.length) {
-                $.get({
-                    url: self.config.template_prefix + self.__init_params.footer.template.file,
-                    success: function(response) {
-                        var $template = $(response);
-                        $footer.empty();
-                        $footer.append($template);
-                        requirejs([self.__init_params.footer.controller.file], function(footer) {
-                            footer.init(self.__init_params.footer);
-                        });
-                    },
-                });
-            } else {
+            if (!$footer.length) {
                 console.error("Could not locate " + selector);
+                return;
             }
+            $footer.empty();
+            self.__templater.http_get(self.__init_params.footer.template.file, function($template) {
+                $footer.append($template);
+                requirejs([self.__init_params.footer.controller.file], function(footer) {
+                    footer.init(self.__init_params.footer);
+                });
+            });
         },
     });
     inst.init();

@@ -1,4 +1,4 @@
-/* global $,  */
+/* global $ */
 define(["util/logger", "util/templater"], function(logger, templater) {
     var self = {
         config: {

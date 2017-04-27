@@ -1,5 +1,5 @@
 /* global requirejs, $ */
-define(["util/logger", "util/parser"], function(logger, parser) {
+define(["util/logger", "util/parser", "util/templater"], function(logger, parser, templater) {
     var self = {
         config: {
             name: "page/news",
@@ -12,6 +12,7 @@ define(["util/logger", "util/parser"], function(logger, parser) {
             self.__logger = logger.get_logger(self);
             self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
+            self.__templater = templater.get_templater(self);
             self._init_posts();
         },
         _init_posts: function() {
@@ -27,18 +28,14 @@ define(["util/logger", "util/parser"], function(logger, parser) {
                 success: function(response_array) {
                     parser.parse_response_array(response_array, function(parsed_array) {
                         parsed_array.forEach(function(post_config) {
-                            $.get({
-                                url: self.__init_params.template_prefix + post_config.template.file,
-                                success: function(response) {
-                                    var $template = $(response);
-                                    $template.attr("id", "post-" + post_config.id);
-                                    $posts.append($template);
-                                    requirejs([post_config.controller.file], function(post) {
-                                        post.init($.extend(post_config, {
-                                            selector_prefix: "#post-" + post_config.id + " ",
-                                        }));
-                                    });
-                                },
+                            self.__templater.http_get(post_config.template.file, function($template) {
+                                $template.attr("id", "post-" + post_config.id);
+                                $posts.append($template);
+                                requirejs([post_config.controller.file], function(post) {
+                                    post.init($.extend(post_config, {
+                                        selector_prefix: "#post-" + post_config.id + " ",
+                                    }));
+                                });
                             });
                         });
                     });

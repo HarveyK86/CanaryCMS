@@ -3,7 +3,7 @@ define(["util/logger"], function(logger) {
     var self = {
         config: {
             name: "listener",
-            debug: true,
+            debug: false,
         }
     };
     var inst = $.extend(self, {

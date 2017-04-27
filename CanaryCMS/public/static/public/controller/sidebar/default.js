@@ -1,5 +1,5 @@
 /* global requirejs, $ */
-define(["util/logger"], function(logger) {
+define(["util/logger", "util/templater"], function(logger, templater) {
     var self = {
         config: {
             name: "sidebar/default",
@@ -12,6 +12,7 @@ define(["util/logger"], function(logger) {
             self.__logger = logger.get_logger(self);
             self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
+            self.__templater = templater.get_templater(self);
             self._init_widgets();
         },
         _init_widgets: function() {
@@ -23,18 +24,14 @@ define(["util/logger"], function(logger) {
             }
             $widgets.empty();
             self.__init_params.widgets.forEach(function(widget_config) {
-                $.get({
-                    url: self.__init_params.template_prefix + widget_config.template.file,
-                    success: function(response) {
-                        var $template = $(response);
-                        $template.attr("id", "widget-" + widget_config.id);
-                        $widgets.append($template);
-                        requirejs([widget_config.controller.file], function(widget) {
-                            widget.init($.extend(widget_config, {
-                                selector_prefix: "#widget-" + widget_config.id + " ",
-                            }));
-                        });
-                    },
+                self.__templater.http_get(widget_config.template.file, function($template) {
+                    $template.attr("id", "widget-" + widget_config.id);
+                    $widgets.append($template);
+                    requirejs([widget_config.controller.file], function(widget) {
+                        widget.init($.extend(widget_config, {
+                            selector_prefix: "#widget-" + widget_config.id + " ",
+                        }));
+                    });
                 });
             });
         },

@@ -30,7 +30,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                 return;
             }
             $page_name.empty();
-            var $html = self.__templater.render(self.templates.page_name_template, {
+            var $html = self.__templater.render(self.config.templates.page_name_template, {
                 page_name: self.__init_params.name
             });
             $page_name.append($html);
