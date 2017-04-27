@@ -1,5 +1,5 @@
 /* global $, s */
-define(["util/logger", "util/templater"], function(logger, templater) {
+define(["util/logger", "util/templater", "util/listener"], function(logger, templater, listener) {
     var self = {
         config: {
             name: "header/default",
@@ -20,11 +20,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
             self.__init_params = init_params;
             self.__templater = templater.get_templater(self);
             self.__templater.init_templates();
-            var onhashchange = window.onhashchange;
-            window.onhashchange = function() {
-                if (onhashchange) onhashchange();
-                self._init_pages();
-            };
+            listener.add_onhashchange(self._init_pages);
             self._init_pages();
         },
         _init_pages: function() {

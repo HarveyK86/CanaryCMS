@@ -1,5 +1,5 @@
 /* global requirejs, $, s */
-requirejs(["util/logger", "util/parser"], function(logger, parser) {
+requirejs(["util/logger", "util/parser", "util/listener"], function(logger, parser, listener) {
     var self = {
         config: {
             name: "index",
@@ -73,11 +73,7 @@ requirejs(["util/logger", "util/parser"], function(logger, parser) {
                         });
                     }
                 };
-                var onhashchange = window.onhashchange;
-                window.onhashchange = function() {
-                    if (onhashchange) onhashchange();
-                    init_page();
-                };
+                listener.add_onhashchange(init_page);
                 init_page();
             } else {
                 console.error("Could not locate " + selector);
