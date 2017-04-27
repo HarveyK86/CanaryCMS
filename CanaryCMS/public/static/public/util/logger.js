@@ -7,7 +7,10 @@ define([], function() {
             debug_override: false,
         }
     };
-    return $.extend(self, {
+    var inst = $.extend(self, {
+        init: function() {
+            self._log(self, "init");
+        },
         get_logger: function(other) {
             self._log(self, "get_logger[other]", other);
             var logger = {
@@ -28,4 +31,6 @@ define([], function() {
             }
         },
     });
+    inst.init();
+    return inst;
 });

@@ -1,13 +1,15 @@
-/* global $, _ */
-define(["util/logger"], function(logger) {
+/* global $,  */
+define(["util/logger", "util/templater"], function(logger, templater) {
     var self = {
         config: {
             name: "widget/default",
             debug: false,
-            templates: [{
-                selector: "[name='widget-template']",
-                attribute: "widget",
-            }],
+            templates: {
+                widget_template: {
+                    selector: "[name='widget-template']",
+                    attribute: "__widget",
+                },
+            },
             widget_container_selector: "[name='widget-container']",
         }
     };
@@ -16,24 +18,9 @@ define(["util/logger"], function(logger) {
             self.__logger = logger.get_logger(self);
             self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
-            self._init_templates();
+            self.__templater = templater.get_templater(self);
+            self.__templater.init_templates(self.__init_params.selector_prefix);
             self._init_widget_container();
-        },
-        _init_templates: function() {
-            self.__logger.log("_init_templates");
-            self.config.templates.forEach(function(template_config) {
-                var selector = self.__init_params.selector_prefix + template_config.selector;
-                var $template = $(selector);
-                if (!$template.length) {
-                    console.error("Could not locate " + selector);
-                    return;
-                } else if ($template.length != 1) {
-                    console.error("Multiple versions of " + selector + " located");
-                    return;
-                }
-                var html = $template.html();
-                self[template_config.attribute] = _.template(html);
-            });
         },
         _init_widget_container: function() {
             self.__logger.log("_init_widgets");
@@ -46,10 +33,9 @@ define(["util/logger"], function(logger) {
                 console.error("Multiple versiosn of " + selector + " located");
                 return;
             }
-            var html = self.widget({
+            var $html = self.__templater.render(self.config.templates.widget_template, {
                 widget: self.__init_params,
             });
-            var $html = $(html);
             $widget_container.append($html);
         },
     });
