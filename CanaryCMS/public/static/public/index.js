@@ -56,6 +56,8 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
                             });
                         }
                     });
+                } else {
+                    window.location.hash = "#" + s.slugify(self.__init_params.header.pages[0].name);
                 }
             };
             listener.add_onhashchange(init_page);
