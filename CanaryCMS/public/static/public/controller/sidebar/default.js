@@ -5,6 +5,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
             name: "sidebar/default",
             debug: false,
             widgets_selector: "#widgets",
+            interval_tick: 0,
         }
     };
     return $.extend(self, {
@@ -23,17 +24,28 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                 return;
             }
             $widgets.empty();
+            var out = self.__init_params.widgets.length;
             self.__init_params.widgets.forEach(function(widget_config) {
                 self.__templater.http_get(widget_config.template.file, function($template) {
                     $template.attr("id", "widget-" + widget_config.id);
-                    $widgets.append($template);
-                    requirejs([widget_config.controller.file], function(widget) {
-                        widget.init($.extend(widget_config, {
-                            selector_prefix: "#widget-" + widget_config.id + " ",
-                        }));
+                    widget_config.__$template = $template;
+                    requirejs([widget_config.controller.file], function(controller) {
+                        widget_config.__controller = controller;
+                        out--;
                     });
                 });
             });
+            var interval = setInterval(function() {
+                if (out === 0) {
+                    clearInterval(interval);
+                    self.__init_params.widgets.forEach(function(widget_config) {
+                        $widgets.append(widget_config.__$template);
+                        widget_config.__controller.init($.extend(widget_config, {
+                            selector_prefix: "#widget-" + widget_config.id + " ",
+                        }));
+                    });
+                }
+            }, self.config.interval_tick);
         },
     });
 });
