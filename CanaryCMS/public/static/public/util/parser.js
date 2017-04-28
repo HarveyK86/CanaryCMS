@@ -115,6 +115,27 @@ define(["util/logger"], function(logger) {
             interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
+                    parsed_array.sort(function(a, b) {
+                        var a_priorty = parseFloat(a.priority);
+                        var b_priorty = parseFloat(b.priority);
+                        var result = 0;
+                        var a_before_b = -1;
+                        var b_before_a = 1;
+                        if (a_priorty) {
+                            if (b_priorty) {
+                                if (a_priorty < b_priorty) {
+                                    result = a_before_b;
+                                } else if (b_priorty < a_priorty) {
+                                    result = b_before_a;
+                                }
+                            } else {
+                                result = a_before_b;
+                            }
+                        } else if (b_priorty) {
+                            result = b_before_a;
+                        }
+                        return result;
+                    });
                     self.__logger.log("_parse_field_array returning", parsed_array);
                     callback(field, parsed_array);
                 }

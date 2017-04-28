@@ -29,6 +29,7 @@ class Sidebar(models.Model):
 class Widget(models.Model):
     name = models.CharField(max_length=200)
     content = models.TextField()
+    priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
@@ -36,6 +37,7 @@ class Widget(models.Model):
 
 class Page(models.Model):
     name = models.CharField(max_length=200)
+    priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
