@@ -16,6 +16,7 @@ define(["util/logger"], function(logger) {
             model_arrays: {
                 "widgets": "widget",
                 "pages": "page",
+                "categories": "category",
             },
             date_suffix: "datetime",
             interval_tick: 0,

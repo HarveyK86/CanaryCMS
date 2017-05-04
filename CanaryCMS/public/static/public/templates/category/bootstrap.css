@@ -1,0 +1,13 @@
+.bootstrap-category {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.bootstrap-category h1,
+.bootstrap-category h2,
+.bootstrap-category h3,
+.bootstrap-category h4,
+.bootstrap-category h5,
+.bootstrap-category h6 {
+    margin-top: 0px;
+}

@@ -68,6 +68,11 @@ def post(request):
     json_obj = serializers.serialize('json', posts)
     return HttpResponse(json_obj, content_type='application/json')
 
+def category(request, pk):
+    category = models.Category.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [category])
+    return HttpResponse(json_obj, content_type='application/json')
+
 def footer(request, pk):
     footer = models.Footer.objects.get(pk=pk)
     json_obj = serializers.serialize('json', [footer])

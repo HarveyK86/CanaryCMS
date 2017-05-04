@@ -48,10 +48,25 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     created_datetime = models.DateTimeField(default=timezone.now)
     content = models.TextField()
+    categories = models.ManyToManyField('public.Category', blank=True)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
         return self.title
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return self.name
+
+class Footer(models.Model):
+    name = models.CharField(max_length=200)
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return self.name
 
 class Template(models.Model):
     name = models.CharField(max_length=200)
@@ -62,12 +77,5 @@ class Template(models.Model):
 class Controller(models.Model):
     name = models.CharField(max_length=200)
     file = models.CharField(max_length=200)
-    def __str__(self):
-        return self.name
-
-class Footer(models.Model):
-    name = models.CharField(max_length=200)
-    template = models.ForeignKey('public.Template')
-    controller = models.ForeignKey('public.Controller')
     def __str__(self):
         return self.name

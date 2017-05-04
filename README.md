@@ -15,6 +15,6 @@
 3. `python CanaryCMS/manage.py runserver 0.0.0.0:8080`
 
 ## Useful Commands
-1. `pip freeze > venv-requirements.txt`
-2. `python CanaryCMS/manage.py makemigrations public`
-3. `python CanaryCMS/manage.py migrate public`
+* `pip freeze > venv-requirements.txt`
+* `python CanaryCMS/manage.py makemigrations public`
+* `python CanaryCMS/manage.py migrate public`

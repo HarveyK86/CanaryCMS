@@ -1,4 +1,3 @@
-<link rel="stylesheet" type="text/css" href="/static/public/templates/post/bootstrap.css">
 <div class="bootstrap-post">
     <div name="post-container"></div>
     <script type="text/template" name="post-template">
@@ -8,7 +7,12 @@
                 <h5><small><%- post.user.username %> - <%- new Date(post.created_datetime.epoch_time) %></small></h5>
                 <hr>
                 <p><%- post.content %></p>
+                <hr>
+                <div name="categories">
+                    <h5><small>No Categories</small></5>
+                </div>
             </div>
         </div>
     </script>
+    <link rel="stylesheet" type="text/css" href="/static/public/templates/post/bootstrap.css">
 </div>

@@ -1,12 +1,8 @@
-<link rel="stylesheet" type="text/css" href="/static/public/templates/widget/basic.css">
 <div class="basic-widget">
     <div name="widget-container"></div>
     <script type="text/template" name="widget-template">
-        <tr>
-            <th><%- widget.name %></th>
-        </tr>
-        <tr>
-            <td><%= widget.content %></td>
-        </tr>
+        <h3><%- widget.name %></h3>
+        <h4><%= widget.content %></h4>
     </script>
+    <link rel="stylesheet" type="text/css" href="/static/public/templates/widget/basic.css">
 </div>

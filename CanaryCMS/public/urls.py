@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^widget/(?P<pk>[0-9]+)$', views.widget, name='widget'),
     url(r'^page/(?P<pk>[0-9]+)$', views.page, name='page'),
     url(r'^post$', views.post, name='post'),
+    url(r'^category/(?P<pk>[0-9]+)$', views.category, name='category'),
     url(r'^footer/(?P<pk>[0-9]+)$', views.footer, name='footer'),
     url(r'^template/(?P<pk>[0-9]+)$', views.template, name='template'),
     url(r'^controller/(?P<pk>[0-9]+)$', views.controller, name='controller'),
