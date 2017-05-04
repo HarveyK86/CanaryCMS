@@ -1,5 +1,13 @@
 /* global requirejs, $ */
-define(["util/logger", "util/templater"], function(logger, templater) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector"
+], function(
+    logger,
+    templater,
+    selector
+) {
     var self = {
         config: {
             name: "sidebar/default",
@@ -18,11 +26,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
         },
         _init_widgets: function() {
             self.__logger.log("_init_widgets");
-            var $widgets = $(self.config.widgets_selector);
-            if (!$widgets.length) {
-                console.error("Could not locate " + self.config.widgets_selector);
-                return;
-            }
+            var $widgets = selector.select(self.config.widgets_selector);
             $widgets.empty();
             var out = self.__init_params.widgets.length;
             self.__init_params.widgets.forEach(function(widget_config) {

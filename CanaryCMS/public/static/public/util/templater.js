@@ -1,5 +1,11 @@
 /* global $, _ */
-define(["util/logger"], function(logger) {
+define([
+    "util/logger",
+    "util/selector"
+], function(
+    logger,
+    selector
+) {
     var self = {
         config: {
             name: "templater",
@@ -37,15 +43,7 @@ define(["util/logger"], function(logger) {
         },
         _init_template: function(other, template_config, selector_prefix) {
             self.__logger.log("_init_template[other, template_config]", [other, template_config]);
-            var selector = selector_prefix + template_config.selector;
-            var $template = $(selector);
-            if (!$template.length) {
-                console.error("Could not locate " + selector);
-                return;
-            } else if (!$template.length > 1) {
-                console.error("Multiple occurances of " + selector + " located");
-                return;
-            }
+            var $template = selector.select(selector_prefix + template_config.selector);
             var html = $template.html();
             other[template_config.attribute] = _.template(html);
         },

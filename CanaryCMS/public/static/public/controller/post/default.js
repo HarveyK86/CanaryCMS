@@ -1,5 +1,13 @@
 /* global requirejs, $ */
-define(["util/logger", "util/templater"], function(logger, templater) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector"
+], function(
+    logger,
+    templater,
+    selector
+) {
     return {
         init: function(init_params) {
             var self = {
@@ -29,15 +37,8 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                 },
                 _init_post_container: function() {
                     self.__logger.log("_init_post_container");
-                    var selector = self.__init_params.selector_prefix + self.config.post_container_selector;
-                    var $post_container = $(selector);
-                    if (!$post_container.length) {
-                        console.error("Could not locate " + selector);
-                        return;
-                    } else if ($post_container.length != 1) {
-                        console.error("Multiple versions of " + selector + " located");
-                        return;
-                    }
+                    var $post_container = selector.select(self.__init_params.selector_prefix + self.config.post_container_selector);
+                    $post_container.empty();
                     var $html = self.__templater.render(self.config.templates.post_template, {
                         post: self.__init_params,
                     });
@@ -45,15 +46,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                 },
                 _init_categories: function() {
                     self.__logger.log("_init_categories");
-                    var selector = self.__init_params.selector_prefix + self.config.categories_selector;
-                    var $categories = $(selector);
-                    if (!$categories.length) {
-                        console.error("Could not locate " + selector);
-                        return;
-                    } else if ($categories.length != 1) {
-                        console.error("Multiple versions of " + selector + " located");
-                        return;
-                    }
+                    var $categories = selector.select(self.__init_params.selector_prefix + self.config.categories_selector);
                     var out = self.__init_params.categories.length;
                     if (out) {
                         $categories.empty();
@@ -79,7 +72,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                             }
                         }, self.config.interval_tick);
                     }
-                }
+                },
             });
             inst._init(init_params);
             return inst;

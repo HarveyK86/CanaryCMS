@@ -1,5 +1,13 @@
 /* global $ */
-define(["util/logger", "util/templater"], function(logger, templater) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector"
+], function(
+    logger,
+    templater,
+    selector
+) {
     var self = {
         config: {
             name: "page/placeholder",
@@ -24,11 +32,7 @@ define(["util/logger", "util/templater"], function(logger, templater) {
         },
         _init_page_name: function() {
             self.__logger.log("_init_page_name");
-            var $page_name = $(self.config.page_name_selector);
-            if (!$page_name.length) {
-                console.error("Could not locate " + self.config.page_name_selector);
-                return;
-            }
+            var $page_name = selector.select(self.config.page_name_selector);
             $page_name.empty();
             var $html = self.__templater.render(self.config.templates.page_name_template, {
                 page_name: self.__init_params.name

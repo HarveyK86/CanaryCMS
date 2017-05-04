@@ -1,5 +1,13 @@
 /* global $ */
-define(["util/logger", "util/templater"], function(logger, templater) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector"
+], function(
+    logger,
+    templater,
+    selector
+) {
     return {
         init: function(init_params) {
             var self = {
@@ -26,23 +34,16 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                 },
                 _init_category_container: function() {
                     self.__logger.log("_init_category_container");
-                    var selector = self.__init_params.selector_prefix + self.config.category_container_selector;
-                    var $category_container = $(selector);
-                    if (!$category_container.length) {
-                        console.error("Could not locate " + selector);
-                        return;
-                    } else if ($category_container.length != 1) {
-                        console.error("Multiple versions of " + selector + " located");
-                        return;
-                    }
+                    var $category_container = selector.select(self.__init_params.selector_prefix + self.config.category_container_selector);
+                    $category_container.empty();
                     var $html = self.__templater.render(self.config.templates.category_template, {
                         category: self.__init_params,
                     });
                     $category_container.append($html);
-                }
+                },
             });
             inst._init(init_params);
             return inst;
-        }
+        },
     };
 });

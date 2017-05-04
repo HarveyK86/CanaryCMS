@@ -1,5 +1,14 @@
 /* global $, s */
-define(["util/logger", "util/templater", "util/listener"], function(logger, templater, listener) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector",
+    "util/listener"
+], function(
+    logger,
+    templater,
+    selector, listener
+) {
     var self = {
         config: {
             name: "header/default",
@@ -25,11 +34,7 @@ define(["util/logger", "util/templater", "util/listener"], function(logger, temp
         },
         _init_pages: function() {
             self.__logger.log("_init_pages");
-            var $pages = $(self.config.pages_selector);
-            if (!$pages.length) {
-                console.error("Could not locate " + self.config.pages_selector);
-                return;
-            }
+            var $pages = selector.select(self.config.pages_selector);
             $pages.empty();
             self.__init_params.pages.forEach(function(page_config) {
                 var slug = s.slugify(page_config.name);

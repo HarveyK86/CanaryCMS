@@ -1,5 +1,15 @@
 /* global requirejs, $ */
-define(["util/logger", "util/templater", "service/post"], function(logger, templater, post) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector",
+    "service/post"
+], function(
+    logger,
+    templater,
+    selector,
+    post
+) {
     var self = {
         config: {
             name: "page/news",
@@ -18,11 +28,7 @@ define(["util/logger", "util/templater", "service/post"], function(logger, templ
         },
         _init_posts: function() {
             self.__logger.log("_init_posts");
-            var $posts = $(self.config.posts_selector);
-            if (!$posts.length) {
-                console.error("Could not locate " + self.config.posts_selector);
-                return;
-            }
+            var $posts = selector.select(self.config.posts_selector);
             $posts.empty();
             post.api_get(function(post_configs) {
                 var out = post_configs.length;

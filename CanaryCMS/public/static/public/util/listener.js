@@ -1,5 +1,9 @@
 /* global $ */
-define(["util/logger"], function(logger) {
+define([
+    "util/logger"
+], function(
+    logger
+) {
     var self = {
         config: {
             name: "listener",
@@ -18,7 +22,7 @@ define(["util/logger"], function(logger) {
                 if (current) current();
                 onhashchange();
             };
-        }
+        },
     });
     inst.init();
     return inst;

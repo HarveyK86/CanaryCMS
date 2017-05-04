@@ -1,5 +1,9 @@
 /* global $, _ */
-define(["util/logger"], function(logger) {
+define([
+    "util/logger"
+], function(
+    logger
+) {
     var self = {
         config: {
             name: "parser",

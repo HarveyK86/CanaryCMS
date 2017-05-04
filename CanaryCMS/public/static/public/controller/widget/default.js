@@ -1,5 +1,13 @@
 /* global $ */
-define(["util/logger", "util/templater"], function(logger, templater) {
+define([
+    "util/logger",
+    "util/templater",
+    "util/selector"
+], function(
+    logger,
+    templater,
+    selector
+) {
     return {
         init: function(init_params) {
             var self = {
@@ -26,15 +34,8 @@ define(["util/logger", "util/templater"], function(logger, templater) {
                 },
                 _init_widget_container: function() {
                     self.__logger.log("_init_widgets");
-                    var selector = self.__init_params.selector_prefix + self.config.widget_container_selector;
-                    var $widget_container = $(selector);
-                    if (!$widget_container.length) {
-                        console.error("Could not locate " + selector);
-                        return;
-                    } else if($widget_container.length != 1) {
-                        console.error("Multiple versiosn of " + selector + " located");
-                        return;
-                    }
+                    var $widget_container = selector.select(self.__init_params.selector_prefix + self.config.widget_container_selector);
+                    $widget_container.empty();
                     var $html = self.__templater.render(self.config.templates.widget_template, {
                         widget: self.__init_params,
                     });
@@ -43,6 +44,6 @@ define(["util/logger", "util/templater"], function(logger, templater) {
             });
             inst._init(init_params);
             return inst;
-        }
+        },
     };
 });
