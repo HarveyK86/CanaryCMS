@@ -79,7 +79,9 @@ define([
                         out--;
                     });
                 } else if (field === self.config.parameters_field) {
-                    parsed_item[field] = JSON.parse(response_item.fields[field]);
+                    if (response_item.fields[field]) {
+                        parsed_item[field] = JSON.parse(response_item.fields[field]);
+                    }
                 } else {
                     parsed_item[field] = response_item.fields[field];
                 }

@@ -1,8 +1,11 @@
 <div class="bootstrap-footer">
-    <div class="panel panel-default">
-        <div class="panel-heading text-center">
-            <small>Powered by CanaryCMS</small>
+    <div id="footer-container"></div>
+    <script type="text/template" id="footer-template">
+        <div class="panel <%- footer.template.parameters.class %>">
+            <div class="panel-heading text-center">
+                <small>Powered by CanaryCMS</small>
+            </div>
         </div>
-    </div>
+    </script>
     <link rel="stylesheet" type="text/css" href="/static/public/templates/footer/bootstrap.css">
 </div>

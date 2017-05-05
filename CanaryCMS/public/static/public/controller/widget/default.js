@@ -33,7 +33,7 @@ define([
                     self._init_widget_container();
                 },
                 _init_widget_container: function() {
-                    self.__logger.log("_init_widgets");
+                    self.__logger.log("_init_widget_container");
                     var $widget_container = selector.select(self.__init_params.selector_prefix + self.config.widget_container_selector);
                     $widget_container.empty();
                     var $html = self.__templater.render(self.config.templates.widget_template, {

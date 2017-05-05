@@ -1,23 +1,26 @@
-<link rel="stylesheet" type="text/css" href="/static/public/templates/header/bootstrap.css">
 <div class="boostrap-header">
-    <br>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bootstrap-header" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">🐦</a>
+    <div id="header-container"></div>
+    <script type="text/template" id="header-template">
+        <br>
+        <nav class="navbar <%- header.template.parameters.class %>">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bootstrap-header" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">🐦</a>
+                </div>
+                <div class="collapse navbar-collapse" id="bootstrap-header">
+                    <ul class="nav navbar-nav" id="pages"></ul>
+                </div>
             </div>
-            <div class="collapse navbar-collapse" id="bootstrap-header">
-                <ul class="nav navbar-nav" id="pages"></ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </script>
+    <script type="text/template" id="page-template">
+        <li<% if (page.active) { %> class="active"<% } %>><a href="#<%- page.slug %>"><%- page.name %><% if (page.active) { %> <span class="sr-only">(current)</span><% } %></a></li>
+    </script>
+    <link rel="stylesheet" type="text/css" href="/static/public/templates/header/bootstrap.css">
 </div>
-<script type="text/template" id="page-template">
-    <li<% if (page.active) { %> class="active"<% } %>><a href="#<%- page.slug %>"><%- page.name %><% if (page.active) { %> <span class="sr-only">(current)</span><% } %></a></li>
-</script>

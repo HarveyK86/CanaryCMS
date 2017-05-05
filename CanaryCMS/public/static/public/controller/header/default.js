@@ -14,11 +14,16 @@ define([
             name: "header/default",
             debug: false,
             templates: {
+                header_template: {
+                    selector: "#header-template",
+                    attribute: "__header",
+                },
                 page_template: {
                     selector: "#page-template",
                     attribute: "__page",
                 },
             },
+            header_container_selector: "#header-container",
             pages_selector: "#pages",
         }
     };
@@ -30,7 +35,17 @@ define([
             self.__templater = templater.get_templater(self);
             self.__templater.init_templates();
             listener.add_onhashchange(self._init_pages);
+            self._init_header_container();
             self._init_pages();
+        },
+        _init_header_container: function() {
+            self.__logger.log("_init_header_container");
+            var $header_container = selector.select(self.config.header_container_selector);
+            $header_container.empty();
+            var $html = self.__templater.render(self.config.templates.header_template, {
+                header: self.__init_params,
+            });
+            $header_container.append($html);
         },
         _init_pages: function() {
             self.__logger.log("_init_pages");
