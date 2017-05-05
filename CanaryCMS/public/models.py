@@ -55,6 +55,8 @@ class Post(models.Model):
         return self.title
 
 class Category(models.Model):
+    class Meta:
+        verbose_name_plural = "categories"
     name = models.CharField(max_length=200)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
@@ -71,6 +73,7 @@ class Footer(models.Model):
 class Template(models.Model):
     name = models.CharField(max_length=200)
     file = models.CharField(max_length=200)
+    parameters = models.TextField(null=True, blank=True)
     def __str__(self):
         return self.name
 

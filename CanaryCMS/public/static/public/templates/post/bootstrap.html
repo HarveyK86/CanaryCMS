@@ -1,7 +1,7 @@
 <div class="bootstrap-post">
     <div name="post-container"></div>
     <script type="text/template" name="post-template">
-        <div class="panel panel-default">
+        <div class="panel <%- post.template.parameters.class %>">
             <div class="panel-body">
                 <h4><%- post.title %></h4>
                 <h5><small><%- post.user.username %> - <%- new Date(post.created_datetime.epoch_time) %></small></h5>

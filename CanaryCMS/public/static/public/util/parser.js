@@ -23,6 +23,7 @@ define([
                 "categories": "category",
             },
             date_suffix: "datetime",
+            parameters_field: "parameters",
             interval_tick: 0,
         },
     };
@@ -77,6 +78,8 @@ define([
                         parsed_item[parsed_field] = parsed_field_date;
                         out--;
                     });
+                } else if (field === self.config.parameters_field) {
+                    parsed_item[field] = JSON.parse(response_item.fields[field]);
                 } else {
                     parsed_item[field] = response_item.fields[field];
                 }
