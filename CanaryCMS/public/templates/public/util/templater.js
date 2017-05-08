@@ -10,7 +10,7 @@ define([
         config: {
             name: "templater",
             debug: false,
-            url_prefix: "/static/public/",
+            url_prefix: "/public/",
         }
     };
     var inst = $.extend(self, {

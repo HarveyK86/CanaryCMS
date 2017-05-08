@@ -16,4 +16,7 @@ urlpatterns = [
     url(r'^footer/(?P<pk>[0-9]+)$', views.footer, name='footer'),
     url(r'^template/(?P<pk>[0-9]+)$', views.template, name='template'),
     url(r'^controller/(?P<pk>[0-9]+)$', views.controller, name='controller'),
+    url(r'^(?P<file>[\w\-/]+).css$', views.css, name='css'),
+    url(r'^(?P<file>[\w\-/]+).html$', views.html, name='html'),
+    url(r'^(?P<file>[\w\-/]+).js$', views.js, name='js'),
 ]

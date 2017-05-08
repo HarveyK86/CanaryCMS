@@ -3,10 +3,11 @@
 1. `sudo apt install python3.5-venv`
 2. `python3.5 -mvenv venv`
 3. `source venv/bin/activate`
-4. `sudo pip install -r venv-requirements.txt`
-5. `export SECRET_KEY="$(openssl passwd -1 <your password here>)"`
-6. `python CanaryCMS/manage.py migrate`
-7. `python CanaryCMS/manage.py createsuperuser`
+4. `pip install --upgrade pip`
+5. `sudo -H pip install -r venv-requirements.txt`
+6. `export SECRET_KEY="$(openssl passwd -1 <your password here>)"`
+7. `python CanaryCMS/manage.py migrate`
+8. `python CanaryCMS/manage.py createsuperuser`
 9. `python CanaryCMS/manage.py runserver 0.0.0.0:8080`
 
 ## Run
@@ -16,5 +17,6 @@
 
 ## Useful Commands
 * `pip freeze > venv-requirements.txt`
+* `sudo rm-rf venv`
 * `python CanaryCMS/manage.py makemigrations public`
 * `python CanaryCMS/manage.py migrate public`

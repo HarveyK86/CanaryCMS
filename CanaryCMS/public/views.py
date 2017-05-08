@@ -1,10 +1,12 @@
 from . import models
+from csscompressor import compress
 from django.shortcuts import render
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core import serializers
 from django.http import HttpResponse
 from django.utils.dateparse import parse_datetime
+from jsmin import jsmin
 
 import datetime
 import json
@@ -87,3 +89,16 @@ def controller(request, pk):
     controller = models.Controller.objects.get(pk=pk)
     json_obj = serializers.serialize('json', [controller])
     return HttpResponse(json_obj, content_type='application/json')
+
+def css(request, file):
+    response = render(request, "public/" + file + ".css", content_type='text/css')
+    response.content = compress(response.content.decode("UTF-8"))
+    return response
+
+def html(request, file):
+    return render(request, "public/" + file + ".html")
+
+def js(request, file):
+    response = render(request, "public/" + file + ".js", content_type='application/javascript')
+    response.content = jsmin(response.content.decode("UTF-8"), quote_chars="'\"`")
+    return response
