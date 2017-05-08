@@ -10,7 +10,7 @@ define([
 ) {
     var self = {
         config: {
-            name: "sidebar/default",
+            name: "sidebar/default-controller",
             debug: false,
             widgets_selector: "#widgets",
             interval_tick: 0,

@@ -12,7 +12,7 @@ define([
         init: function(init_params) {
             var self = {
                 config: {
-                    name: "post/default",
+                    name: "post/default-controller",
                     debug: false,
                     templates: {
                         post_template: {

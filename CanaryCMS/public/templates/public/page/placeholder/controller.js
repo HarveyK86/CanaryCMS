@@ -10,7 +10,7 @@ define([
 ) {
     var self = {
         config: {
-            name: "page/placeholder",
+            name: "page/placeholder/controller",
             debug: false,
             templates: {
                 page_name_template: {

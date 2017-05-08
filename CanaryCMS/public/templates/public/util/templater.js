@@ -11,6 +11,7 @@ define([
             name: "templater",
             debug: false,
             url_prefix: "/public/",
+            url_suffix: "/view.html",
         }
     };
     var inst = $.extend(self, {
@@ -57,7 +58,7 @@ define([
         _http_get: function(other, template_file, callback) {
             self.__logger.log("_http_get[other, template_file, callback]", [other, template_file, callback]);
             $.get({
-                url: self.config.url_prefix + template_file,
+                url: self.config.url_prefix + template_file + self.config.url_suffix,
                 success: function(response) {
                     var $template = $(response);
                     self.__logger.log("_http_get returning", $template);

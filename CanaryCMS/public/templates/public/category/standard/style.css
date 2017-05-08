@@ -1,0 +1,13 @@
+.standard-category {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.standard-category h1,
+.standard-category h2,
+.standard-category h3,
+.standard-category h4,
+.standard-category h5,
+.standard-category h6 {
+    margin-top: 0px;
+}

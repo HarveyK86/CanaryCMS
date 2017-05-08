@@ -12,7 +12,7 @@ define([
 ) {
     var self = {
         config: {
-            name: "page/news",
+            name: "page/news/controller",
             debug: false,
             posts_selector: "#posts",
             interval_tick: 0,

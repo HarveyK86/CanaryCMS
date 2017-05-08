@@ -12,7 +12,7 @@ define([
         init: function(init_params) {
             var self = {
                 config: {
-                    name: "widget/default",
+                    name: "widget/default-controller",
                     debug: false,
                     templates: {
                         widget_template: {

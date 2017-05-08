@@ -10,7 +10,7 @@ define([
 ) {
     var self = {
         config: {
-            name: "footer/default",
+            name: "footer/default-controller",
             debug: false,
             templates: {
                 footer_template: {

@@ -11,7 +11,7 @@ define([
 ) {
     var self = {
         config: {
-            name: "header/default",
+            name: "header/default-controller",
             debug: false,
             templates: {
                 header_template: {

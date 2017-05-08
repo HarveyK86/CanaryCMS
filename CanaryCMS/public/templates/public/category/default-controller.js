@@ -12,7 +12,7 @@ define([
         init: function(init_params) {
             var self = {
                 config: {
-                    name: "category/default",
+                    name: "category/default-controller",
                     debug: false,
                     templates: {
                         category_template: {
