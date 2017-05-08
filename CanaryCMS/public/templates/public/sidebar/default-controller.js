@@ -30,7 +30,7 @@ define([
             $widgets.empty();
             var out = self.__init_params.widgets.length;
             self.__init_params.widgets.forEach(function(widget_config) {
-                self.__templater.http_get(widget_config.template.file, function($template) {
+                self.__templater.http_get(widget_config.template.directory, function($template) {
                     $template.attr("id", "widget-" + widget_config.id);
                     widget_config.__$template = $template;
                     requirejs([widget_config.controller.file], function(controller) {

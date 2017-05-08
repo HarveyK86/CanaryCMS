@@ -33,7 +33,7 @@ define([
             post.api_get(function(post_configs) {
                 var out = post_configs.length;
                 post_configs.forEach(function(post_config) {
-                    self.__templater.http_get(post_config.template.file, function($template) {
+                    self.__templater.http_get(post_config.template.directory, function($template) {
                         $template.attr("id", "post-" + post_config.id);
                         post_config.__$template = $template;
                         requirejs([post_config.controller.file], function(controller) {

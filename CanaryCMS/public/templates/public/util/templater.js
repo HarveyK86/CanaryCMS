@@ -28,8 +28,8 @@ define([
                 render: function(template_config, selector_prefix) {
                     return self._render(other, template_config, selector_prefix);
                 },
-                http_get: function(template_file, callback) {
-                    return self._http_get(other, template_file, callback);
+                http_get: function(template_directory, callback) {
+                    return self._http_get(other, template_directory, callback);
                 },
             };
             self.__logger.log("get_templater returning", templater);
@@ -55,10 +55,10 @@ define([
             self.__logger.log("_render returning", $html);
             return $html;
         },
-        _http_get: function(other, template_file, callback) {
-            self.__logger.log("_http_get[other, template_file, callback]", [other, template_file, callback]);
+        _http_get: function(other, template_directory, callback) {
+            self.__logger.log("_http_get[other, template_directory, callback]", [other, template_directory, callback]);
             $.get({
-                url: self.config.url_prefix + template_file + self.config.url_suffix,
+                url: self.config.url_prefix + template_directory + self.config.url_suffix,
                 success: function(response) {
                     var $template = $(response);
                     self.__logger.log("_http_get returning", $template);

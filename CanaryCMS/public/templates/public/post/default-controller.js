@@ -51,7 +51,7 @@ define([
                     if (out) {
                         $categories.empty();
                         self.__init_params.categories.forEach(function(category_config) {
-                            self.__templater.http_get(category_config.template.file, function($template) {
+                            self.__templater.http_get(category_config.template.directory, function($template) {
                                 $template.attr("name", "category-" + category_config.id);
                                 category_config.__$template = $template;
                                 requirejs([category_config.controller.file], function(controller) {

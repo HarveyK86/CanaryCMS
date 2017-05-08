@@ -28,7 +28,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
                 return;
             }
             $header.empty();
-            self.__templater.http_get(self.__init_params.header.template.file, function($template) {
+            self.__templater.http_get(self.__init_params.header.template.directory, function($template) {
                 $header.append($template);
                 requirejs([self.__init_params.header.controller.file], function(header) {
                     header.init(self.__init_params.header);
@@ -48,7 +48,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
                 if (window.location.hash) {
                     self.__init_params.header.pages.forEach(function(page_config) {
                         if (window.location.hash === "#" + s.slugify(page_config.name)) {
-                            self.__templater.http_get(page_config.template.file, function($template) {
+                            self.__templater.http_get(page_config.template.directory, function($template) {
                                 $page.append($template);
                                 requirejs([page_config.controller.file], function(page) {
                                     page.init(page_config);
@@ -95,7 +95,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
                 var width = data.width;
                 $sidebar.addClass(data.col + "-" + width);
                 if (self.__max_width) self.__max_width -= width;
-                self.__templater.http_get(sidebar_config.template.file, function($template) {
+                self.__templater.http_get(sidebar_config.template.directory, function($template) {
                     $sidebar.append($template);
                     requirejs([sidebar_config.controller.file], function(sidebar) {
                         sidebar.init(sidebar_config);
@@ -114,7 +114,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
                 return;
             }
             $footer.empty();
-            self.__templater.http_get(self.__init_params.footer.template.file, function($template) {
+            self.__templater.http_get(self.__init_params.footer.template.directory, function($template) {
                 $footer.append($template);
                 requirejs([self.__init_params.footer.controller.file], function(footer) {
                     footer.init(self.__init_params.footer);
