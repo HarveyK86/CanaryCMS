@@ -3,7 +3,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ['SECRET_KEY']
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.c9users.io']
 
@@ -13,6 +13,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.staticfiles',
     'public',
     'csscompressor',
     'jsmin',
@@ -81,6 +82,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+STATIC_URL = '/static/'
 
 ## Custom
 CONFIG_PK = 2
