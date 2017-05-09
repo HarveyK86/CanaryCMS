@@ -12,10 +12,10 @@ define(["util/logger", "util/parser"], function(logger, parser) {
             self.__logger = logger.get_logger(self);
             self.__logger.log("init");
         },
-        api_get: function(callback) {
-            self.__logger.log("api_get[callback]", callback);
+        api_get: function(categories, callback) {
+            self.__logger.log("api_get[categories, callback]", [categories, callback]);
             $.get({
-                url: self.config.api_url,
+                url: self.config.api_url + "?categories=" + categories.toString(),
                 success: function(response_array) {
                     parser.parse_response_array(response_array, function(post_configs) {
                         post_configs.sort(function(a, b) {

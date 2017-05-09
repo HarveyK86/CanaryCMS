@@ -66,7 +66,10 @@ def page(request, pk):
     return HttpResponse(json_obj, content_type='application/json')
 
 def post(request):
-    posts = models.Post.objects.all()
+    categories = request.GET.get("categories")
+    categories = categories.split(",")
+    categories = models.Category.objects.filter(name__in=categories)
+    posts = models.Post.objects.filter(categories__in=categories)
     json_obj = serializers.serialize('json', posts)
     return HttpResponse(json_obj, content_type='application/json')
 

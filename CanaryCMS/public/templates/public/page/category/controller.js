@@ -12,7 +12,7 @@ define([
 ) {
     var self = {
         config: {
-            name: "page/news/controller",
+            name: "page/category/controller",
             debug: false,
             posts_selector: "#posts",
             interval_tick: 0,
@@ -30,7 +30,7 @@ define([
             self.__logger.log("_init_posts");
             var $posts = selector.select(self.config.posts_selector);
             $posts.empty();
-            post.api_get(function(post_configs) {
+            post.api_get(self.__init_params.template.parameters.categories, function(post_configs) {
                 var out = post_configs.length;
                 post_configs.forEach(function(post_config) {
                     self.__templater.http_get(post_config.template.directory, function($template) {
