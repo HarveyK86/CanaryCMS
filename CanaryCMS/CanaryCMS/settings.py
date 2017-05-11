@@ -86,4 +86,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 ## Custom
-CONFIG_PK = 2
+CONFIG_PK = 1
