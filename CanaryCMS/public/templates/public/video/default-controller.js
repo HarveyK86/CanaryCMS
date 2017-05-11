@@ -12,15 +12,15 @@ define([
         init: function(init_params) {
             var self = {
                 config: {
-                    name: "widget/default-controller",
-                    debug: false,
+                    name: "video/default-controller",
+                    debug: true,
                     templates: {
-                        widget_template: {
-                            selector: "[name='widget-template']",
-                            attribute: "__widget",
+                        video_template: {
+                            selector: "[name='video-template']",
+                            attribute: "__video",
                         },
                     },
-                    widget_container_selector: "[name='widget-container']",
+                    video_container_selector: "[name='video-container']",
                 }
             };
             var inst = $.extend(self, {
@@ -30,16 +30,16 @@ define([
                     self.__init_params = init_params;
                     self.__templater = templater.get_templater(self);
                     self.__templater.init_templates(self.__init_params.selector_prefix);
-                    self._init_widget_container();
+                    self._init_video_container();
                 },
-                _init_widget_container: function() {
-                    self.__logger.log("_init_widget_container");
-                    var $widget_container = selector.select(self.__init_params.selector_prefix + self.config.widget_container_selector);
-                    $widget_container.empty();
-                    var $html = self.__templater.render(self.config.templates.widget_template, {
-                        widget: self.__init_params,
+                _init_video_container: function() {
+                    self.__logger.log("_init_video_container");
+                    var $video_container = selector.select(self.__init_params.selector_prefix + self.config.video_container_selector);
+                    $video_container.empty();
+                    var $html = self.__templater.render(self.config.templates.video_template, {
+                        video: self.__init_params,
                     });
-                    $widget_container.append($html);
+                    $video_container.append($html);
                 },
             });
             inst._init(init_params);

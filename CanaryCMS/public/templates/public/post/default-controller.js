@@ -21,6 +21,7 @@ define([
                         },
                     },
                     post_container_selector: "[name='post-container']",
+                    videos_selector: "[name='videos']",
                     categories_selector: "[name='categories']",
                     interval_tick: 0,
                 }
@@ -28,11 +29,12 @@ define([
             var inst = $.extend(self, {
                 _init: function(init_params) {
                     self.__logger = logger.get_logger(self);
-                    self.__logger.log("init[init_params]", init_params);
+                    self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
                     self.__templater = templater.get_templater(self);
                     self.__templater.init_templates(self.__init_params.selector_prefix);
                     self._init_post_container();
+                    self._init_videos();
                     self._init_categories();
                 },
                 _init_post_container: function() {
@@ -43,6 +45,35 @@ define([
                         post: self.__init_params,
                     });
                     $post_container.append($html);
+                },
+                _init_videos: function() {
+                    self.__logger.log("_init_videos");
+                    var $videos = selector.select(self.__init_params.selector_prefix + self.config.videos_selector);
+                    var out = self.__init_params.videos.length;
+                    $videos.empty();
+                    if (out) {
+                        self.__init_params.videos.forEach(function(video_config) {
+                            self.__templater.http_get(video_config.template.directory, function($template) {
+                                $template.attr("name", "video-" + video_config.id);
+                                video_config.__$template = $template;
+                                requirejs([video_config.controller.file], function(controller) {
+                                    video_config.__controller = controller;
+                                    out--;
+                                });
+                            });
+                        });
+                        var interval = setInterval(function() {
+                            if (out == 0) {
+                                clearInterval(interval);
+                                self.__init_params.videos.forEach(function(video_config) {
+                                    $videos.append(video_config.__$template);
+                                    video_config.__controller.init($.extend(video_config, {
+                                        selector_prefix: self.__init_params.selector_prefix + " [name='video-" + video_config.id + "'] ",
+                                    }));
+                                });
+                            }
+                        }, self.config.interval_tick);
+                    }
                 },
                 _init_categories: function() {
                     self.__logger.log("_init_categories");

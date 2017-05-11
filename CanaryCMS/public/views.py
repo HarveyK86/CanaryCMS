@@ -73,6 +73,11 @@ def post(request):
     json_obj = serializers.serialize('json', posts)
     return HttpResponse(json_obj, content_type='application/json')
 
+def video(request, pk):
+    video = models.Video.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [video])
+    return HttpResponse(json_obj, content_type='application/json')
+
 def category(request, pk):
     category = models.Category.objects.get(pk=pk)
     json_obj = serializers.serialize('json', [category])

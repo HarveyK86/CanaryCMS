@@ -20,6 +20,7 @@ define([
             model_arrays: {
                 "widgets": "widget",
                 "pages": "page",
+                "videos": "video",
                 "categories": "category",
             },
             date_suffix: "datetime",

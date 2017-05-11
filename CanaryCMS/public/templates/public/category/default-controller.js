@@ -26,7 +26,7 @@ define([
             var inst = $.extend(self, {
                 _init: function(init_params) {
                     self.__logger = logger.get_logger(self);
-                    self.__logger.log("init[init_params]", init_params);
+                    self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
                     self.__templater = templater.get_templater(self);
                     self.__templater.init_templates(self.__init_params.selector_prefix);
