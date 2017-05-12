@@ -1,8 +1,10 @@
 /* global $, _ */
 define([
-    "util/logger"
+    "util/logger",
+    "util/cacher"
 ], function(
-    logger
+    logger,
+    cacher
 ) {
     var self = {
         config: {
@@ -26,7 +28,7 @@ define([
             date_suffix: "datetime",
             parameters_field: "parameters",
             interval_tick: 0,
-        },
+        }
     };
     var inst = $.extend(self, {
         init: function() {
@@ -98,14 +100,11 @@ define([
         _parse_field_item: function(field, field_item, callback) {
             self.__logger.log("_parse_field_item[field, field_item, callback]", [field, field_item, callback]);
             if (field_item) {
-                $.get({
-                    url: field + "/" + field_item,
-                    success: function(response_array) {
-                        self.parse_response_array(response_array, function(parsed_array) {
-                            self.__logger.log("_parse_field_item returning", parsed_array[0]);
-                            callback(field, parsed_array[0]);
-                        });
-                    }
+                cacher.get(field + "/" + field_item, function(response_array) {
+                    self.parse_response_array(response_array, function(parsed_array) {
+                        self.__logger.log("_parse_field_item returning", parsed_array[0]);
+                        callback(field, parsed_array[0]);
+                    });
                 });
             } else {
                 callback(field);
@@ -154,26 +153,20 @@ define([
         },
         _parse_field_array_item: function(index, model, field_array_item, callback) {
             self.__logger.log("_parse_field_array_item[index, model, field_array_item, callback]", [index, model, field_array_item, callback]);
-            $.get({
-                url: model + "/" + field_array_item,
-                success: function(response_array) {
-                    self.parse_response_array(response_array, function(parsed_array) {
-                        self.__logger.log("_parse_field_array_item returning", parsed_array[0]);
-                        callback(index, parsed_array[0]);
-                    });
-                }
+            cacher.get(model + "/" + field_array_item, function(response_array) {
+                self.parse_response_array(response_array, function(parsed_array) {
+                    self.__logger.log("_parse_field_array_item returning", parsed_array[0]);
+                    callback(index, parsed_array[0]);
+                });
             });
         },
         _parse_field_date: function(field, field_date, callback) {
             self.__logger.log("_parse_field_date[field, field_item, callback]", [field, field_date, callback]);
-            $.get({
-                url: self.config.date_suffix + "/" + encodeURIComponent(field_date),
-                success: function(response_array) {
-                    self.parse_response_array(response_array, function(parsed_array) {
-                        self.__logger.log("_parse_field_date returning", parsed_array[0]);
-                        callback(field, parsed_array[0]);
-                    });
-                }
+            cacher.get(self.config.date_suffix + "/" + encodeURIComponent(field_date), function(response_array) {
+                self.parse_response_array(response_array, function(parsed_array) {
+                    self.__logger.log("_parse_field_date returning", parsed_array[0]);
+                    callback(field, parsed_array[0]);
+                });
             });
         },
     });

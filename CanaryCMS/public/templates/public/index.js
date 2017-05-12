@@ -1,5 +1,17 @@
 /* global requirejs, $, s */
-requirejs(["util/logger", "util/templater", "util/listener", "service/config"], function(logger, templater, listener, config) {
+requirejs([
+    "util/logger",
+    "util/templater",
+    "util/selector",
+    "util/listener",
+    "service/config"
+], function(
+    logger,
+    templater,
+    selector,
+    listener,
+    config
+) {
     var self = {
         config: {
             name: "index",
@@ -21,12 +33,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
         },
         _init_header: function() {
             self.__logger.log("_init_header");
-            var selector = "#header";
-            var $header = $(selector);
-            if (!$header.length) {
-                console.error("Could not locate " + selector);
-                return;
-            }
+            var $header = selector.select("#header");
             $header.empty();
             self.__templater.http_get(self.__init_params.header.template.directory, function($template) {
                 $header.append($template);
@@ -37,12 +44,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
         },
         _init_page: function() {
             self.__logger.log("_init_page");
-            var selector = "#page";
-            var $page = $(selector);
-            if (!$page.length) {
-                console.error("Could not locate " + selector);
-                return;
-            }
+            var $page = selector.select("#page");
             var init_page = function() {
                 $page.empty();
                 if (window.location.hash) {
@@ -72,23 +74,13 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
                 self._init_sidebar(side, self.__init_params[side + "_sidebar"]);
             });
             if (self.__max_width) {
-                var selector = "#page";
-                var $page = $(selector);
-                if (!$page.length) {
-                    console.error("Could not locate " + selector);
-                    return;
-                }
+                var $page = selector.select("#page");
                 $page.addClass(self.__col + "-" + self.__max_width);
             }
         },
         _init_sidebar: function(side, sidebar_config) {
             self.__logger.log("_init_sidebar[side, sidebar_config]", [side, sidebar_config]);
-            var selector = "#" + side + "-sidebar";
-            var $sidebar = $(selector);
-            if (!$sidebar.length) {
-                console.error("Could not locate " + selector);
-                return;
-            }
+            var $sidebar = selector.select("#" + side + "-sidebar");
             $sidebar.empty();
             if (sidebar_config) {
                 var data = $sidebar.data();
@@ -107,12 +99,7 @@ requirejs(["util/logger", "util/templater", "util/listener", "service/config"], 
         },
         _init_footer: function() {
             self.__logger.log("_init_footer");
-            var selector = "#footer";
-            var $footer = $(selector);
-            if (!$footer.length) {
-                console.error("Could not locate " + selector);
-                return;
-            }
+            var $footer = selector.select("#footer");
             $footer.empty();
             self.__templater.http_get(self.__init_params.footer.template.directory, function($template) {
                 $footer.append($template);

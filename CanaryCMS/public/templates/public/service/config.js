@@ -1,5 +1,13 @@
 /* global $ */
-define(["util/logger", "util/parser"], function(logger, parser) {
+define([
+    "util/logger",
+    "util/parser",
+    "util/cacher"
+], function(
+    logger,
+    parser,
+    cacher
+) {
     var self = {
         config: {
             name: "service/config",
@@ -14,15 +22,12 @@ define(["util/logger", "util/parser"], function(logger, parser) {
         },
         api_get: function(callback) {
             self.__logger.log("api_get[callback]", callback);
-            $.get({
-                url: self.config.api_url,
-                success: function(response_array) {
-                    parser.parse_response_array(response_array, function(parsed_array) {
-                        var config = parsed_array[0];
-                        self.__logger.log("api_get returning", config);
-                        callback(config);
-                    });
-                },
+            cacher.get(self.config.api_url, function(response_array) {
+                parser.parse_response_array(response_array, function(parsed_array) {
+                    var config = parsed_array[0];
+                    self.__logger.log("api_get returning", config);
+                    callback(config);
+                });
             });
         },
     });

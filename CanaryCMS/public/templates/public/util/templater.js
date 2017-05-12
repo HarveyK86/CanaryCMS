@@ -1,10 +1,12 @@
 /* global $, _ */
 define([
     "util/logger",
-    "util/selector"
+    "util/selector",
+    "util/cacher"
 ], function(
     logger,
-    selector
+    selector,
+    cacher
 ) {
     var self = {
         config: {
@@ -57,13 +59,10 @@ define([
         },
         _http_get: function(other, template_directory, callback) {
             self.__logger.log("_http_get[other, template_directory, callback]", [other, template_directory, callback]);
-            $.get({
-                url: self.config.url_prefix + template_directory + self.config.url_suffix,
-                success: function(response) {
-                    var $template = $(response);
-                    self.__logger.log("_http_get returning", $template);
-                    callback($template);
-                },
+            cacher.get(self.config.url_prefix + template_directory + self.config.url_suffix, function(response) {
+                var $template = $(response);
+                self.__logger.log("_http_get returning", $template);
+                callback($template);
             });
         },
     });

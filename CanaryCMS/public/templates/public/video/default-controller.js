@@ -13,7 +13,7 @@ define([
             var self = {
                 config: {
                     name: "video/default-controller",
-                    debug: true,
+                    debug: false,
                     templates: {
                         video_template: {
                             selector: "[name='video-template']",
