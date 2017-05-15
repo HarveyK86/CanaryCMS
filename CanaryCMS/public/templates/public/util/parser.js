@@ -15,6 +15,7 @@ define([
                 "header",
                 "left_sidebar",
                 "right_sidebar",
+                "paginator",
                 "footer",
                 "template",
                 "controller",
@@ -22,6 +23,7 @@ define([
             model_arrays: {
                 "widgets": "widget",
                 "pages": "page",
+                "posts": "post",
                 "videos": "video",
                 "categories": "category",
             },

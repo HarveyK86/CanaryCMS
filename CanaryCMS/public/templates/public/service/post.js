@@ -1,10 +1,12 @@
 /* global $ */
 define([
     "util/logger",
+    "util/querier",
     "util/parser",
     "util/cacher"
 ], function(
     logger,
+    querier,
     parser,
     cacher
 ) {
@@ -20,11 +22,13 @@ define([
             self.__logger = logger.get_logger(self);
             self.__logger.log("init");
         },
-        api_get: function(categories, callback) {
-            self.__logger.log("api_get[categories, callback]", [categories, callback]);
-            cacher.get(self.config.api_url + "?categories=" + categories.toString(), function(response_array) {
-                parser.parse_response_array(response_array, function(post_configs) {
-                    post_configs.sort(function(a, b) {
+        api_get: function(categories, page, size, callback) {
+            self.__logger.log("api_get[categories, page, size, callback]", [categories, page, size, callback]);
+            cacher.get(self.config.api_url + "?categories=" + categories.toString() + "&page=" + page + "&size=" + size, function(response_array) {
+                parser.parse_response_array(response_array, function(post_responses) {
+                    var post_response = post_responses[0];
+                    querier.set_param("count", post_response.count);
+                    post_response.posts.sort(function(a, b) {
                         var a_epoch_time = parseInt(a.created_datetime.epoch_time, 10);
                         var b_epoch_time = parseInt(b.created_datetime.epoch_time, 10);
                         var result = 0;
@@ -37,8 +41,8 @@ define([
                         }
                         return result;
                     });
-                    self.__logger.log("api_get returning", post_configs);
-                    callback(post_configs);
+                    self.__logger.log("api_get returning", post_response.posts);
+                    callback(post_response.posts);
                 });
             });
         },

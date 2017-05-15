@@ -1,0 +1,23 @@
+<div class="standard-paginator">
+    <div id="paginator-container"></div>
+    <script type="text/template" id="paginator-template">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li<% if (page == 1) { %> class="disabled"<% } %>>
+                    <a href="<%- prefix %>?page=<% if (page == 1) { %>1<% } else { %><%- page - 1 %><% } %>&size=<%- size %>&count=<%- count %>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <% for (var i = 1; i <= Math.ceil(count / size); i++) { %>
+                    <li<% if (page == i) { %> class="active"<% } %>><a href="<%- prefix %>?page=<%- i %>&size=<%- size %>&count=<%- count %>"><%- i %></a></li>
+                <% } %>
+                <li<% if (page == Math.ceil(count / size)) { %> class="disabled"<% } %>>
+                    <a href="<%- prefix %>?page=<% if (page == Math.ceil(count / size)) { %><%- Math.ceil(count / size) %><% } else { %><%- page + 1 %><% } %>&size=<%- size %>&count=<%- count %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </script>
+    <link rel="stylesheet" type="text/css" href="/public/paginator/standard/style.css">
+</div>

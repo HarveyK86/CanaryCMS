@@ -70,7 +70,21 @@ def post(request):
     categories = categories.split(",")
     categories = models.Category.objects.filter(name__in=categories)
     posts = models.Post.objects.filter(categories__in=categories)
-    json_obj = serializers.serialize('json', posts)
+    posts = posts.order_by("-created_datetime")
+    count = len(posts)
+    page = int(request.GET.get("page"))
+    size = int(request.GET.get("size"))
+    start_inclusive = (page - 1) * size
+    end_exclusive = start_inclusive + size
+    posts = posts[start_inclusive: end_exclusive]
+    response = models.PostResponse.objects.create(count=count)
+    response.posts = posts
+    json_obj = serializers.serialize('json', [response])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def get_post(request, pk):
+    post = models.Post.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [post])
     return HttpResponse(json_obj, content_type='application/json')
 
 def video(request, pk):
@@ -81,6 +95,11 @@ def video(request, pk):
 def category(request, pk):
     category = models.Category.objects.get(pk=pk)
     json_obj = serializers.serialize('json', [category])
+    return HttpResponse(json_obj, content_type='application/json')
+
+def paginator(request, pk):
+    paginator = models.Paginator.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [paginator])
     return HttpResponse(json_obj, content_type='application/json')
 
 def footer(request, pk):

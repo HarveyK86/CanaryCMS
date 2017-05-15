@@ -1,13 +1,16 @@
 /* global $, s */
 define([
     "util/logger",
+    "util/querier",
     "util/templater",
     "util/selector",
     "util/listener"
 ], function(
     logger,
+    querier,
     templater,
-    selector, listener
+    selector,
+    listener
 ) {
     var self = {
         config: {
@@ -55,7 +58,7 @@ define([
                 var slug = s.slugify(page_config.name);
                 var $html = self.__templater.render(self.config.templates.page_template, {
                     page: $.extend(page_config, {
-                        active: window.location.hash === "#" + slug,
+                        active: querier.get_hash() === "#" + slug,
                         slug: slug,
                     }),
                 });

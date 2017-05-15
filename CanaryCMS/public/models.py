@@ -38,6 +38,7 @@ class Widget(models.Model):
 class Page(models.Model):
     name = models.CharField(max_length=200)
     priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    paginator = models.ForeignKey('public.Paginator', null=True, blank=True)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
@@ -55,6 +56,10 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+class PostResponse(models.Model):
+    count = models.IntegerField()
+    posts = models.ManyToManyField('public.Post')
+
 class Video(models.Model):
     owner = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
@@ -70,6 +75,13 @@ class Category(models.Model):
         verbose_name_plural = "categories"
     name = models.CharField(max_length=200)
     priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return self.name
+
+class Paginator(models.Model):
+    name = models.CharField(max_length=200)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):

@@ -1,12 +1,14 @@
 /* global requirejs, $, s */
 requirejs([
     "util/logger",
+    "util/querier",
     "util/templater",
     "util/selector",
     "util/listener",
     "service/config"
 ], function(
     logger,
+    querier,
     templater,
     selector,
     listener,
@@ -47,9 +49,9 @@ requirejs([
             var $page = selector.select("#page");
             var init_page = function() {
                 $page.empty();
-                if (window.location.hash) {
+                if (querier.has_hash()) {
                     self.__init_params.header.pages.forEach(function(page_config) {
-                        if (window.location.hash === "#" + s.slugify(page_config.name)) {
+                        if (querier.get_hash() === "#" + s.slugify(page_config.name)) {
                             self.__templater.http_get(page_config.template.directory, function($template) {
                                 $page.append($template);
                                 requirejs([page_config.controller.file], function(page) {
@@ -59,7 +61,7 @@ requirejs([
                         }
                     });
                 } else {
-                    window.location.hash = "#" + s.slugify(self.__init_params.header.pages[0].name);
+                    querier.set_hash("#" + s.slugify(self.__init_params.header.pages[0].name));
                 }
             };
             listener.add_onhashchange(init_page);
