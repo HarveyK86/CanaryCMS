@@ -3,16 +3,18 @@
     <script type="text/template" id="paginator-template">
         <nav aria-label="Page navigation">
             <ul class="pagination">
-                <li<% if (page == 1) { %> class="disabled"<% } %>>
-                    <a href="<%- prefix %>?page=<% if (page == 1) { %>1<% } else { %><%- page - 1 %><% } %>&size=<%- size %>&count=<%- count %>" aria-label="Previous">
+                <li<% if (paginator.is_first_page) { %> class="disabled"<% } %>>
+                    <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<% if (paginator.is_first_page) { %>1<% } else { %><%- paginator.page - 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <% for (var i = 1; i <= Math.ceil(count / size); i++) { %>
-                    <li<% if (page == i) { %> class="active"<% } %>><a href="<%- prefix %>?page=<%- i %>&size=<%- size %>&count=<%- count %>"><%- i %></a></li>
+                <% for (var i = 1; i <= paginator.max_page; i++) { %>
+                    <li<% if (i == paginator.page) { %> class="active"<% } %>>
+                        <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<%- i %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>"><%- i %></a>
+                    </li>
                 <% } %>
-                <li<% if (page == Math.ceil(count / size)) { %> class="disabled"<% } %>>
-                    <a href="<%- prefix %>?page=<% if (page == Math.ceil(count / size)) { %><%- Math.ceil(count / size) %><% } else { %><%- page + 1 %><% } %>&size=<%- size %>&count=<%- count %>" aria-label="Next">
+                <li<% if (paginator.is_last_page) { %> class="disabled"<% } %>>
+                    <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<% if (paginator.is_last_page) { %><%- paginator.max_page %><% } else { %><%- paginator.page + 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

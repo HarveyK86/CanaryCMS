@@ -72,11 +72,14 @@ def post(request):
     posts = models.Post.objects.filter(categories__in=categories)
     posts = posts.order_by("-created_datetime")
     count = len(posts)
-    page = int(request.GET.get("page"))
-    size = int(request.GET.get("size"))
-    start_inclusive = (page - 1) * size
-    end_exclusive = start_inclusive + size
-    posts = posts[start_inclusive: end_exclusive]
+    page = request.GET.get("page")
+    page_size = request.GET.get("page-size")
+    if page and page_size:
+        page = int(page)
+        page_size = int(page_size)
+        start_inclusive = (page - 1) * page_size
+        end_exclusive = start_inclusive + page_size
+        posts = posts[start_inclusive: end_exclusive]
     response = models.PostResponse.objects.create(count=count)
     response.posts = posts
     json_obj = serializers.serialize('json', [response])
@@ -127,5 +130,5 @@ def html(request, file):
 
 def js(request, file):
     response = render(request, "public/" + file + ".js", content_type='application/javascript')
-    response.content = jsmin(response.content.decode("UTF-8"), quote_chars="'\"`")
+    #response.content = jsmin(response.content.decode("UTF-8"), quote_chars="'\"`")
     return response

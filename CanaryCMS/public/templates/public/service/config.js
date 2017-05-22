@@ -1,13 +1,5 @@
 /* global $ */
-define([
-    "util/logger",
-    "util/parser",
-    "util/cacher"
-], function(
-    logger,
-    parser,
-    cacher
-) {
+define(["util-package"], function(util) {
     var self = {
         config: {
             name: "service/config",
@@ -17,13 +9,13 @@ define([
     };
     var inst = $.extend(self, {
         init: function() {
-            self.__logger = logger.get_logger(self);
+            self.__logger = util.logger.get_logger(self);
             self.__logger.log("init");
         },
         api_get: function(callback) {
             self.__logger.log("api_get[callback]", callback);
-            cacher.get(self.config.api_url, function(response_array) {
-                parser.parse_response_array(response_array, function(parsed_array) {
+            util.cache.get(self.config.api_url, function(response_array) {
+                util.parser.parse_response_array(response_array, function(parsed_array) {
                     var config = parsed_array[0];
                     self.__logger.log("api_get returning", config);
                     callback(config);

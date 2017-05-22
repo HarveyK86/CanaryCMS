@@ -25,9 +25,9 @@ define([], function() {
         _log: function(obj, message, args) {
             if (self.config.debug_override || obj.config.debug) {
                 if (!self.config.args_override && args != null) {
-                    console.info(obj.config.name, message, args);
+                    console.log(obj.config.name, message, args);
                 } else {
-                    console.info(obj.config.name, message);
+                    console.log(obj.config.name, message);
                 }
             }
         },

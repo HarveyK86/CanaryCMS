@@ -1,13 +1,5 @@
 /* global requirejs, $ */
-define([
-    "util/logger",
-    "util/templater",
-    "util/selector"
-], function(
-    logger,
-    templater,
-    selector
-) {
+define(["util-package"], function(util) {
     return {
         init: function(init_params) {
             var self = {
@@ -28,10 +20,10 @@ define([
             };
             var inst = $.extend(self, {
                 _init: function(init_params) {
-                    self.__logger = logger.get_logger(self);
+                    self.__logger = util.logger.get_logger(self);
                     self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
-                    self.__templater = templater.get_templater(self);
+                    self.__templater = util.templater.get_templater(self);
                     self.__templater.init_templates(self.__init_params.selector_prefix);
                     self._init_post_container();
                     self._init_videos();
@@ -39,18 +31,18 @@ define([
                 },
                 _init_post_container: function() {
                     self.__logger.log("_init_post_container");
-                    var $post_container = selector.select(self.__init_params.selector_prefix + self.config.post_container_selector);
-                    $post_container.empty();
-                    var $html = self.__templater.render(self.config.templates.post_template, {
-                        post: self.__init_params,
-                    });
-                    $post_container.append($html);
+                    self.__templater.render_to_container(
+                        self.config.templates.post_template,
+                        self.__init_params.selector_prefix + self.config.post_container_selector, {
+                            post: self.__init_params,
+                        }
+                    );
                 },
                 _init_videos: function() {
                     self.__logger.log("_init_videos");
-                    var $videos = selector.select(self.__init_params.selector_prefix + self.config.videos_selector);
-                    var out = self.__init_params.videos.length;
+                    var $videos = util.selector.select(self.__init_params.selector_prefix + self.config.videos_selector);
                     $videos.empty();
+                    var out = self.__init_params.videos.length;
                     if (out) {
                         self.__init_params.videos.forEach(function(video_config) {
                             self.__templater.http_get(video_config.template.directory, function($template) {
@@ -77,9 +69,9 @@ define([
                 },
                 _init_categories: function() {
                     self.__logger.log("_init_categories");
-                    var $categories = selector.select(self.__init_params.selector_prefix + self.config.categories_selector);
                     var out = self.__init_params.categories.length;
                     if (out) {
+                        var $categories = util.selector.select(self.__init_params.selector_prefix + self.config.categories_selector);
                         $categories.empty();
                         self.__init_params.categories.forEach(function(category_config) {
                             self.__templater.http_get(category_config.template.directory, function($template) {

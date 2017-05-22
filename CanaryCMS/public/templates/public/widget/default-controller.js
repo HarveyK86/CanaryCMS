@@ -1,13 +1,5 @@
 /* global $ */
-define([
-    "util/logger",
-    "util/templater",
-    "util/selector"
-], function(
-    logger,
-    templater,
-    selector
-) {
+define(["util-package"], function(util) {
     return {
         init: function(init_params) {
             var self = {
@@ -25,21 +17,21 @@ define([
             };
             var inst = $.extend(self, {
                 _init: function(init_params) {
-                    self.__logger = logger.get_logger(self);
+                    self.__logger = util.logger.get_logger(self);
                     self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
-                    self.__templater = templater.get_templater(self);
+                    self.__templater = util.templater.get_templater(self);
                     self.__templater.init_templates(self.__init_params.selector_prefix);
                     self._init_widget_container();
                 },
                 _init_widget_container: function() {
                     self.__logger.log("_init_widget_container");
-                    var $widget_container = selector.select(self.__init_params.selector_prefix + self.config.widget_container_selector);
-                    $widget_container.empty();
-                    var $html = self.__templater.render(self.config.templates.widget_template, {
-                        widget: self.__init_params,
-                    });
-                    $widget_container.append($html);
+                    self.__templater.render_to_container(
+                        self.config.templates.widget_template,
+                        self.__init_params.selector_prefix + self.config.widget_container_selector, {
+                            widget: self.__init_params,
+                        }
+                    );
                 },
             });
             inst._init(init_params);

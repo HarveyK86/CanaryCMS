@@ -1,11 +1,5 @@
 /* global $, _ */
-define([
-    "util/logger",
-    "util/cacher"
-], function(
-    logger,
-    cacher
-) {
+define(["util/cache", "util/logger"], function(cache, logger) {
     var self = {
         config: {
             name: "parser",
@@ -41,7 +35,6 @@ define([
             self.__logger.log("parse_response_array[response_array, callback]", [response_array, callback]);
             var out = 0;
             var parsed_array = [];
-            var interval;
             for (var index = 0; index < response_array.length; index++) {
                 out++;
                 self._parse_response_item(index, response_array[index], function(parsed_index, parsed_item) {
@@ -49,7 +42,7 @@ define([
                     out--;
                 });
             }
-            interval = setInterval(function() {
+            var interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
                     self.__logger.log("parse_response_array returning", parsed_array);
@@ -63,7 +56,6 @@ define([
             var parsed_item = {
                 id: response_item.pk,
             };
-            var interval;
             for (var field in response_item.fields) {
                 if (_.contains(self.config.models, field)) {
                     out++;
@@ -91,7 +83,7 @@ define([
                     parsed_item[field] = response_item.fields[field];
                 }
             }
-            interval = setInterval(function() {
+            var interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
                     self.__logger.log("_parse_response_item returning", parsed_item);
@@ -102,7 +94,7 @@ define([
         _parse_field_item: function(field, field_item, callback) {
             self.__logger.log("_parse_field_item[field, field_item, callback]", [field, field_item, callback]);
             if (field_item) {
-                cacher.get(field + "/" + field_item, function(response_array) {
+                cache.get(field + "/" + field_item, function(response_array) {
                     self.parse_response_array(response_array, function(parsed_array) {
                         self.__logger.log("_parse_field_item returning", parsed_array[0]);
                         callback(field, parsed_array[0]);
@@ -116,7 +108,6 @@ define([
             self.__logger.log("_parse_field_array[field, field_array, callback]", [field, field_array, callback]);
             var out = 0;
             var parsed_array = [];
-            var interval;
             for (var index = 0; index < field_array.length; index++) {
                 out++;
                 self._parse_field_array_item(index, self.config.model_arrays[field], field_array[index], function(parsed_index, parsed_array_item) {
@@ -124,27 +115,25 @@ define([
                     out--;
                 });
             }
-            interval = setInterval(function() {
+            var interval = setInterval(function() {
                 if (out === 0) {
                     clearInterval(interval);
                     parsed_array.sort(function(a, b) {
                         var a_priorty = parseFloat(a.priority);
                         var b_priorty = parseFloat(b.priority);
                         var result = 0;
-                        var a_before_b = -1;
-                        var b_before_a = 1;
                         if (a_priorty) {
                             if (b_priorty) {
                                 if (a_priorty < b_priorty) {
-                                    result = a_before_b;
+                                    result = -1;
                                 } else if (b_priorty < a_priorty) {
-                                    result = b_before_a;
+                                    result = 1;
                                 }
                             } else {
-                                result = a_before_b;
+                                result = -1;
                             }
                         } else if (b_priorty) {
-                            result = b_before_a;
+                            result = 1;
                         }
                         return result;
                     });
@@ -155,7 +144,7 @@ define([
         },
         _parse_field_array_item: function(index, model, field_array_item, callback) {
             self.__logger.log("_parse_field_array_item[index, model, field_array_item, callback]", [index, model, field_array_item, callback]);
-            cacher.get(model + "/" + field_array_item, function(response_array) {
+            cache.get(model + "/" + field_array_item, function(response_array) {
                 self.parse_response_array(response_array, function(parsed_array) {
                     self.__logger.log("_parse_field_array_item returning", parsed_array[0]);
                     callback(index, parsed_array[0]);
@@ -164,7 +153,7 @@ define([
         },
         _parse_field_date: function(field, field_date, callback) {
             self.__logger.log("_parse_field_date[field, field_item, callback]", [field, field_date, callback]);
-            cacher.get(self.config.date_suffix + "/" + encodeURIComponent(field_date), function(response_array) {
+            cache.get(self.config.date_suffix + "/" + encodeURIComponent(field_date), function(response_array) {
                 self.parse_response_array(response_array, function(parsed_array) {
                     self.__logger.log("_parse_field_date returning", parsed_array[0]);
                     callback(field, parsed_array[0]);

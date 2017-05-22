@@ -1,13 +1,5 @@
 /* global requirejs, $ */
-define([
-    "util/logger",
-    "util/templater",
-    "util/selector"
-], function(
-    logger,
-    templater,
-    selector
-) {
+define(["util-package"], function(util) {
     var self = {
         config: {
             name: "sidebar/default-controller",
@@ -18,15 +10,15 @@ define([
     };
     return $.extend(self, {
         init: function(init_params) {
-            self.__logger = logger.get_logger(self);
+            self.__logger = util.logger.get_logger(self);
             self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
-            self.__templater = templater.get_templater(self);
+            self.__templater = util.templater.get_templater(self);
             self._init_widgets();
         },
         _init_widgets: function() {
             self.__logger.log("_init_widgets");
-            var $widgets = selector.select(self.config.widgets_selector);
+            var $widgets = util.selector.select(self.config.widgets_selector);
             $widgets.empty();
             var out = self.__init_params.widgets.length;
             self.__init_params.widgets.forEach(function(widget_config) {
