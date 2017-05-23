@@ -8,13 +8,13 @@ define(["util-package"], function(util) {
                     debug: false,
                     templates: {
                         post_template: {
-                            selector: "[name='post-template']",
+                            selector: "#post-template",
                             attribute: "__post",
                         },
                     },
-                    post_container_selector: "[name='post-container']",
-                    videos_selector: "[name='videos']",
-                    categories_selector: "[name='categories']",
+                    post_template_container_selector: "[name='post-template-container']",
+                    video_list_selector: "[name='video-list']",
+                    category_list_selector: "[name='category-list']",
                     interval_tick: 0,
                 }
             };
@@ -24,24 +24,24 @@ define(["util-package"], function(util) {
                     self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
                     self.__templater = util.templater.get_templater(self);
-                    self.__templater.init_templates(self.__init_params.selector_prefix);
-                    self._init_post_container();
-                    self._init_videos();
-                    self._init_categories();
+                    self.__templater.init_templates();
+                    self._init_post_template_container();
+                    self._init_video_list();
+                    self._init_category_list();
                 },
-                _init_post_container: function() {
-                    self.__logger.log("_init_post_container");
+                _init_post_template_container: function() {
+                    self.__logger.log("_init_post_template_container");
                     self.__templater.render_to_container(
                         self.config.templates.post_template,
-                        self.__init_params.selector_prefix + self.config.post_container_selector, {
+                        self.__init_params.selector_prefix + self.config.post_template_container_selector, {
                             post: self.__init_params,
                         }
                     );
                 },
-                _init_videos: function() {
-                    self.__logger.log("_init_videos");
-                    var $videos = util.selector.select(self.__init_params.selector_prefix + self.config.videos_selector);
-                    $videos.empty();
+                _init_video_list: function() {
+                    self.__logger.log("_init_video_list");
+                    var $video_list = util.selector.select(self.__init_params.selector_prefix + self.config.video_list_selector);
+                    $video_list.empty();
                     var out = self.__init_params.videos.length;
                     if (out) {
                         self.__init_params.videos.forEach(function(video_config) {
@@ -58,21 +58,21 @@ define(["util-package"], function(util) {
                             if (out == 0) {
                                 clearInterval(interval);
                                 self.__init_params.videos.forEach(function(video_config) {
-                                    $videos.append(video_config.__$template);
+                                    $video_list.append(video_config.__$template);
                                     video_config.__controller.init($.extend(video_config, {
-                                        selector_prefix: self.__init_params.selector_prefix + " [name='video-" + video_config.id + "'] ",
+                                        selector_prefix: self.__init_params.selector_prefix + "[name='video-" + video_config.id + "'] ",
                                     }));
                                 });
                             }
                         }, self.config.interval_tick);
                     }
                 },
-                _init_categories: function() {
-                    self.__logger.log("_init_categories");
+                _init_category_list: function() {
+                    self.__logger.log("_init_category_list");
                     var out = self.__init_params.categories.length;
                     if (out) {
-                        var $categories = util.selector.select(self.__init_params.selector_prefix + self.config.categories_selector);
-                        $categories.empty();
+                        var $category_list = util.selector.select(self.__init_params.selector_prefix + self.config.category_list_selector);
+                        $category_list.empty();
                         self.__init_params.categories.forEach(function(category_config) {
                             self.__templater.http_get(category_config.template.directory, function($template) {
                                 $template.attr("name", "category-" + category_config.id);
@@ -87,9 +87,9 @@ define(["util-package"], function(util) {
                             if (out === 0) {
                                 clearInterval(interval);
                                 self.__init_params.categories.forEach(function(category_config) {
-                                    $categories.append(category_config.__$template);
+                                    $category_list.append(category_config.__$template);
                                     category_config.__controller.init($.extend(category_config, {
-                                        selector_prefix: self.__init_params.selector_prefix + " [name='category-" + category_config.id + "'] ",
+                                        selector_prefix: self.__init_params.selector_prefix + "[name='category-" + category_config.id + "'] ",
                                     }));
                                 });
                             }

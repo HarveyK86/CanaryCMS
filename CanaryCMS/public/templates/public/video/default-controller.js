@@ -8,11 +8,11 @@ define(["util-package"], function(util) {
                     debug: false,
                     templates: {
                         video_template: {
-                            selector: "[name='video-template']",
+                            selector: "#video-template",
                             attribute: "__video",
                         },
                     },
-                    video_container_selector: "[name='video-container']",
+                    video_template_container_selector: "[name='video-template-container']",
                 }
             };
             var inst = $.extend(self, {
@@ -21,14 +21,14 @@ define(["util-package"], function(util) {
                     self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
                     self.__templater = util.templater.get_templater(self);
-                    self.__templater.init_templates(self.__init_params.selector_prefix);
-                    self._init_video_container();
+                    self.__templater.init_templates();
+                    self._init_video_template_container();
                 },
-                _init_video_container: function() {
-                    self.__logger.log("_init_video_container");
+                _init_video_template_container: function() {
+                    self.__logger.log("_init_video_template_container");
                     self.__templater.render_to_container(
                         self.config.templates.video_template,
-                        self.__init_params.selector_prefix + self.config.video_container_selector, {
+                        self.__init_params.selector_prefix + self.config.video_template_container_selector, {
                             video: self.__init_params,
                         }
                     );

@@ -10,7 +10,7 @@ define(["util-package"], function(util) {
                     attribute: "__paginator",
                 },
             },
-            paginator_container_selector: "#paginator-container",
+            paginator_template_container_selector: "[name='paginator-template-container']",
             page_key: "p",
             default_page: "1",
             page_size_key: "s",
@@ -26,20 +26,20 @@ define(["util-package"], function(util) {
             self.__init_params = init_params;
             self.__templater = util.templater.get_templater(self);
             self.__templater.init_templates();
-            self._init_paginator_container();
+            self._init_paginator_template_container();
             util.listener.add_onquerychange(self.config.name, function(params) {
-                self._init_paginator_container();
+                self._init_paginator_template_container();
             });
         },
-        _init_paginator_container: function() {
-            self.__logger.log("_init_paginator_container");
+        _init_paginator_template_container: function() {
+            self.__logger.log("_init_paginator_template_container");
             var page = parseInt(util.query.get_param(self.config.page_key, self.config.default_page), 10);
             var page_size = parseInt(util.query.get_param(self.config.page_size_key, self.config.default_page_size), 10);
             var item_count = parseInt(util.query.get_param(self.config.item_count_key, self.config.default_item_count), 10);
             var max_page = Math.ceil(item_count / page_size);
             self.__templater.render_to_container(
                 self.config.templates.paginator_template,
-                self.config.paginator_container_selector, {
+                self.__init_params.selector_prefix + self.config.paginator_template_container_selector, {
                     paginator: $.extend(self.__init_params, {
                         url_prefix: util.query.get_hash(),
                         page_key: self.config.page_key,

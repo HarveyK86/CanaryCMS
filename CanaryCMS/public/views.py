@@ -130,5 +130,5 @@ def html(request, file):
 
 def js(request, file):
     response = render(request, "public/" + file + ".js", content_type='application/javascript')
-    #response.content = jsmin(response.content.decode("UTF-8"), quote_chars="'\"`")
+    response.content = jsmin(response.content.decode("UTF-8"), quote_chars="'\"`")
     return response

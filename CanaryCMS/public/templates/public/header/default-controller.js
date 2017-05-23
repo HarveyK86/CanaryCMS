@@ -14,8 +14,8 @@ define(["util-package"], function(util) {
                     attribute: "__page",
                 },
             },
-            header_container_selector: "#header-container",
-            pages_selector: "#pages",
+            header_template_container_selector: "[name='header-template-container']",
+            page_list_selector: "[name='page-list']",
         }
     };
     return $.extend(self, {
@@ -25,33 +25,31 @@ define(["util-package"], function(util) {
             self.__init_params = init_params;
             self.__templater = util.templater.get_templater(self);
             self.__templater.init_templates();
-            util.listener.add_onhashchange(self.config.name, self._init_pages);
-            self._init_header_container();
-            self._init_pages();
+            self._init_header_template_container();
+            util.listener.add_onhashchange(self.config.name, self._init_page_list);
+            self._init_page_list();
         },
-        _init_header_container: function() {
-            self.__logger.log("_init_header_container");
+        _init_header_template_container: function() {
+            self.__logger.log("_init_header_template_container");
             self.__templater.render_to_container(
                 self.config.templates.header_template,
-                self.config.header_container_selector, {
+                self.__init_params.selector_prefix + self.config.header_template_container_selector, {
                     header: self.__init_params,
                 }
             );
         },
-        _init_pages: function() {
-            self.__logger.log("_init_pages");
-            var $pages = util.selector.select(self.config.pages_selector);
-            $pages.empty();
+        _init_page_list: function() {
+            self.__logger.log("_init_page_list");
+            var $page_list = util.selector.select(self.__init_params.selector_prefix + self.config.page_list_selector);
+            $page_list.empty();
             self.__init_params.pages.forEach(function(page_config) {
                 var slug = s.slugify(page_config.name);
-                $pages.append(self.__templater.render(
-                    self.config.templates.page_template, {
-                        page: $.extend(page_config, {
-                            active: util.query.get_hash() === "#" + slug,
-                            slug: slug,
-                        }),
-                    }
-                ));
+                $page_list.append(self.__templater.render(self.config.templates.page_template, {
+                    page: $.extend(page_config, {
+                        active: util.query.get_hash() === "#" + slug,
+                        slug: slug,
+                    }),
+                }));
             });
         },
     });

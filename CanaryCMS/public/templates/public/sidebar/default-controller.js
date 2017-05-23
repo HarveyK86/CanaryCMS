@@ -4,7 +4,7 @@ define(["util-package"], function(util) {
         config: {
             name: "sidebar/default-controller",
             debug: false,
-            widgets_selector: "#widgets",
+            widget_list_selector: "[name='widget-list']",
             interval_tick: 0,
         }
     };
@@ -14,16 +14,16 @@ define(["util-package"], function(util) {
             self.__logger.log("init[init_params]", init_params);
             self.__init_params = init_params;
             self.__templater = util.templater.get_templater(self);
-            self._init_widgets();
+            self._init_widget_list();
         },
-        _init_widgets: function() {
-            self.__logger.log("_init_widgets");
-            var $widgets = util.selector.select(self.config.widgets_selector);
-            $widgets.empty();
+        _init_widget_list: function() {
+            self.__logger.log("_init_widget_list");
+            var $widget_list = util.selector.select(self.__init_params.selector_prefix + self.config.widget_list_selector);
+            $widget_list.empty();
             var out = self.__init_params.widgets.length;
             self.__init_params.widgets.forEach(function(widget_config) {
                 self.__templater.http_get(widget_config.template.directory, function($template) {
-                    $template.attr("id", "widget-" + widget_config.id);
+                    $template.attr("name", "widget-" + widget_config.id);
                     widget_config.__$template = $template;
                     requirejs([widget_config.controller.file], function(controller) {
                         widget_config.__controller = controller;
@@ -35,9 +35,9 @@ define(["util-package"], function(util) {
                 if (out === 0) {
                     clearInterval(interval);
                     self.__init_params.widgets.forEach(function(widget_config) {
-                        $widgets.append(widget_config.__$template);
+                        $widget_list.append(widget_config.__$template);
                         widget_config.__controller.init($.extend(widget_config, {
-                            selector_prefix: "#widget-" + widget_config.id + " ",
+                            selector_prefix: self.__init_params.selector_prefix + "[name='widget-" + widget_config.id + "'] ",
                         }));
                     });
                 }

@@ -6,8 +6,8 @@ define(["util-package", "service/post"], function(util, post) {
                 config: {
                     name: "page/category/controller",
                     debug: false,
-                    posts_selector: "#posts",
-                    paginator_selector: "#paginator",
+                    post_list_selector: "[name='post-list']",
+                    paginator_slot_selector: "[name='paginator-slot']",
                     interval_tick: 0,
                 }
             };
@@ -17,25 +17,27 @@ define(["util-package", "service/post"], function(util, post) {
                     self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
                     self.__templater = util.templater.get_templater(self);
-                    self._init_paginator(function() {
+                    self._init_paginator_slot(function() {
                         util.listener.add_onquerychange(self.config.name, function(params) {
                             if (params.includes(self.__paginator.get_page_key()) ||
                                 params.includes(self.__paginator.get_page_size_key())) {
-                                self._init_posts();
+                                self._init_post_list();
                             }
                         });
-                        self._init_posts();
+                        self._init_post_list();
                     });
                 },
-                _init_paginator: function(callback) {
-                    self.__logger.log("_init_paginator[callback]");
-                    var $paginator = util.selector.select(self.config.paginator_selector);
-                    $paginator.empty();
+                _init_paginator_slot: function(callback) {
+                    self.__logger.log("_init_paginator_slot[callback]");
+                    var $paginator_slot = util.selector.select(self.__init_params.selector_prefix + self.config.paginator_slot_selector);
+                    $paginator_slot.empty();
                     if (self.__init_params.paginator) {
                         self.__templater.http_get(self.__init_params.paginator.template.directory, function($template) {
-                            $paginator.append($template);
+                            $paginator_slot.append($template);
                             requirejs([self.__init_params.paginator.controller.file], function(paginator) {
-                                paginator.init(self.__init_params.paginator);
+                                paginator.init($.extend(self.__init_params.paginator, {
+                                    selector_prefix: self.__init_params.selector_prefix,
+                                }));
                                 self.__paginator = paginator;
                                 callback();
                             });
@@ -44,10 +46,10 @@ define(["util-package", "service/post"], function(util, post) {
                         callback();
                     }
                 },
-                _init_posts: function() {
-                    self.__logger.log("_init_posts");
-                    var $posts = util.selector.select(self.config.posts_selector);
-                    $posts.empty();
+                _init_post_list: function() {
+                    self.__logger.log("_init_post_list");
+                    var $post_list = util.selector.select(self.__init_params.selector_prefix + self.config.post_list_selector);
+                    $post_list.empty();
                     var start_page;
                     var page_size;
                     if (self.__paginator) {
@@ -59,7 +61,7 @@ define(["util-package", "service/post"], function(util, post) {
                         var out = post_configs.length;
                         post_configs.forEach(function(post_config) {
                             self.__templater.http_get(post_config.template.directory, function($template) {
-                                $template.attr("id", "post-" + post_config.id);
+                                $template.attr("name", "post-" + post_config.id);
                                 post_config.__$template = $template;
                                 requirejs([post_config.controller.file], function(controller) {
                                     post_config.__controller = controller;
@@ -71,9 +73,9 @@ define(["util-package", "service/post"], function(util, post) {
                             if (out === 0) {
                                 clearInterval(interval);
                                 post_configs.forEach(function(post_config) {
-                                    $posts.append(post_config.__$template);
+                                    $post_list.append(post_config.__$template);
                                     post_config.__controller.init($.extend(post_config, {
-                                        selector_prefix: "#post-" + post_config.id + " ",
+                                        selector_prefix: self.__init_params.selector_prefix + "[name='post-" + post_config.id + "'] ",
                                     }));
                                 });
                             }

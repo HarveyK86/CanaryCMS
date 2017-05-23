@@ -8,11 +8,11 @@ define(["util-package"], function(util) {
                     debug: false,
                     templates: {
                         widget_template: {
-                            selector: "[name='widget-template']",
+                            selector: "#widget-template",
                             attribute: "__widget",
                         },
                     },
-                    widget_container_selector: "[name='widget-container']",
+                    widget_template_container_selector: "[name='widget-template-container']",
                 }
             };
             var inst = $.extend(self, {
@@ -21,14 +21,14 @@ define(["util-package"], function(util) {
                     self.__logger.log("_init[init_params]", init_params);
                     self.__init_params = init_params;
                     self.__templater = util.templater.get_templater(self);
-                    self.__templater.init_templates(self.__init_params.selector_prefix);
-                    self._init_widget_container();
+                    self.__templater.init_templates();
+                    self._init_widget_template_container();
                 },
-                _init_widget_container: function() {
-                    self.__logger.log("_init_widget_container");
+                _init_widget_template_container: function() {
+                    self.__logger.log("_init_widget_template_container");
                     self.__templater.render_to_container(
                         self.config.templates.widget_template,
-                        self.__init_params.selector_prefix + self.config.widget_container_selector, {
+                        self.__init_params.selector_prefix + self.config.widget_template_container_selector, {
                             widget: self.__init_params,
                         }
                     );

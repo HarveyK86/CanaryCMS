@@ -10,7 +10,7 @@ define(["util-package"], function(util) {
                     attribute: "__footer",
                 },
             },
-            footer_container_selector: "#footer-container",
+            footer_template_container_selector: "[name='footer-template-container']",
         }
     };
     return $.extend(self, {
@@ -20,13 +20,13 @@ define(["util-package"], function(util) {
             self.__init_params = init_params;
             self.__templater = util.templater.get_templater(self);
             self.__templater.init_templates();
-            self._init_footer_container();
+            self._init_footer_template_container();
         },
-        _init_footer_container: function() {
-            self.__logger.log("_init_footer_container");
+        _init_footer_template_container: function() {
+            self.__logger.log("_init_footer_template_container");
             self.__templater.render_to_container(
                 self.config.templates.footer_template,
-                self.config.footer_container_selector, {
+                self.config.footer_template_container_selector, {
                     footer: self.__init_params,
                 }
             );
