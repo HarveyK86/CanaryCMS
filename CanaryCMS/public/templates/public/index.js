@@ -48,7 +48,7 @@ requirejs(["util-package", "service/config"], function(util, config) {
                             self.__templater.http_get(page_config.template.directory, function($template) {
                                 $page_slot.append($template);
                                 requirejs([page_config.controller.file], function(page) {
-                                    page.init($.extend(page_config, {
+                                    self.__page = page.init($.extend(page_config, {
                                         selector_prefix: self.config.page_slot_selector + " ",
                                     }));
                                 });
@@ -59,7 +59,10 @@ requirejs(["util-package", "service/config"], function(util, config) {
                     util.query.set_hash("#" + s.slugify(self.__init_params.header.pages[0].name));
                 }
             };
-            util.listener.add_onhashchange(self.config.name, init_page);
+            util.listener.add_onhashchange(self.config.name, function() {
+                if (self.__page) self.__page.destroy();
+                init_page();
+            });
             init_page();
             var data = $page_slot.data();
             self.__col = data.col;

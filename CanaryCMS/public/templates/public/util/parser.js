@@ -50,6 +50,20 @@ define(["util/cache", "util/logger"], function(cache, logger) {
                 }
             }, self.config.interval_tick);
         },
+        parse_reddit_response: function(reddit_response) {
+            self.__logger.log("parse_reddit_response[reddit_response]", reddit_response);
+            var parsed_array = [];
+            for (var index = 0; index < reddit_response.data.children.length; index++) {
+                parsed_array[index] = self._parse_reddit_response_item(reddit_response.data.children[index]);
+            }
+            var parsed_response = {
+                before: reddit_response.data.before,
+                reddit_posts: parsed_array,
+                after: reddit_response.data.after,
+            };
+            self.__logger.log("parse_reddit_response returning", parsed_response);
+            return parsed_response;
+        },
         _parse_response_item: function(index, response_item, callback) {
             self.__logger.log("_parse_response_item[index, response_item, callback]", [index, response_item, callback]);
             var out = 0;
@@ -90,6 +104,10 @@ define(["util/cache", "util/logger"], function(cache, logger) {
                     callback(index, parsed_item);
                 }
             }, self.config.interval_tick);
+        },
+        _parse_reddit_response_item: function(reddit_response_item) {
+            self.__logger.log("_parse_reddit_response_item[reddit_response_item] returning", [reddit_response_item, reddit_response_item.data]);
+            return reddit_response_item.data;
         },
         _parse_field_item: function(field, field_item, callback) {
             self.__logger.log("_parse_field_item[field, field_item, callback]", [field, field_item, callback]);

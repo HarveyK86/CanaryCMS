@@ -79,7 +79,9 @@ define(["util/cache", "util/logger", "util/selector"], function(cache, logger, s
             cache.get(self.config.url_prefix + template_directory + self.config.view_suffix, function(response) {
                 var $view = $(response);
                 self.__logger.log("_http_get returning", $view);
-                callback($view);
+                setTimeout(function() {
+                    callback($view);
+                }, 0);
             });
         },
     });

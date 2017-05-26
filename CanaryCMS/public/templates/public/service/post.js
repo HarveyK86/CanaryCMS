@@ -30,7 +30,7 @@ define(["util-package"], function(util) {
                         }
                         return result;
                     });
-                    self.__logger.log("api_get returning", post_response.posts);
+                    self.__logger.log("api_get returning", [post_response.posts, post_response.count]);
                     callback(post_response.posts, post_response.count);
                 });
             });

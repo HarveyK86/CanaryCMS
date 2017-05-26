@@ -1,7 +1,7 @@
 <div>
-    <script type="text/template" id="paginator-template">
+    <script type="text/template" id="standard-paginator-template">
         <nav aria-label="Page navigation">
-            <ul class="pagination">
+            <ul class="pagination<% if (paginator.template.parameters && paginator.template.parameters.class) { %> <%- paginator.template.parameters.class %><% } %>">
                 <li<% if (paginator.is_first_page) { %> class="disabled"<% } %>>
                     <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<% if (paginator.is_first_page) { %>1<% } else { %><%- paginator.page - 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>

@@ -22,15 +22,22 @@ define(["util/logger"], function(logger) {
             self.__onquerychange[key] = onquerychange;
         },
         hashchanged: function() {
+            self.__logger.log("hashchanged");
             for (var key in self.__onhashchange) {
-                self.__onhashchange[key]();
+                if (self.__onhashchange[key]) self.__onhashchange[key]();
             }
         },
         querychanged: function(params) {
+            self.__logger.log("querychanged[params]", params);
             for (var key in self.__onquerychange) {
-                self.__onquerychange[key](params);
+                if (self.__onquerychange[key]) self.__onquerychange[key](params);
             }
         },
+        remove_listeners: function(key) {
+            self.__logger.log("remove_listeners[key]", key);
+            self.__onhashchange[key] = undefined;
+            self.__onquerychange[key] = undefined;
+        }
     });
     inst.init();
     return inst;

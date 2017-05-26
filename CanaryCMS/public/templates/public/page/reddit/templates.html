@@ -1,0 +1,22 @@
+<div>
+    <script type="text/template" id="reddit-post-template">
+        <div class="panel <%- reddit_post.class %>">
+            <div class="panel-heading">
+                <div class="row">
+                    <% if (reddit_post.thumbnail != "default" && reddit_post.thumbnail != "self" && reddit_post.thumbnail != "image" && reddit_post.thumbnail != "nsfw" && reddit_post.thumbnail != "spoiler") { %>
+                        <div class="col-sm-2">
+                            <a href="<%- reddit_post.url %>" target="_blank" class="thumbnail">
+                                <img src="<%- reddit_post.thumbnail %>">
+                            </a>
+                        </div>
+                        <div class="col-sm-10">
+                    <% } else { %>
+                        <div class="col-xs-12">
+                    <% } %>
+                    <h4><a href="<%- reddit_post.url %>" target="_blank"><%- reddit_post.title %></a></h4>
+                    <h5><small><a href="https://www.reddit.com<%- reddit_post.permalink %>" target="_blank"><%- reddit_post.author %> - <%- reddit_post.subreddit_name_prefixed %> <i class="fa fa-external-link" aria-hidden="true"></i></a> - <a href="<%- reddit_post.url %>" target="_balnk">(<%- reddit_post.domain %>) <i class="fa fa-external-link" aria-hidden="true"></i></a> - <%- new Date(parseInt(reddit_post.created_utc, 10) * 1000) %></small></h5>
+                </div>
+            </div>
+        </div>
+    </script>
+</div>

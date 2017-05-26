@@ -1,0 +1,22 @@
+<div>
+    <script type="text/template" id="reddit-paginator-template">
+        <nav aria-label="Page navigation">
+            <ul class="pagination<% if (paginator.template.parameters && paginator.template.parameters.class) { %> <%- paginator.template.parameters.class %><% } %>">
+                <% if (!paginator.is_first_page) { %>
+                    <li>
+                        <a href="<%- paginator.url_prefix %>?<% if (paginator.before && paginator.before_count > 0) { %><%- paginator.before_key %>=<%- paginator.before %>&<% } %><%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.count_key %>=<%- paginator.before_count %>" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                <% } %>
+                <% if (!paginator.is_last_page) { %>
+                    <li>
+                        <a href="<%- paginator.url_prefix %>?<%- paginator.after_key %>=<%- paginator.after %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.count_key %>=<%- paginator.after_count %>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
+        </nav>
+    </script>
+</div>
