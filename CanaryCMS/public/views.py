@@ -9,10 +9,12 @@ from django.utils.dateparse import parse_datetime
 from jsmin import jsmin
 
 import datetime
+import htmlmin
 import json
+import re
 
 def index(request):
-    return render(request, 'public/index.html', {})
+    return html(request, "index")
 
 def config(request):
     config = models.Config.objects.get(pk=settings.CONFIG_PK)
@@ -122,13 +124,15 @@ def controller(request, pk):
 
 def css(request, file):
     response = render(request, "public/" + file + ".css", content_type='text/css')
-    response.content = compress(response.content.decode("UTF-8"))
+    response.content = re.sub(r'[\s]+', ' ', compress(response.content.decode("UTF-8")))
     return response
 
 def html(request, file):
-    return render(request, "public/" + file + ".html")
+    response = render(request, "public/" + file + ".html")
+    response.content = re.sub(r'[\s]+', ' ', htmlmin.minify(response.content.decode("UTF-8")))
+    return response
 
 def js(request, file):
     response = render(request, "public/" + file + ".js", content_type='application/javascript')
-    response.content = jsmin(response.content.decode("UTF-8"), quote_chars="'\"`")
+    response.content = re.sub(r'[\s]+', ' ', jsmin(response.content.decode("UTF-8"), quote_chars="'\"`"))
     return response

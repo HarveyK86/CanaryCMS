@@ -1,3 +1,4 @@
 csscompressor==0.9.4
 Django==1.10.6
+htmlmin==0.1.10
 -e git://github.com/tikitu/jsmin.git@a6a0d0ad4deb9ecf5635d7f517f1ba9a35789d34#egg=jsmin
