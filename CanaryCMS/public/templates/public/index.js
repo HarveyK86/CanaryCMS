@@ -4,6 +4,9 @@ requirejs(["util-package", "service/config"], function(util, config) {
         config: {
             name: "index",
             debug: false,
+            title_tag_selector: "title",
+            title_tag_delimiter: " | ",
+            title_tag_suffix: "Powered by CanaryCMS",
             header_slot_selector: "#header-slot",
             page_slot_selector: "#page-slot",
             sidebar_slot_selector_suffix: "-sidebar-slot",
@@ -52,6 +55,9 @@ requirejs(["util-package", "service/config"], function(util, config) {
                                         selector_prefix: self.config.page_slot_selector + " ",
                                     }));
                                 });
+                                var $title_tag = util.selector.select(self.config.title_tag_selector);
+                                $title_tag.empty();
+                                $title_tag.append(page_config.name + self.config.title_tag_delimiter + self.config.title_tag_suffix);
                             });
                         }
                     });

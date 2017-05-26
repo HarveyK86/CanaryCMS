@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 
 class Config(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     header = models.ForeignKey('public.Header')
     left_sidebar = models.ForeignKey('public.Sidebar', related_name="left_sidebar", null=True, blank=True)
@@ -11,6 +13,8 @@ class Config(models.Model):
         return self.name
 
 class Header(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     pages = models.ManyToManyField('public.Page')
     template = models.ForeignKey('public.Template')
@@ -19,6 +23,8 @@ class Header(models.Model):
         return self.name
 
 class Sidebar(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     widgets = models.ManyToManyField('public.Widget')
     template = models.ForeignKey('public.Template')
@@ -27,6 +33,8 @@ class Sidebar(models.Model):
         return self.name
 
 class Widget(models.Model):
+    class Meta:
+        ordering = ['priority']
     name = models.CharField(max_length=200)
     content = models.TextField()
     priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
@@ -36,6 +44,8 @@ class Widget(models.Model):
         return self.name
 
 class Page(models.Model):
+    class Meta:
+        ordering = ['priority']
     name = models.CharField(max_length=200)
     priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     paginator = models.ForeignKey('public.Paginator', null=True, blank=True)
@@ -45,6 +55,8 @@ class Page(models.Model):
         return self.name
 
 class Post(models.Model):
+    class Meta:
+        ordering = ['-created_datetime']
     user = models.ForeignKey('auth.User')
     title = models.CharField(max_length=200)
     created_datetime = models.DateTimeField(default=timezone.now)
@@ -61,6 +73,8 @@ class PostResponse(models.Model):
     posts = models.ManyToManyField('public.Post')
 
 class Video(models.Model):
+    class Meta:
+        ordering = ['title']
     owner = models.CharField(max_length=200)
     title = models.CharField(max_length=200)
     code = models.CharField(max_length=200)
@@ -73,6 +87,7 @@ class Video(models.Model):
 class Category(models.Model):
     class Meta:
         verbose_name_plural = "categories"
+        ordering = ['name']
     name = models.CharField(max_length=200)
     priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     template = models.ForeignKey('public.Template')
@@ -81,6 +96,8 @@ class Category(models.Model):
         return self.name
 
 class Paginator(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
@@ -88,6 +105,8 @@ class Paginator(models.Model):
         return self.name
 
 class Footer(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
@@ -95,6 +114,8 @@ class Footer(models.Model):
         return self.name
 
 class Template(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     directory = models.CharField(max_length=200)
     parameters = models.TextField(null=True, blank=True)
@@ -102,6 +123,8 @@ class Template(models.Model):
         return self.name
 
 class Controller(models.Model):
+    class Meta:
+        ordering = ['name']
     name = models.CharField(max_length=200)
     file = models.CharField(max_length=200)
     def __str__(self):
