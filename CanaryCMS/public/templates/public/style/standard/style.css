@@ -38,7 +38,8 @@ body {
 .reddit-page {
     /*--default-color: #333;*/
     --default-color: #555;
-    --default-background-color: #f5f5f5;
+    /*--default-background-color: #f5f5f5;*/
+    --default-background-color: #fff;
     /*--default-border-color: #ddd;*/
     --default-border-color: rgb(234, 234, 234);
 
