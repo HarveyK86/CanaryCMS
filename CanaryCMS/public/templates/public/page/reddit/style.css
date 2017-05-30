@@ -16,6 +16,10 @@
     --danger-border-color: #ebccd1;
 }
 
+.reddit-page .panel-heading {
+    overflow: overlay;
+}
+
 .reddit-page hr {
     margin: 10px;
 }
@@ -77,5 +81,5 @@
 }
 
 .reddit-page .thumbnail img {
-    max-height: 75px;
+    max-height: 81px;
 }
