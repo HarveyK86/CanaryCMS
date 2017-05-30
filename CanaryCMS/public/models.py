@@ -5,6 +5,7 @@ class Config(models.Model):
     class Meta:
         ordering = ['name']
     name = models.CharField(max_length=200)
+    style = models.ForeignKey('public.Style', null=True, blank=True)
     header = models.ForeignKey('public.Header')
     left_sidebar = models.ForeignKey('public.Sidebar', related_name="left_sidebar", null=True, blank=True)
     right_sidebar = models.ForeignKey('public.Sidebar', related_name="right_sidebar", null=True, blank=True)
@@ -105,6 +106,15 @@ class Paginator(models.Model):
         return self.name
 
 class Footer(models.Model):
+    class Meta:
+        ordering = ['name']
+    name = models.CharField(max_length=200)
+    template = models.ForeignKey('public.Template')
+    controller = models.ForeignKey('public.Controller')
+    def __str__(self):
+        return self.name
+
+class Style(models.Model):
     class Meta:
         ordering = ['name']
     name = models.CharField(max_length=200)

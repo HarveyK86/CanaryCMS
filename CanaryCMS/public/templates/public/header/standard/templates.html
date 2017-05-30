@@ -1,7 +1,7 @@
 <div>
     <script type="text/template" id="header-template">
         <br>
-        <nav class="navbar <%- header.template.parameters.class %>">
+        <nav class="navbar <%- header.template.parameters.class %><% if (header.template.parameters.fixed === true) { %> navbar-fixed-top<% } %>">
             <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bootstrap-header" aria-expanded="false">

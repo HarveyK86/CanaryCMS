@@ -1,0 +1,177 @@
+body {
+    background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAIAAAAmkwkpAAAAKElEQVQImWN89+4dAwODoKAgAwMDE5z1/v17xv///0NYUBkIS1BQEAB7Uw7Oc/qzUwAAAABJRU5ErkJggg==') repeat;
+}
+
+#canary-cms .panel,
+#canary-cms .panel-heading,
+#canary-cms .pagination,
+#canary-cms .pagination li a,
+#canary-cms .label {
+    border: none;
+}
+
+#canary-cms .list-group li,
+#canary-cms .panel,
+#canary-cms .panel-heading,
+#canary-cms .pagination,
+#canary-cms .pagination a,
+#canary-cms .label {
+    border-radius: 0px;
+}
+
+#canary-cms .panel,
+#canary-cms .pagination {
+    box-shadow: 0 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#canary-cms .label {
+    font-weight: normal;
+}
+
+#canary-cms .pagination .active a {
+    z-index: 2;
+    color: #23527c;
+    background-color: #eee;
+}
+
+.standard-post,
+.reddit-page {
+    /*--default-color: #333;*/
+    --default-color: #555;
+    --default-background-color: #f5f5f5;
+    /*--default-border-color: #ddd;*/
+    --default-border-color: rgb(234, 234, 234);
+
+    /*--primary-color: #fff;*/
+    --primary-color: #337ab7;
+    /*--primary-background-color: #337ab7;*/
+    --primary-background-color: var(--default-background-color);
+    /*--primary-border-color: #337ab7;*/
+    --primary-border-color: var(--default-border-color);
+
+    --info-color: #31708f;
+    /*--info-background-color: #d9edf7;*/
+    --info-background-color: var(--default-background-color);
+    /*--info-border-color: #bce8f1;*/
+    --info-border-color: var(--default-border-color);
+
+    --success-color: #3c763d;
+    /*--success-background-color: #dff0d8;*/
+    --success-background-color: var(--default-background-color);
+    /*--success-boder-color: #d6e9c6;*/
+    --success-boder-color: var(--default-border-color);
+
+    --warning-color: #8a6d3b;
+    /*--warning-background-color: #fcf8e3;*/
+    --warning-background-color: var(--default-background-color);
+    /*--warning-border-color: #faebcc;*/
+    --warning-border-color: var(--default-border-color);
+
+    --danger-color: #a94442;
+    /*--danger-background-color: #f2dede;*/
+    --danger-background-color: var(--default-background-color);
+    /*--danger-border-color: #ebccd1;*/
+    --danger-border-color: var(--default-border-color);
+}
+
+/* Default */
+.standard-post .panel-default .panel-heading,
+.reddit-page .panel-default .panel-heading {
+    color: var(--default-color);
+    background-color: var(--default-background-color);
+    border-color: var(--default-border-color);
+}
+.standard-post .panel-default small,
+.reddit-page .panel-default small,
+.reddit-page .panel-default a {
+    color: var(--default-color);
+}
+.standard-post .panel-default hr,
+.reddit-page .panel-default hr {
+    border-color: var(--default-border-color);
+}
+
+/* Primary */
+.standard-post .panel-primary .panel-heading,
+.reddit-page .panel-primary .panel-heading {
+    color: var(--primary-color);
+    background-color: var(--primary-background-color);
+    border-color: var(--primary-border-color);
+}
+.standard-post .panel-primary small,
+.reddit-page .panel-primary small,
+.reddit-page .panel-primary a {
+    color: var(--primary-color);
+}
+.standard-post .panel-primary hr,
+.reddit-page .panel-primary hr {
+    border-color: var(--primary-border-color);
+}
+
+/* Info */
+.standard-post .panel-info .panel-heading,
+.reddit-page .panel-info .panel-heading {
+    color: var(--info-color);
+    background-color: var(--info-background-color);
+    border-color: var(--info-border-color);
+}
+.standard-post .panel-info small,
+.reddit-page .panel-info small,
+.reddit-page .panel-info a {
+    color: var(--info-color);
+}
+.standard-post .panel-info hr,
+.reddit-page .panel-info hr {
+    border-color: var(--info-border-color);
+}
+
+/* Success */
+.standard-post .panel-success .panel-heading,
+.reddit-page .panel-success .panel-heading {
+    color: var(--success-color);
+    background-color: var(--success-background-color);
+    border-color: var(--success-border-color);
+}
+.standard-post .panel-success small,
+.reddit-page .panel-success small,
+.reddit-page .panel-success a {
+    color: var(--success-color);
+}
+.standard-post .panel-success hr,
+.reddit-page .panel-success hr {
+    border-color: var(--success-boder-color);
+}
+
+/* Warning */
+.standard-post .panel-warning .panel-heading,
+.reddit-page .panel-warning .panel-heading {
+    color: var(--warning-color);
+    background-color: var(--warning-background-color);
+    border-color: var(--warning-border-color);
+}
+.standard-post .panel-warning small,
+.reddit-page .panel-warning small,
+.reddit-page .panel-warning a {
+    color: var(--warning-color);
+}
+.standard-post .panel-warning hr,
+.reddit-page .panel-warning hr {
+    border-color: var(--warning-border-color);
+}
+
+/* Danger */
+.standard-post .panel-danger .panel-heading,
+.reddit-page .panel-danger .panel-heading {
+    color: var(--danger-color);
+    background-color: var(--danger-background-color);
+    border-color: var(--danger-border-color);
+}
+.standard-post .panel-danger small,
+.reddit-page .panel-danger small,
+.reddit-page .panel-danger a {
+    color: var(--danger-color);
+}
+.standard-post .panel-danger hr,
+.reddit-page .panel-danger hr {
+    border-color: var(--danger-border-color);
+}

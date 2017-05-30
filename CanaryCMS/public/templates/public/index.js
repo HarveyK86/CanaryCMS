@@ -11,6 +11,7 @@ requirejs(["util-package", "service/config"], function(util, config) {
             page_slot_selector: "#page-slot",
             sidebar_slot_selector_suffix: "-sidebar-slot",
             footer_slot_selector: "#footer-slot",
+            style_slot_selector: "#style-slot",
         }
     };
     var inst = $.extend(self, {
@@ -24,6 +25,7 @@ requirejs(["util-package", "service/config"], function(util, config) {
                 self._init_page_slot();
                 self._init_sidebar_slots();
                 self._init_footer_slot();
+                self._init_style_slot();
             });
         },
         _init_header_slot: function() {
@@ -115,6 +117,21 @@ requirejs(["util-package", "service/config"], function(util, config) {
                     }));
                 });
             });
+        },
+        _init_style_slot: function() {
+            self.__logger.log("_init_style_slot");
+            var $style_slot = util.selector.select(self.config.style_slot_selector);
+            $style_slot.empty();
+            if (self.__init_params.style) {
+                self.__templater.http_get(self.__init_params.style.template.directory, function($template) {
+                    $style_slot.append($template);
+                    requirejs([self.__init_params.style.controller.file], function(style) {
+                        style.init($.extend(self.__init_params.style, {
+                            selector_prefix: self.config.style_slot_selector + " ",
+                        }));
+                    });
+                });
+            }
         },
     });
     inst.init();

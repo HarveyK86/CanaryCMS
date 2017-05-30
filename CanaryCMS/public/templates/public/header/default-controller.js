@@ -14,6 +14,7 @@ define(["util-package"], function(util) {
                     attribute: "__page",
                 },
             },
+            body_selector: "body",
             header_template_container_selector: "[name='header-template-container']",
             page_list_selector: "[name='page-list']",
         }
@@ -25,9 +26,17 @@ define(["util-package"], function(util) {
             self.__init_params = init_params;
             self.__templater = util.templater.get_templater(self);
             self.__templater.init_templates();
+            self._init_body();
             self._init_header_template_container();
             util.listener.add_onhashchange(self.config.name, self._init_page_list);
             self._init_page_list();
+        },
+        _init_body: function() {
+            self.__logger.log("_init_body");
+            if (self.__init_params.template.parameters.fixed === true) {
+                var $body = util.selector.select(self.config.body_selector);
+                $body.addClass("fixed-header");
+            }
         },
         _init_header_template_container: function() {
             self.__logger.log("_init_header_template_container");
