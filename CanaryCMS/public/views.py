@@ -43,9 +43,12 @@ def page(request, pk):
 
 def post(request):
     categories = request.GET.get("categories")
-    categories = categories.split(",")
-    categories = models.Category.objects.filter(name__in=categories)
-    posts = models.Post.objects.filter(categories__in=categories)
+    if categories:
+        categories = categories.split(",")
+        categories = models.Category.objects.filter(name__in=categories)
+        posts = models.Post.objects.filter(categories__in=categories)
+    else:
+        posts = models.Post.objects.filter(categories=None)
     posts = posts.order_by("-created_datetime")
     count = len(posts)
     page = request.GET.get("page")
@@ -56,9 +59,10 @@ def post(request):
         start_inclusive = (page - 1) * page_size
         end_exclusive = start_inclusive + page_size
         posts = posts[start_inclusive: end_exclusive]
-    response = models.PostResponse.objects.create(count=count)
+    response = models.PostResponse.objects.create(count = count);
     response.posts = posts
     json_obj = serializers.serialize('json', [response])
+    response.delete()
     return HttpResponse(json_obj, content_type='application/json')
 
 def get_post(request, pk):

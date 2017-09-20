@@ -52,6 +52,7 @@ define(["util-package"], function(util) {
             var $page_list = util.selector.select(self.__init_params.selector_prefix + self.config.page_list_selector);
             $page_list.empty();
             self.__init_params.pages.forEach(function(page_config) {
+                if (page_config.hidden) return;
                 var slug = s.slugify(page_config.name);
                 $page_list.append(self.__templater.render(self.config.templates.page_template, {
                     page: $.extend(page_config, {

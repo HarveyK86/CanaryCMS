@@ -48,8 +48,9 @@ class Page(models.Model):
     class Meta:
         ordering = ['priority']
     name = models.CharField(max_length=200)
-    priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    hidden = models.BooleanField(default=False)
     paginator = models.ForeignKey('public.Paginator', null=True, blank=True)
+    priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
     template = models.ForeignKey('public.Template')
     controller = models.ForeignKey('public.Controller')
     def __str__(self):
