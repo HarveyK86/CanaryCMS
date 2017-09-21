@@ -12,17 +12,25 @@ define(["util-package"], function(util) {
             self.__logger = util.logger.get_logger(self);
             self.__logger.log("init");
         },
-        api_get: function(categories, page, page_size, callback) {
-            self.__logger.log("api_get[categories, page, page_size, callback]", [categories, page, page_size, callback]);
+        api_get: function(categories, filter, page, page_size, callback) {
+            self.__logger.log("api_get[categories, filter, page, page_size, callback]", [categories, filter, page, page_size, callback]);
             var url = self.config.api_url;
             if (categories && categories.length) url += "?categories=" + categories.toString();
-            if (page && page_size) {
+            if (filter) {
                 if (!categories || !categories.length) {
                     url += "?";
                 } else {
                     url += "&";
                 }
-                url += "&page=" + page + "&page-size=" + page_size;
+                url += "filter=" + filter;
+            }
+            if (page && page_size) {
+                if ((!categories || !categories.length) && !filter) {
+                    url += "?";
+                } else {
+                    url += "&";
+                }
+                url += "page=" + page + "&page-size=" + page_size;
             }
             util.cache.get(url, function(response_array) {
                 util.parser.parse_response_array(response_array, function(post_responses) {

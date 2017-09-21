@@ -90,6 +90,8 @@ define(["util-package"], function(util) {
                                     $category_list.append(category_config.__$template);
                                     category_config.__controller.init($.extend(category_config, {
                                         selector_prefix: self.__init_params.selector_prefix + "[name='category-" + category_config.id + "'] ",
+                                        filter_key: self.__init_params.filter_key,
+                                        default_filter: self.__init_params.default_filter,
                                     }));
                                 });
                             }

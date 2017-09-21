@@ -9,6 +9,8 @@ define(["util-package", "service/post"], function(util, post) {
                     post_list_selector: "[name='post-list']",
                     paginator_slot_selector: "[name='paginator-slot']",
                     interval_tick: 0,
+                    filter_key: "filter",
+                    default_filter: null,
                 }
             };
             var inst = $.extend(self, {
@@ -19,10 +21,10 @@ define(["util-package", "service/post"], function(util, post) {
                     self.__templater = util.templater.get_templater(self);
                     self._init_paginator_slot(function() {
                         util.listener.add_onquerychange(self.config.name, function(params) {
-                            if (self.__paginator && (
+                            if ((self.__paginator && (
                                     params.includes(self.__paginator.get_page_key()) ||
                                     params.includes(self.__paginator.get_page_size_key())
-                                )) {
+                                )) || params.includes(self.config.filter_key)) {
                                 self._init_post_list();
                             }
                         });
@@ -47,6 +49,8 @@ define(["util-package", "service/post"], function(util, post) {
                             requirejs([self.__init_params.paginator.controller.file], function(paginator) {
                                 self.__paginator = paginator.init($.extend(self.__init_params.paginator, {
                                     selector_prefix: self.__init_params.selector_prefix,
+                                    filter_key: self.config.filter_key,
+                                    default_filter: self.config.default_filter,
                                 }));
                                 callback();
                             });
@@ -59,13 +63,14 @@ define(["util-package", "service/post"], function(util, post) {
                     self.__logger.log("_init_post_list");
                     var $post_list = util.selector.select(self.__init_params.selector_prefix + self.config.post_list_selector);
                     $post_list.empty();
+                    var filter = util.query.get_param(self.config.filter_key, self.config.default_filter);
                     var page;
                     var page_size;
                     if (self.__paginator) {
                         page = parseInt(util.query.get_param(self.__paginator.get_page_key(), self.__paginator.get_default_page()), 10);
                         page_size = parseInt(util.query.get_param(self.__paginator.get_page_size_key(), self.__paginator.get_default_page_size()), 10);
                     }
-                    post.api_get(self.__init_params.template.parameters.categories, page, page_size, function(post_configs, post_count) {
+                    post.api_get(self.__init_params.template.parameters.categories, filter, page, page_size, function(post_configs, post_count) {
                         if (self.__paginator) util.query.set_param(self.__paginator.get_item_count_key(), post_count);
                         var out = post_configs.length;
                         post_configs.forEach(function(post_config) {
@@ -85,6 +90,8 @@ define(["util-package", "service/post"], function(util, post) {
                                     $post_list.append(post_config.__$template);
                                     post_config.__controller.init($.extend(post_config, {
                                         selector_prefix: self.__init_params.selector_prefix + "[name='post-" + post_config.id + "'] ",
+                                        filter_key: self.config.filter_key,
+                                        default_filter: self.config.default_filter,
                                     }));
                                 });
                             }

@@ -104,14 +104,16 @@ define(["util/listener", "util/logger"], function(listener, logger) {
             var changed_params = [];
             if (from_params) {
                 for (var param of from_params.keys()) {
-                    if (!to_params.has(param) || to_params.get(param) != from_params.get(param)) {
+                    if (!to_params || !to_params.has(param) || to_params.get(param) != from_params.get(param)) {
                         changed_params.push(param);
                     }
                 }
             }
-            for (var param of to_params.keys()) {
-                if (!from_params || !from_params.has(param)) {
-                    changed_params.push(param);
+            if (to_params) {
+                for (var param of to_params.keys()) {
+                    if (!from_params || !from_params.has(param)) {
+                        changed_params.push(param);
+                    }
                 }
             }
             self.__logger.log("_get_changed_params returning", changed_params);

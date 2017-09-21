@@ -30,7 +30,8 @@ define(["util-package"], function(util) {
                     self.__templater.init_templates();
                     self._init_standard_paginator_template_container();
                     util.listener.add_onquerychange(self.config.name, function(params) {
-                        if (params.includes(self.config.page_key) ||
+                        if (params.includes(init_params.filter_key) ||
+                            params.includes(self.config.page_key) ||
                             params.includes(self.config.page_size_key) ||
                             params.includes(self.config.item_count_key)) {
                             self._init_standard_paginator_template_container();
@@ -46,6 +47,7 @@ define(["util-package"], function(util) {
                 },
                 _init_standard_paginator_template_container: function() {
                     self.__logger.log("_init_standard_paginator_template_container");
+                    var filter = util.query.get_param(self.__init_params.filter_key, self.__init_params.default_filter);
                     var page = parseInt(util.query.get_param(self.config.page_key, self.config.default_page), 10);
                     var page_size = parseInt(util.query.get_param(self.config.page_size_key, self.config.default_page_size), 10);
                     var item_count = parseInt(util.query.get_param(self.config.item_count_key, self.config.default_item_count), 10);
@@ -55,6 +57,8 @@ define(["util-package"], function(util) {
                         self.__init_params.selector_prefix + self.config.standard_paginator_template_container_selector, {
                             paginator: $.extend(self.__init_params, {
                                 url_prefix: util.query.get_hash(),
+                                filter_key: self.__init_params.filter_key,
+                                filter: filter,
                                 page_key: self.config.page_key,
                                 page: page,
                                 max_page: max_page,

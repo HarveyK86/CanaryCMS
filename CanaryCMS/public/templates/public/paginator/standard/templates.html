@@ -3,17 +3,17 @@
         <nav aria-label="Page navigation">
             <ul class="pagination<% if (paginator.template.parameters && paginator.template.parameters.class) { %> <%- paginator.template.parameters.class %><% } %>">
                 <li<% if (paginator.is_first_page) { %> class="disabled"<% } %>>
-                    <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<% if (paginator.is_first_page) { %>1<% } else { %><%- paginator.page - 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Previous">
+                    <a href="<%- paginator.url_prefix %>?<% if (paginator.filter) { %><%- paginator.filter_key %>=<%- paginator.filter %>&<% } %><%- paginator.page_key %>=<% if (paginator.is_first_page) { %>1<% } else { %><%- paginator.page - 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <% for (var i = 1; i <= paginator.max_page; i++) { %>
                     <li<% if (i == paginator.page) { %> class="active"<% } %>>
-                        <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<%- i %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>"><%- i %></a>
+                        <a href="<%- paginator.url_prefix %>?<% if (paginator.filter) { %><%- paginator.filter_key %>=<%- paginator.filter %>&<% } %><%- paginator.page_key %>=<%- i %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>"><%- i %></a>
                     </li>
                 <% } %>
                 <li<% if (paginator.is_last_page) { %> class="disabled"<% } %>>
-                    <a href="<%- paginator.url_prefix %>?<%- paginator.page_key %>=<% if (paginator.is_last_page) { %><%- paginator.max_page %><% } else { %><%- paginator.page + 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Next">
+                    <a href="<%- paginator.url_prefix %>?<% if (paginator.filter) { %><%- paginator.filter_key %>=<%- paginator.filter %>&<% } %><%- paginator.page_key %>=<% if (paginator.is_last_page) { %><%- paginator.max_page %><% } else { %><%- paginator.page + 1 %><% } %>&<%- paginator.page_size_key %>=<%- paginator.page_size %>&<%- paginator.item_count_key %>=<%- paginator.item_count %>" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>

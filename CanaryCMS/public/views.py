@@ -49,6 +49,10 @@ def post(request):
         posts = models.Post.objects.filter(categories__in=categories)
     else:
         posts = models.Post.objects.filter(categories=None)
+    filter_category = request.GET.get("filter")
+    if filter_category:
+        category = models.Category.objects.get(name=filter_category)
+        posts = models.Post.objects.filter(categories=category)
     posts = posts.order_by("-created_datetime")
     count = len(posts)
     page = request.GET.get("page")

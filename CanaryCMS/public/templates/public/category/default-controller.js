@@ -29,7 +29,9 @@ define(["util-package"], function(util) {
                     self.__templater.render_to_container(
                         self.config.templates.category_template,
                         self.__init_params.selector_prefix + self.config.category_template_container_selector, {
-                            category: self.__init_params,
+                            category: $.extend(self.__init_params, {
+                                url: util.query.get_hash() + "?" + self.__init_params.filter_key + "=" + self.__init_params.name,
+                            }),
                         }
                     );
                 },
