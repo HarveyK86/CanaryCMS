@@ -1,0 +1,894 @@
+[
+    {
+        "fields": {
+            "footer": 1,
+            "header": 1,
+            "left_sidebar": null,
+            "name": "Standard",
+            "right_sidebar": 1,
+            "style": 1
+        },
+        "model": "core.config",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 6,
+            "name": "Standard",
+            "pages": [
+                4,
+                1,
+                2,
+                3
+            ],
+            "template": 17
+        },
+        "model": "core.header",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 8,
+            "name": "Standard",
+            "template": 26,
+            "widgets": [
+                1,
+                2
+            ]
+        },
+        "model": "core.sidebar",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "content": "<div class=\"row\">\r\n  <div class=\"col-xs-4 col-xs-offset-4\">\r\n    <a href=\"https://goo.gl/qIKA1y\" class=\"thumbnail\">\r\n      <img src=\"https://goo.gl/NH6sWW\">\r\n    </a>\r\n  </div>\r\n</div>",
+            "controller": 7,
+            "name": "GitHub Link",
+            "priority": "1.00",
+            "template": 20
+        },
+        "model": "core.widget",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "content": "<h4 class=\"text-center\">TODO List</h4>\r\n<ul class=\"list-group\">\r\n  <li class=\"list-group-item\">Write TODO List</li>\r\n  <li class=\"list-group-item\">Do TODO List</li>\r\n</ul>",
+            "controller": 7,
+            "name": "TODO List",
+            "priority": "2.00",
+            "template": 20
+        },
+        "model": "core.widget",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "controller": 4,
+            "hidden": false,
+            "name": "News",
+            "paginator": 1,
+            "priority": "1.00",
+            "template": 8
+        },
+        "model": "core.page",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 4,
+            "hidden": false,
+            "name": "Videos",
+            "paginator": null,
+            "priority": "2.00",
+            "template": 9
+        },
+        "model": "core.page",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "controller": 5,
+            "hidden": false,
+            "name": "/r/test",
+            "paginator": 2,
+            "priority": "3.00",
+            "template": 10
+        },
+        "model": "core.page",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "controller": 4,
+            "hidden": true,
+            "name": "Uncategorised [Hidden]",
+            "paginator": 1,
+            "priority": null,
+            "template": 47
+        },
+        "model": "core.page",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "categories": [
+                3,
+                2,
+                1
+            ],
+            "content": "This is an example 'Default' post.",
+            "controller": 11,
+            "created_datetime": "2017-01-01T01:00:00Z",
+            "template": 39,
+            "title": "Example Default Post",
+            "user": 1,
+            "videos": []
+        },
+        "model": "core.post",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "categories": [
+                2,
+                1,
+                4
+            ],
+            "content": "This is an example 'Primary' post.",
+            "controller": 11,
+            "created_datetime": "2017-01-01T02:00:00Z",
+            "template": 40,
+            "title": "Example Primary Post",
+            "user": 1,
+            "videos": []
+        },
+        "model": "core.post",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "categories": [
+                2,
+                5,
+                1
+            ],
+            "content": "This is an example 'Info' post.",
+            "controller": 11,
+            "created_datetime": "2017-01-01T03:00:00Z",
+            "template": 41,
+            "title": "Example Info Post",
+            "user": 1,
+            "videos": []
+        },
+        "model": "core.post",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "categories": [
+                2,
+                1,
+                6
+            ],
+            "content": "This is an example 'Success' post.",
+            "controller": 11,
+            "created_datetime": "2017-01-01T04:00:00Z",
+            "template": 42,
+            "title": "Example Success Post",
+            "user": 1,
+            "videos": []
+        },
+        "model": "core.post",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "categories": [
+                2,
+                1,
+                7
+            ],
+            "content": "This is an example 'Warning' post.",
+            "controller": 11,
+            "created_datetime": "2017-01-01T05:00:00Z",
+            "template": 43,
+            "title": "Example Warning Post",
+            "user": 1,
+            "videos": []
+        },
+        "model": "core.post",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "categories": [
+                8,
+                2,
+                1,
+                9
+            ],
+            "content": "This is an example 'Danger' post. It also has a video.",
+            "controller": 11,
+            "created_datetime": "2017-01-01T06:00:00Z",
+            "template": 44,
+            "title": "Example Danger Post",
+            "user": 1,
+            "videos": [
+                1
+            ]
+        },
+        "model": "core.post",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "categories": [],
+            "content": "This is an example 'Uncategorised' post.",
+            "controller": 11,
+            "created_datetime": "2017-05-31T11:24:51Z",
+            "template": 39,
+            "title": "Example Uncategorised Post",
+            "user": 1,
+            "videos": []
+        },
+        "model": "core.post",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "code": "C0DPdy98e4c",
+            "controller": 12,
+            "owner": "Simon Yapp",
+            "priority": "1.00",
+            "template": 45,
+            "title": "TEST VIDEO"
+        },
+        "model": "core.video",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "News",
+            "priority": "1.00",
+            "template": 33
+        },
+        "model": "core.category",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Example",
+            "priority": "2.00",
+            "template": 33
+        },
+        "model": "core.category",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Default",
+            "priority": "4.00",
+            "template": 33
+        },
+        "model": "core.category",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Primary",
+            "priority": "4.00",
+            "template": 34
+        },
+        "model": "core.category",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Info",
+            "priority": "4.00",
+            "template": 35
+        },
+        "model": "core.category",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Success",
+            "priority": "4.00",
+            "template": 36
+        },
+        "model": "core.category",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Warning",
+            "priority": "4.00",
+            "template": 37
+        },
+        "model": "core.category",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Danger",
+            "priority": "4.00",
+            "template": 38
+        },
+        "model": "core.category",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Video",
+            "priority": "3.00",
+            "template": 33
+        },
+        "model": "core.category",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "controller": 2,
+            "name": "Standard",
+            "template": 2
+        },
+        "model": "core.paginator",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 3,
+            "name": "Reddit",
+            "template": 5
+        },
+        "model": "core.paginator",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "controller": 9,
+            "name": "Standard",
+            "template": 27
+        },
+        "model": "core.footer",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "controller": 1,
+            "name": "Standard",
+            "template": 1
+        },
+        "model": "core.style",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "directory": "style/standard",
+            "name": "Style | Standard",
+            "parameters": ""
+        },
+        "model": "core.template",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "directory": "paginator/standard",
+            "name": "Paginator | Standard",
+            "parameters": "{\r\n  \"class\": \"\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "directory": "paginator/standard",
+            "name": "Paginator | Standard [Sm]",
+            "parameters": "{\r\n  \"class\": \"pagination-sm\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "directory": "paginator/standard",
+            "name": "Paginator | Standard [Lg]",
+            "parameters": "{\r\n  \"class\": \"pagination-lg\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "directory": "paginator/reddit",
+            "name": "Paginator | Reddit",
+            "parameters": "{\r\n  \"class\": \"\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "directory": "paginator/reddit",
+            "name": "Paginator | Reddit [Sm]",
+            "parameters": "{\r\n  \"class\": \"pagination-sm\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "directory": "paginator/reddit",
+            "name": "Paginator | Reddit [Lg]",
+            "parameters": "{\r\n  \"class\": \"pagination-lg\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "directory": "page/category",
+            "name": "Page | Category [News]",
+            "parameters": "{\r\n  \"categories\": [\r\n    \"News\"\r\n  ]\r\n}"
+        },
+        "model": "core.template",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "directory": "page/category",
+            "name": "Page | Category [Video]",
+            "parameters": "{\r\n  \"categories\": [\r\n    \"Video\"\r\n  ]\r\n}"
+        },
+        "model": "core.template",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "directory": "page/reddit",
+            "name": "Page | Reddit [/r/test | Default]",
+            "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-default\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "directory": "page/reddit",
+            "name": "Page | Reddit [/r/test | Primary]",
+            "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-primary\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "directory": "page/reddit",
+            "name": "Page | Reddit [/r/test | Info]",
+            "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-info\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "directory": "page/reddit",
+            "name": "Page | Reddit [/r/test | Success]",
+            "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-success\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "directory": "page/reddit",
+            "name": "Page | Reddit [/r/test | Warning]",
+            "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-warning\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "directory": "page/reddit",
+            "name": "Page | Reddit [/r/test | Danger]",
+            "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-danger\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "directory": "header/standard",
+            "name": "Header | Standard [Default]",
+            "parameters": "{\r\n  \"class\": \"navbar-default\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "directory": "header/standard",
+            "name": "Header | Standard [Default | Fixed]",
+            "parameters": "{\r\n  \"class\": \"navbar-default\",\r\n  \"fixed\": true\r\n}"
+        },
+        "model": "core.template",
+        "pk": 17
+    },
+    {
+        "fields": {
+            "directory": "header/standard",
+            "name": "Header | Standard [Inverse]",
+            "parameters": "{\r\n  \"class\": \"navbar-inverse\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 18
+    },
+    {
+        "fields": {
+            "directory": "header/standard",
+            "name": "Header | Standard [Inverse | Fixed]",
+            "parameters": "{\r\n  \"class\": \"navbar-inverse\",\r\n  \"fixed\": true\r\n}"
+        },
+        "model": "core.template",
+        "pk": 19
+    },
+    {
+        "fields": {
+            "directory": "widget/standard",
+            "name": "Widget | Standard [Default]",
+            "parameters": "{\r\n  \"class\": \"panel-default\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 20
+    },
+    {
+        "fields": {
+            "directory": "widget/standard",
+            "name": "Widget | Standard [Primary]",
+            "parameters": "{\r\n  \"class\": \"panel-primary\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 21
+    },
+    {
+        "fields": {
+            "directory": "widget/standard",
+            "name": "Widget | Standard [Info]",
+            "parameters": "{\r\n  \"class\": \"panel-info\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 22
+    },
+    {
+        "fields": {
+            "directory": "widget/standard",
+            "name": "Widget | Standard [Success]",
+            "parameters": "{\r\n  \"class\": \"panel-success\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 23
+    },
+    {
+        "fields": {
+            "directory": "widget/standard",
+            "name": "Widget | Standard [Warning]",
+            "parameters": "{\r\n  \"class\": \"panel-warning\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 24
+    },
+    {
+        "fields": {
+            "directory": "widget/standard",
+            "name": "Widget | Standard [Danger]",
+            "parameters": "{\r\n  \"class\": \"panel-danger\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 25
+    },
+    {
+        "fields": {
+            "directory": "sidebar/standard",
+            "name": "Sidebar | Standard",
+            "parameters": ""
+        },
+        "model": "core.template",
+        "pk": 26
+    },
+    {
+        "fields": {
+            "directory": "footer/standard",
+            "name": "Footer | Standard [Default]",
+            "parameters": "{\r\n  \"class\": \"panel-default\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 27
+    },
+    {
+        "fields": {
+            "directory": "footer/standard",
+            "name": "Footer | Standard [Primary]",
+            "parameters": "{\r\n  \"class\": \"panel-primary\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 28
+    },
+    {
+        "fields": {
+            "directory": "footer/standard",
+            "name": "Footer | Standard [Info]",
+            "parameters": "{\r\n  \"class\": \"panel-info\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 29
+    },
+    {
+        "fields": {
+            "directory": "footer/standard",
+            "name": "Footer | Standard [Success]",
+            "parameters": "{\r\n  \"class\": \"panel-success\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 30
+    },
+    {
+        "fields": {
+            "directory": "footer/standard",
+            "name": "Footer | Standard [Warning]",
+            "parameters": "{\r\n  \"class\": \"panel-warning\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 31
+    },
+    {
+        "fields": {
+            "directory": "footer/standard",
+            "name": "Footer | Standard [Danger]",
+            "parameters": "{\r\n  \"class\": \"panel-danger\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 32
+    },
+    {
+        "fields": {
+            "directory": "category/standard",
+            "name": "Category | Standard [Default]",
+            "parameters": "{\r\n  \"class\": \"label-default\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 33
+    },
+    {
+        "fields": {
+            "directory": "category/standard",
+            "name": "Category | Standard [Primary]",
+            "parameters": "{\r\n  \"class\": \"label-primary\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 34
+    },
+    {
+        "fields": {
+            "directory": "category/standard",
+            "name": "Category | Standard [Info]",
+            "parameters": "{\r\n  \"class\": \"label-info\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 35
+    },
+    {
+        "fields": {
+            "directory": "category/standard",
+            "name": "Category | Standard [Success]",
+            "parameters": "{\r\n  \"class\": \"label-success\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 36
+    },
+    {
+        "fields": {
+            "directory": "category/standard",
+            "name": "Category | Standard [Warning]",
+            "parameters": "{\r\n  \"class\": \"label-warning\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 37
+    },
+    {
+        "fields": {
+            "directory": "category/standard",
+            "name": "Category | Standard [Danger]",
+            "parameters": "{\r\n  \"class\": \"label-danger\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 38
+    },
+    {
+        "fields": {
+            "directory": "post/standard",
+            "name": "Post | Standard [Default]",
+            "parameters": "{\r\n  \"class\": \"panel-default\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 39
+    },
+    {
+        "fields": {
+            "directory": "post/standard",
+            "name": "Post | Standard [Primary]",
+            "parameters": "{\r\n  \"class\": \"panel-primary\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 40
+    },
+    {
+        "fields": {
+            "directory": "post/standard",
+            "name": "Post | Standard [Info]",
+            "parameters": "{\r\n  \"class\": \"panel-info\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 41
+    },
+    {
+        "fields": {
+            "directory": "post/standard",
+            "name": "Post | Standard [Success]",
+            "parameters": "{\r\n  \"class\": \"panel-success\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 42
+    },
+    {
+        "fields": {
+            "directory": "post/standard",
+            "name": "Post | Standard [Warning]",
+            "parameters": "{\r\n  \"class\": \"panel-warning\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 43
+    },
+    {
+        "fields": {
+            "directory": "post/standard",
+            "name": "Post | Standard [Danger]",
+            "parameters": "{\r\n  \"class\": \"panel-danger\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 44
+    },
+    {
+        "fields": {
+            "directory": "video/standard",
+            "name": "Video | Standard [16by9]",
+            "parameters": "{\r\n  \"class\": \"embed-responsive-16by9\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 45
+    },
+    {
+        "fields": {
+            "directory": "video/standard",
+            "name": "Video | Standard [4by3]",
+            "parameters": "{\r\n  \"class\": \"embed-responsive-4by3\"\r\n}"
+        },
+        "model": "core.template",
+        "pk": 46
+    },
+    {
+        "fields": {
+            "directory": "page/category",
+            "name": "Page | Category [Uncategorised]",
+            "parameters": "{\r\n  \"categories\": [\r\n  ]\r\n}"
+        },
+        "model": "core.template",
+        "pk": 47
+    },
+    {
+        "fields": {
+            "file": "style/default-controller",
+            "name": "Style | Default"
+        },
+        "model": "core.controller",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "file": "paginator/standard/controller",
+            "name": "Paginator | Standard"
+        },
+        "model": "core.controller",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "file": "paginator/reddit/controller",
+            "name": "Paginator | Reddit"
+        },
+        "model": "core.controller",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "file": "page/category/controller",
+            "name": "Page | Category"
+        },
+        "model": "core.controller",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "file": "page/reddit/controller",
+            "name": "Page | Reddit"
+        },
+        "model": "core.controller",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "file": "header/default-controller",
+            "name": "Header | Default"
+        },
+        "model": "core.controller",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "file": "widget/default-controller",
+            "name": "Widget | Default"
+        },
+        "model": "core.controller",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "file": "sidebar/default-controller",
+            "name": "Sidebar | Default"
+        },
+        "model": "core.controller",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "file": "footer/default-controller",
+            "name": "Footer | Default"
+        },
+        "model": "core.controller",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "file": "category/default-controller",
+            "name": "Category | Default"
+        },
+        "model": "core.controller",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "file": "post/default-controller",
+            "name": "Post | Default"
+        },
+        "model": "core.controller",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "file": "video/default-controller",
+            "name": "Video | Default"
+        },
+        "model": "core.controller",
+        "pk": 12
+    }
+]
