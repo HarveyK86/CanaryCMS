@@ -19,6 +19,6 @@
 ## Useful Commands
 * `pip freeze > venv-requirements.txt`
 * `sudo rm-rf venv`
-* `python CanaryCMS/manage.py dumpdata --format=json public > CanaryCMS/public/fixtures/standard.json`
-* `python CanaryCMS/manage.py makemigrations public`
-* `python CanaryCMS/manage.py migrate public`
+* `python CanaryCMS/manage.py dumpdata --format=json core > CanaryCMS/public/fixtures/standard.json`
+* `python CanaryCMS/manage.py makemigrations core`
+* `python CanaryCMS/manage.py migrate core`

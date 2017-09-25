@@ -207,7 +207,7 @@
                 1,
                 9
             ],
-            "content": "This is an example 'Danger' post. It also has a video.",
+            "content": "This is an example 'Danger' post.<br>\r\n<br>\r\nIt also has a video.",
             "controller": 11,
             "created_datetime": "2017-01-01T06:00:00Z",
             "template": 44,
