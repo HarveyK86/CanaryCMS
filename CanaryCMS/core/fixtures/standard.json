@@ -16,10 +16,11 @@
             "controller": 6,
             "name": "Standard",
             "pages": [
-                4,
                 1,
                 2,
-                3
+                3,
+                4,
+                5
             ],
             "template": 17
         },
@@ -77,13 +78,25 @@
         "fields": {
             "controller": 4,
             "hidden": false,
-            "name": "Videos",
+            "name": "Images",
             "paginator": null,
             "priority": "2.00",
-            "template": 9
+            "template": 49
         },
         "model": "core.page",
         "pk": 2
+    },
+    {
+        "fields": {
+            "controller": 4,
+            "hidden": false,
+            "name": "Videos",
+            "paginator": null,
+            "priority": "3.00",
+            "template": 9
+        },
+        "model": "core.page",
+        "pk": 3
     },
     {
         "fields": {
@@ -91,11 +104,11 @@
             "hidden": false,
             "name": "/r/test",
             "paginator": 2,
-            "priority": "3.00",
+            "priority": "4.00",
             "template": 10
         },
         "model": "core.page",
-        "pk": 3
+        "pk": 4
     },
     {
         "fields": {
@@ -104,17 +117,17 @@
             "name": "Uncategorised [Hidden]",
             "paginator": 1,
             "priority": null,
-            "template": 47
+            "template": 48
         },
         "model": "core.page",
-        "pk": 4
+        "pk": 5
     },
     {
         "fields": {
             "categories": [
-                3,
+                1,
                 2,
-                1
+                3
             ],
             "content": "This is an example 'Default' post.",
             "controller": 11,
@@ -122,6 +135,7 @@
             "template": 39,
             "title": "Example Default Post",
             "user": 1,
+            "images": [],
             "videos": []
         },
         "model": "core.post",
@@ -130,8 +144,8 @@
     {
         "fields": {
             "categories": [
-                2,
                 1,
+                2,
                 4
             ],
             "content": "This is an example 'Primary' post.",
@@ -140,6 +154,7 @@
             "template": 40,
             "title": "Example Primary Post",
             "user": 1,
+            "images": [],
             "videos": []
         },
         "model": "core.post",
@@ -148,9 +163,9 @@
     {
         "fields": {
             "categories": [
+                1,
                 2,
-                5,
-                1
+                5
             ],
             "content": "This is an example 'Info' post.",
             "controller": 11,
@@ -158,6 +173,7 @@
             "template": 41,
             "title": "Example Info Post",
             "user": 1,
+            "images": [],
             "videos": []
         },
         "model": "core.post",
@@ -166,8 +182,8 @@
     {
         "fields": {
             "categories": [
-                2,
                 1,
+                2,
                 6
             ],
             "content": "This is an example 'Success' post.",
@@ -176,6 +192,7 @@
             "template": 42,
             "title": "Example Success Post",
             "user": 1,
+            "images": [],
             "videos": []
         },
         "model": "core.post",
@@ -184,16 +201,20 @@
     {
         "fields": {
             "categories": [
-                2,
                 1,
-                7
+                2,
+                7,
+                9
             ],
-            "content": "This is an example 'Warning' post.",
+            "content": "This is an example 'Warning' post.<br>\r\n<br>\r\nIt also has an image.",
             "controller": 11,
             "created_datetime": "2017-01-01T05:00:00Z",
             "template": 43,
             "title": "Example Warning Post",
             "user": 1,
+            "images": [
+                1
+            ],
             "videos": []
         },
         "model": "core.post",
@@ -202,10 +223,10 @@
     {
         "fields": {
             "categories": [
-                8,
-                2,
                 1,
-                9
+                2,
+                8,
+                10
             ],
             "content": "This is an example 'Danger' post.<br>\r\n<br>\r\nIt also has a video.",
             "controller": 11,
@@ -213,6 +234,7 @@
             "template": 44,
             "title": "Example Danger Post",
             "user": 1,
+            "images": [],
             "videos": [
                 1
             ]
@@ -229,6 +251,7 @@
             "template": 39,
             "title": "Example Uncategorised Post",
             "user": 1,
+            "images": [],
             "videos": []
         },
         "model": "core.post",
@@ -236,11 +259,23 @@
     },
     {
         "fields": {
-            "code": "C0DPdy98e4c",
+            "code": "3q3kNGh",
             "controller": 12,
-            "owner": "Simon Yapp",
+            "owner": "phif7651",
             "priority": "1.00",
             "template": 45,
+            "title": "Test Image"
+        },
+        "model": "core.image",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "code": "C0DPdy98e4c",
+            "controller": 13,
+            "owner": "Simon Yapp",
+            "priority": "1.00",
+            "template": 46,
             "title": "TEST VIDEO"
         },
         "model": "core.video",
@@ -329,12 +364,22 @@
     {
         "fields": {
             "controller": 10,
-            "name": "Video",
+            "name": "Image",
             "priority": "3.00",
             "template": 33
         },
         "model": "core.category",
         "pk": 9
+    },
+    {
+        "fields": {
+            "controller": 10,
+            "name": "Video",
+            "priority": "3.00",
+            "template": 33
+        },
+        "model": "core.category",
+        "pk": 10
     },
     {
         "fields": {
@@ -770,12 +815,21 @@
     },
     {
         "fields": {
+            "directory": "image/standard",
+            "name": "Image | Standard",
+            "parameters": ""
+        },
+        "model": "core.template",
+        "pk": 45
+    },
+    {
+        "fields": {
             "directory": "video/standard",
             "name": "Video | Standard [16by9]",
             "parameters": "{\r\n  \"class\": \"embed-responsive-16by9\"\r\n}"
         },
         "model": "core.template",
-        "pk": 45
+        "pk": 46
     },
     {
         "fields": {
@@ -784,7 +838,7 @@
             "parameters": "{\r\n  \"class\": \"embed-responsive-4by3\"\r\n}"
         },
         "model": "core.template",
-        "pk": 46
+        "pk": 47
     },
     {
         "fields": {
@@ -793,7 +847,16 @@
             "parameters": "{\r\n  \"categories\": [\r\n  ]\r\n}"
         },
         "model": "core.template",
-        "pk": 47
+        "pk": 48
+    },
+    {
+        "fields": {
+            "directory": "page/category",
+            "name": "Page | Category [mage]",
+            "parameters": "{\r\n  \"categories\": [\r\n    \"Image\"\r\n  ]\r\n}"
+        },
+        "model": "core.template",
+        "pk": 49
     },
     {
         "fields": {
@@ -885,10 +948,26 @@
     },
     {
         "fields": {
+            "file": "image/default-controller",
+            "name": "Image | Default"
+        },
+        "model": "core.controller",
+        "pk": 12
+    },
+    {
+        "fields": {
             "file": "video/default-controller",
             "name": "Video | Default"
         },
         "model": "core.controller",
-        "pk": 12
+        "pk": 13
+    },
+    {
+        "fields": {
+            "file": "video/default-controller",
+            "name": "Video | Default"
+        },
+        "model": "core.controller",
+        "pk": 14
     }
 ]

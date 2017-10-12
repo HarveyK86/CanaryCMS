@@ -63,6 +63,7 @@ class Post(models.Model):
     title = models.CharField(max_length=200)
     created_datetime = models.DateTimeField(default=timezone.now)
     content = models.TextField()
+    images = models.ManyToManyField('core.Image', blank=True)
     videos = models.ManyToManyField('core.Video', blank=True)
     categories = models.ManyToManyField('core.Category', blank=True)
     template = models.ForeignKey('core.Template')
@@ -73,6 +74,18 @@ class Post(models.Model):
 class PostResponse(models.Model):
     count = models.IntegerField()
     posts = models.ManyToManyField('core.Post')
+
+class Image(models.Model):
+    class Meta:
+        ordering = ['title']
+    owner = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
+    code = models.CharField(max_length=200)
+    priority = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True)
+    template = models.ForeignKey('core.Template')
+    controller = models.ForeignKey('core.Controller')
+    def __str__(self):
+        return self.title
 
 class Video(models.Model):
     class Meta:

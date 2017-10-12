@@ -100,6 +100,11 @@ def datetime_func(request, timestamp):
     }])
     return HttpResponse(json_obj, content_type='application/json')
 
+def image(request, pk):
+    image = models.Image.objects.get(pk=pk)
+    json_obj = serializers.serialize('json', [image])
+    return HttpResponse(json_obj, content_type='application/json')
+
 def video(request, pk):
     video = models.Video.objects.get(pk=pk)
     json_obj = serializers.serialize('json', [video])

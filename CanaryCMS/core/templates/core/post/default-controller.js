@@ -13,6 +13,7 @@ define(["util-package"], function(util) {
                         },
                     },
                     post_template_container_selector: "[name='post-template-container']",
+                    image_list_selector: "[name='image-list']",
                     video_list_selector: "[name='video-list']",
                     category_list_selector: "[name='category-list']",
                     interval_tick: 0,
@@ -26,6 +27,7 @@ define(["util-package"], function(util) {
                     self.__templater = util.templater.get_templater(self);
                     self.__templater.init_templates();
                     self._init_post_template_container();
+                    self._init_image_list();
                     self._init_video_list();
                     self._init_category_list();
                 },
@@ -37,6 +39,35 @@ define(["util-package"], function(util) {
                             post: self.__init_params,
                         }
                     );
+                },
+                _init_image_list: function() {
+                    self.__logger.log("_init_image_list");
+                    var $image_list = util.selector.select(self.__init_params.selector_prefix + self.config.image_list_selector);
+                    $image_list.empty();
+                    var out = self.__init_params.images.length;
+                    if (out) {
+                        self.__init_params.images.forEach(function(image_config) {
+                            self.__templater.http_get(image_config.template.directory, function($template) {
+                                $template.attr("name", "image-" + image_config.id);
+                                image_config.__$template = $template;
+                                requirejs([image_config.controller.file], function(controller) {
+                                    image_config.__controller = controller;
+                                    out--;
+                                });
+                            });
+                        });
+                        var interval = setInterval(function() {
+                            if (out == 0) {
+                                clearInterval(interval);
+                                self.__init_params.images.forEach(function(image_config) {
+                                    $image_list.append(image_config.__$template);
+                                    image_config.__controller.init($.extend(image_config, {
+                                        selector_prefix: self.__init_params.selector_prefix + "[name='image-" + image_config.id + "'] ",
+                                    }));
+                                });
+                            }
+                        }, self.config.interval_tick);
+                    }
                 },
                 _init_video_list: function() {
                     self.__logger.log("_init_video_list");

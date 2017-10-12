@@ -19,6 +19,7 @@ define(["util/cache", "util/logger"], function(cache, logger) {
                 "widgets": "widget",
                 "pages": "page",
                 "posts": "post",
+                "images": "image",
                 "videos": "video",
                 "categories": "category",
             },

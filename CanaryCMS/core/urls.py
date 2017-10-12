@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^post/(?P<pk>[0-9]+)$', views.get_post, name='get_post'),
     url(r'^user/(?P<pk>[0-9]+)$', views.user, name='user'),
     url(r'^datetime/(?P<timestamp>[\w\-:]+)$', views.datetime_func, name='datetime'),
+    url(r'^image/(?P<pk>[0-9]+)$', views.image, name='image'),
     url(r'^video/(?P<pk>[0-9]+)$', views.video, name='video'),
     url(r'^category/(?P<pk>[0-9]+)$', views.category, name='category'),
     url(r'^paginator/(?P<pk>[0-9]+)$', views.paginator, name='paginator'),
