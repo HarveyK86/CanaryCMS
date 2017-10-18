@@ -19,7 +19,8 @@
                 2,
                 3,
                 4,
-                5
+                5,
+                6
             ],
             "template": 2,
             "controller": 1
@@ -104,8 +105,8 @@
             "hidden": false,
             "paginator": 2,
             "priority": "4.00",
-            "template": 16,
-            "controller": 5
+            "template": 17,
+            "controller": 6
         },
         "model": "core.page",
         "pk": 4
@@ -124,6 +125,18 @@
     },
     {
         "fields": {
+            "name": "Post",
+            "hidden": true,
+            "paginator": null,
+            "priority": null,
+            "template": 16,
+            "controller": 5
+        },
+        "model": "core.page",
+        "pk": 6
+    },
+    {
+        "fields": {
             "title": "Example Default Post",
             "user": 1,
             "created_datetime": "2017-01-01T01:00:00Z",
@@ -137,8 +150,8 @@
                 4,
                 5
             ],
-            "template": 22,
-            "controller": 6
+            "template": 23,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 1
@@ -158,8 +171,8 @@
                 4,
                 6
             ],
-            "template": 23,
-            "controller": 6
+            "template": 24,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 2
@@ -179,8 +192,8 @@
                 4,
                 7
             ],
-            "template": 24,
-            "controller": 6
+            "template": 25,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 3
@@ -198,8 +211,8 @@
                 4,
                 8
             ],
-            "template": 25,
-            "controller": 6
+            "template": 26,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 4
@@ -221,8 +234,8 @@
                 4,
                 9
             ],
-            "template": 26,
-            "controller": 6
+            "template": 27,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 5
@@ -244,8 +257,8 @@
                 4,
                 10
             ],
-            "template": 27,
-            "controller": 6
+            "template": 28,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 6
@@ -262,8 +275,8 @@
             ],
             "categories": [
             ],
-            "template": 22,
-            "controller": 6
+            "template": 23,
+            "controller": 7
         },
         "model": "core.post",
         "pk": 7
@@ -274,8 +287,8 @@
             "owner": "phif7651",
             "code": "3q3kNGh",
             "priority": "1.00",
-            "template": 28,
-            "controller": 7
+            "template": 29,
+            "controller": 8
         },
         "model": "core.image",
         "pk": 1
@@ -286,8 +299,8 @@
             "owner": "Simon Yapp",
             "code": "C0DPdy98e4c",
             "priority": "1.00",
-            "template": 29,
-            "controller": 8
+            "template": 30,
+            "controller": 9
         },
         "model": "core.video",
         "pk": 1
@@ -296,8 +309,8 @@
         "fields": {
             "name": "News",
             "priority": "1.10",
-            "template": 31,
-            "controller": 9
+            "template": 32,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 1
@@ -306,8 +319,8 @@
         "fields": {
             "name": "Image",
             "priority": "1.20",
-            "template": 31,
-            "controller": 9
+            "template": 32,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 2
@@ -316,8 +329,8 @@
         "fields": {
             "name": "Video",
             "priority": "1.30",
-            "template": 31,
-            "controller": 9
+            "template": 32,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 3
@@ -326,8 +339,8 @@
         "fields": {
             "name": "Example",
             "priority": "2.00",
-            "template": 31,
-            "controller": 9
+            "template": 32,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 4
@@ -336,8 +349,8 @@
         "fields": {
             "name": "Default",
             "priority": "3.00",
-            "template": 31,
-            "controller": 9
+            "template": 32,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 5
@@ -346,8 +359,8 @@
         "fields": {
             "name": "Primary",
             "priority": "3.00",
-            "template": 32,
-            "controller": 9
+            "template": 33,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 6
@@ -356,8 +369,8 @@
         "fields": {
             "name": "Info",
             "priority": "3.00",
-            "template": 33,
-            "controller": 9
+            "template": 34,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 7
@@ -366,8 +379,8 @@
         "fields": {
             "name": "Success",
             "priority": "3.00",
-            "template": 34,
-            "controller": 9
+            "template": 35,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 8
@@ -376,8 +389,8 @@
         "fields": {
             "name": "Warning",
             "priority": "3.00",
-            "template": 35,
-            "controller": 9
+            "template": 36,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 9
@@ -386,8 +399,8 @@
         "fields": {
             "name": "Danger",
             "priority": "3.00",
-            "template": 36,
-            "controller": 9
+            "template": 37,
+            "controller": 10
         },
         "model": "core.category",
         "pk": 10
@@ -395,8 +408,8 @@
     {
         "fields": {
             "name": "Standard",
-            "template": 37,
-            "controller": 10
+            "template": 38,
+            "controller": 11
         },
         "model": "core.paginator",
         "pk": 1
@@ -404,8 +417,8 @@
     {
         "fields": {
             "name": "Reddit",
-            "template": 40,
-            "controller": 11
+            "template": 41,
+            "controller": 12
         },
         "model": "core.paginator",
         "pk": 2
@@ -413,8 +426,8 @@
     {
         "fields": {
             "name": "Standard",
-            "template": 43,
-            "controller": 12
+            "template": 44,
+            "controller": 13
         },
         "model": "core.footer",
         "pk": 1
@@ -422,8 +435,8 @@
     {
         "fields": {
             "name": "Standard",
-            "template": 49,
-            "controller": 13
+            "template": 50,
+            "controller": 14
         },
         "model": "core.style",
         "pk": 1
@@ -565,12 +578,21 @@
     },
     {
         "fields": {
+            "name": "Page | Post",
+            "directory": "page/post",
+            "parameters": null
+        },
+        "model": "core.template",
+        "pk": 16
+    },
+    {
+        "fields": {
             "name": "Page | Reddit [/r/test | Default]",
             "directory": "page/reddit",
             "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-default\"\r\n}"
         },
         "model": "core.template",
-        "pk": 16
+        "pk": 17
     },
     {
         "fields": {
@@ -579,7 +601,7 @@
             "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-primary\"\r\n}"
         },
         "model": "core.template",
-        "pk": 17
+        "pk": 18
     },
     {
         "fields": {
@@ -588,7 +610,7 @@
             "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-info\"\r\n}"
         },
         "model": "core.template",
-        "pk": 18
+        "pk": 19
     },
     {
         "fields": {
@@ -597,7 +619,7 @@
             "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-success\"\r\n}"
         },
         "model": "core.template",
-        "pk": 19
+        "pk": 20
     },
     {
         "fields": {
@@ -606,7 +628,7 @@
             "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-warning\"\r\n}"
         },
         "model": "core.template",
-        "pk": 20
+        "pk": 21
     },
     {
         "fields": {
@@ -615,7 +637,7 @@
             "parameters": "{\r\n  \"subreddit\": \"test\",\r\n  \"class\": \"panel-danger\"\r\n}"
         },
         "model": "core.template",
-        "pk": 21
+        "pk": 22
     },
     {
         "fields": {
@@ -624,7 +646,7 @@
             "parameters": "{\r\n  \"class\": \"panel-default\"\r\n}"
         },
         "model": "core.template",
-        "pk": 22
+        "pk": 23
     },
     {
         "fields": {
@@ -633,7 +655,7 @@
             "parameters": "{\r\n  \"class\": \"panel-primary\"\r\n}"
         },
         "model": "core.template",
-        "pk": 23
+        "pk": 24
     },
     {
         "fields": {
@@ -642,7 +664,7 @@
             "parameters": "{\r\n  \"class\": \"panel-info\"\r\n}"
         },
         "model": "core.template",
-        "pk": 24
+        "pk": 25
     },
     {
         "fields": {
@@ -651,7 +673,7 @@
             "parameters": "{\r\n  \"class\": \"panel-success\"\r\n}"
         },
         "model": "core.template",
-        "pk": 25
+        "pk": 26
     },
     {
         "fields": {
@@ -660,7 +682,7 @@
             "parameters": "{\r\n  \"class\": \"panel-warning\"\r\n}"
         },
         "model": "core.template",
-        "pk": 26
+        "pk": 27
     },
     {
         "fields": {
@@ -669,7 +691,7 @@
             "parameters": "{\r\n  \"class\": \"panel-danger\"\r\n}"
         },
         "model": "core.template",
-        "pk": 27
+        "pk": 28
     },
     {
         "fields": {
@@ -678,7 +700,7 @@
             "parameters": null
         },
         "model": "core.template",
-        "pk": 28
+        "pk": 29
     },
     {
         "fields": {
@@ -687,7 +709,7 @@
             "parameters": "{\r\n  \"class\": \"embed-responsive-16by9\"\r\n}"
         },
         "model": "core.template",
-        "pk": 29
+        "pk": 30
     },
     {
         "fields": {
@@ -696,7 +718,7 @@
             "parameters": "{\r\n  \"class\": \"embed-responsive-4by3\"\r\n}"
         },
         "model": "core.template",
-        "pk": 30
+        "pk": 31
     },
     {
         "fields": {
@@ -705,7 +727,7 @@
             "parameters": "{\r\n  \"class\": \"label-default\"\r\n}"
         },
         "model": "core.template",
-        "pk": 31
+        "pk": 32
     },
     {
         "fields": {
@@ -714,7 +736,7 @@
             "parameters": "{\r\n  \"class\": \"label-primary\"\r\n}"
         },
         "model": "core.template",
-        "pk": 32
+        "pk": 33
     },
     {
         "fields": {
@@ -723,7 +745,7 @@
             "parameters": "{\r\n  \"class\": \"label-info\"\r\n}"
         },
         "model": "core.template",
-        "pk": 33
+        "pk": 34
     },
     {
         "fields": {
@@ -732,7 +754,7 @@
             "parameters": "{\r\n  \"class\": \"label-success\"\r\n}"
         },
         "model": "core.template",
-        "pk": 34
+        "pk": 35
     },
     {
         "fields": {
@@ -741,7 +763,7 @@
             "parameters": "{\r\n  \"class\": \"label-warning\"\r\n}"
         },
         "model": "core.template",
-        "pk": 35
+        "pk": 36
     },
     {
         "fields": {
@@ -750,7 +772,7 @@
             "parameters": "{\r\n  \"class\": \"label-danger\"\r\n}"
         },
         "model": "core.template",
-        "pk": 36
+        "pk": 37
     },
     {
         "fields": {
@@ -759,7 +781,7 @@
             "parameters": "{\r\n  \"class\": \"\"\r\n}"
         },
         "model": "core.template",
-        "pk": 37
+        "pk": 38
     },
     {
         "fields": {
@@ -768,7 +790,7 @@
             "parameters": "{\r\n  \"class\": \"pagination-sm\"\r\n}"
         },
         "model": "core.template",
-        "pk": 38
+        "pk": 39
     },
     {
         "fields": {
@@ -777,7 +799,7 @@
             "parameters": "{\r\n  \"class\": \"pagination-lg\"\r\n}"
         },
         "model": "core.template",
-        "pk": 39
+        "pk": 40
     },
     {
         "fields": {
@@ -786,7 +808,7 @@
             "parameters": "{\r\n  \"class\": \"\"\r\n}"
         },
         "model": "core.template",
-        "pk": 40
+        "pk": 41
     },
     {
         "fields": {
@@ -795,7 +817,7 @@
             "parameters": "{\r\n  \"class\": \"pagination-sm\"\r\n}"
         },
         "model": "core.template",
-        "pk": 41
+        "pk": 42
     },
     {
         "fields": {
@@ -804,7 +826,7 @@
             "parameters": "{\r\n  \"class\": \"pagination-lg\"\r\n}"
         },
         "model": "core.template",
-        "pk": 42
+        "pk": 43
     },
     {
         "fields": {
@@ -813,7 +835,7 @@
             "parameters": "{\r\n  \"class\": \"panel-default\"\r\n}"
         },
         "model": "core.template",
-        "pk": 43
+        "pk": 44
     },
     {
         "fields": {
@@ -822,7 +844,7 @@
             "parameters": "{\r\n  \"class\": \"panel-primary\"\r\n}"
         },
         "model": "core.template",
-        "pk": 44
+        "pk": 45
     },
     {
         "fields": {
@@ -831,7 +853,7 @@
             "parameters": "{\r\n  \"class\": \"panel-info\"\r\n}"
         },
         "model": "core.template",
-        "pk": 45
+        "pk": 46
     },
     {
         "fields": {
@@ -840,7 +862,7 @@
             "parameters": "{\r\n  \"class\": \"panel-success\"\r\n}"
         },
         "model": "core.template",
-        "pk": 46
+        "pk": 47
     },
     {
         "fields": {
@@ -849,7 +871,7 @@
             "parameters": "{\r\n  \"class\": \"panel-warning\"\r\n}"
         },
         "model": "core.template",
-        "pk": 47
+        "pk": 48
     },
     {
         "fields": {
@@ -858,7 +880,7 @@
             "parameters": "{\r\n  \"class\": \"panel-danger\"\r\n}"
         },
         "model": "core.template",
-        "pk": 48
+        "pk": 49
     },
     {
         "fields": {
@@ -867,7 +889,7 @@
             "parameters": null
         },
         "model": "core.template",
-        "pk": 49
+        "pk": 50
     },
     {
         "fields": {
@@ -903,11 +925,19 @@
     },
     {
         "fields": {
+            "name": "Page | Post",
+            "file": "page/post/controller"
+        },
+        "model": "core.controller",
+        "pk": 5
+    },
+    {
+        "fields": {
             "name": "Page | Reddit",
             "file": "page/reddit/controller"
         },
         "model": "core.controller",
-        "pk": 5
+        "pk": 6
     },
     {
         "fields": {
@@ -915,7 +945,7 @@
             "file": "post/default-controller"
         },
         "model": "core.controller",
-        "pk": 6
+        "pk": 7
     },
     {
         "fields": {
@@ -923,7 +953,7 @@
             "file": "image/default-controller"
         },
         "model": "core.controller",
-        "pk": 7
+        "pk": 8
     },
     {
         "fields": {
@@ -931,7 +961,7 @@
             "file": "video/default-controller"
         },
         "model": "core.controller",
-        "pk": 8
+        "pk": 9
     },
     {
         "fields": {
@@ -939,7 +969,7 @@
             "file": "category/default-controller"
         },
         "model": "core.controller",
-        "pk": 9
+        "pk": 10
     },
     {
         "fields": {
@@ -947,7 +977,7 @@
             "file": "paginator/standard/controller"
         },
         "model": "core.controller",
-        "pk": 10
+        "pk": 11
     },
     {
         "fields": {
@@ -955,7 +985,7 @@
             "file": "paginator/reddit/controller"
         },
         "model": "core.controller",
-        "pk": 11
+        "pk": 12
     },
     {
         "fields": {
@@ -963,7 +993,7 @@
             "file": "footer/default-controller"
         },
         "model": "core.controller",
-        "pk": 12
+        "pk": 13
     },
     {
         "fields": {
@@ -971,6 +1001,6 @@
             "file": "style/default-controller"
         },
         "model": "core.controller",
-        "pk": 13
+        "pk": 14
     }
 ]

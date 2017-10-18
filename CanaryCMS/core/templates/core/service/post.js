@@ -51,6 +51,18 @@ define(["util-package"], function(util) {
                 });
             });
         },
+        api_get_single: function(post_id, callback) {
+            self.__logger.log("api_get_single[post_id, callback]", [post_id, callback]);
+            var url = self.config.api_url;
+            if (post_id) url += "/" + post_id;
+            util.cache.get(url, function(response_array) {
+                util.parser.parse_response_array(response_array, function(post_responses) {
+                    var post_response = post_responses[0];
+                    self.__logger.log("api_get_single returning", post_response);
+                    callback(post_response);
+                });
+            });
+        }
     });
     inst.init();
     return inst;

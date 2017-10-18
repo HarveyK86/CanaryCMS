@@ -30,6 +30,7 @@ define(["util-package"], function(util) {
                         self.config.templates.category_template,
                         self.__init_params.selector_prefix + self.config.category_template_container_selector, {
                             category: $.extend(self.__init_params, {
+                                add_url: self.__init_params.filter_key ? true : false,
                                 url: util.query.get_hash() + "?" + self.__init_params.filter_key + "=" + self.__init_params.name,
                             }),
                         }

@@ -2,7 +2,7 @@
     <script type="text/template" id="post-template">
         <div class="panel <%- post.template.parameters.class %>">
             <div class="panel-heading">
-                <h4><%- post.title %></h4>
+                <a href="#post?p=<%- post.id %>"><h4><%- post.title %> <i class="fa fa-link" aria-hidden="true"></i></h4></a>
                 <h5><small><%- post.user.username %> - <%- new Date(post.created_datetime.epoch_time) %></small></h5>
                 <hr>
                 <p><%= post.content %></p>
